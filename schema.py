@@ -1,16 +1,4 @@
 '''
-stop_times:
-    trip_id: string
-    stop_id: string
-    departure_time: time
-
-stops:
-    stop_id: string
-    stop_lat: float
-    stop_lon: float
-'''
-
-'''
 delays:
     trip_id: string
     route: string
@@ -21,8 +9,6 @@ delays:
 import functions
 
 conn, cursor = functions.get_connection()
-
-
 
 # Create the 'stops' table
 cursor.execute("""DROP TABLE IF EXISTS delays""")

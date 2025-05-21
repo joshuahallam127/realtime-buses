@@ -23,7 +23,7 @@ def run():
     if response.status_code == 200:
         feed = gtfs_realtime_pb2.FeedMessage()
         feed.ParseFromString(response.content)
-        # feed_dict = MessageToDict(feed)
+        feed_dict = MessageToDict(feed)
         # with open("feed_data.json", "w") as f:
         #     json.dump(feed_dict, f, indent=2)
         return feed
@@ -38,7 +38,12 @@ def parse_feed(feed):
         'arrival_delay' : [],
         'start_date' : [],
     }
+    trip_ids = set()
     for entity in feed.entity:
+        if entity.trip_update.trip.trip_id in trip_ids:
+            print('Duplicate trip_id:', entity.trip_update.trip.trip_id)
+            continue
+        trip_ids.add(entity.trip_update.trip.trip_id)
         if len(entity.trip_update.stop_time_update) == 0:
             continue
         result['trip_id'].append(entity.trip_update.trip.trip_id)
@@ -70,8 +75,3 @@ while True:
     conn.close()
     print('Inserted/Updated', len(delay_data['trip_id']), 'rows')
     time.sleep(5)
-
-
-# print_example_data(delay_data, 10)
-# print(sorted(list(set(delay_data['route']))))
-# print(len(delay_data['trip_id']), len(set(delay_data['trip_id'])))
