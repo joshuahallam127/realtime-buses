@@ -37,16 +37,17 @@ def get_average_delays():
         query = """
             SELECT
                 route,
-                ROUND(AVG(CASE WHEN DATE(start_date) = %s THEN arrival_delay END), 2) AS daily_avg,
+                ROUND(AVG(CASE WHEN DATE(start_date) = %s THEN arrival_delay END), 2) AS daily_avg
             FROM delays
             WHERE stop_sequence > 1
             GROUP BY route
-            ORDER BY all_time_avg DESC
+            ORDER BY daily_avg DESC
         """
 
         # cursor.execute(query, (today, seven_days_ago, thirty_days_ago))
-        cursor.execute(query, (today))
+        cursor.execute(query, (today, ))
         rows = cursor.fetchall()
+        print(rows)
 
         # Transform to desired JSON structure
         results = []
