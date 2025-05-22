@@ -34,8 +34,18 @@ def get_average_delays():
             GROUP BY route
             ORDER BY all_time_avg DESC
         """
+        query = """
+            SELECT
+                route,
+                ROUND(AVG(CASE WHEN DATE(start_date) = %s THEN arrival_delay END), 2) AS daily_avg,
+            FROM delays
+            WHERE stop_sequence > 1
+            GROUP BY route
+            ORDER BY all_time_avg DESC
+        """
 
         cursor.execute(query, (today, seven_days_ago, thirty_days_ago))
+        cursor.execute(query, (today))
         rows = cursor.fetchall()
 
         # Transform to desired JSON structure
@@ -43,17 +53,17 @@ def get_average_delays():
         for row in rows:
             route = row[0]
             daily = row[1] if row[1] is not None else 0
-            weekly = row[2] if row[2] is not None else 0
-            monthly = row[3] if row[3] is not None else 0
-            all_time = row[4] if row[4] is not None else 0
+            # weekly = row[2] if row[2] is not None else 0
+            # monthly = row[3] if row[3] is not None else 0
+            # all_time = row[4] if row[4] is not None else 0
 
             results.append({
                 "route": route,
                 "delays": {
                     "daily": float(daily),
-                    "weekly": float(weekly),
-                    "monthly": float(monthly),
-                    "all time": float(all_time)
+                    # "weekly": float(weekly),
+                    # "monthly": float(monthly),
+                    # "all time": float(all_time)
                 }
             })
 
