@@ -13,6 +13,8 @@ cursor.execute("""CREATE TABLE delays (
     UNIQUE KEY (trip_id, stop_sequence, start_date)
 )""")
 
+conn.commit()
+
 # Close the cursor and connection
 cursor.close()
 conn.close()
