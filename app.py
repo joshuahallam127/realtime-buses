@@ -1,9 +1,10 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 import mysql.connector
 from dotenv import load_dotenv
 import functions
 from flask_cors import CORS
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 load_dotenv()
 
@@ -16,7 +17,8 @@ def get_average_delays():
         conn, cursor = functions.get_connection()
 
         # Calculate dates for filtering
-        today = datetime.now().date()
+        now_in_sydney = datetime.now(ZoneInfo('Australia/Sydney'))
+        today = now_in_sydney.date()
         seven_days_ago = today - timedelta(days=7)
         thirty_days_ago = today - timedelta(days=30)
 
