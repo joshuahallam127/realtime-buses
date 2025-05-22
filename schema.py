@@ -1,11 +1,3 @@
-'''
-delays:
-    trip_id: string
-    route: string
-    stop_sequence: int
-    arrival_delay: int
-    start_date: date
-'''
 import functions
 
 conn, cursor = functions.get_connection()
@@ -13,10 +5,10 @@ conn, cursor = functions.get_connection()
 # Create the 'stops' table
 cursor.execute("""DROP TABLE IF EXISTS delays""")
 cursor.execute("""CREATE TABLE delays (
-    trip_id VARCHAR(255),
-    route VARCHAR(255),
-    stop_sequence INT,
-    arrival_delay INT,
+    trip_id VARCHAR(9),
+    route VARCHAR(4),
+    stop_sequence SMALLINT UNSIGNED,
+    arrival_delay SMALLINT UNSIGNED,
     start_date DATE,
     UNIQUE KEY (trip_id, stop_sequence, start_date)
 )""")
