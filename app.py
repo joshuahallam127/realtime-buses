@@ -33,7 +33,7 @@ def get_average_delays():
             cursor.close()
             conn.close()
 
-@app.route('/api/route-delay')
+@app.route('/route-delay')
 def get_route_delay():
     try:
         conn, cursor = functions.get_connection()
@@ -57,7 +57,7 @@ def get_route_delay():
             cursor.close()
             conn.close()
 
-@app.route('/api/leaderboard')
+@app.route('/leaderboard')
 def leaderboard():
     try:
         range = request.args.get('range', 'daily')
