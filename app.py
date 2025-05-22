@@ -44,7 +44,7 @@ def get_average_delays():
             ORDER BY all_time_avg DESC
         """
 
-        cursor.execute(query, (today, seven_days_ago, thirty_days_ago))
+        # cursor.execute(query, (today, seven_days_ago, thirty_days_ago))
         cursor.execute(query, (today))
         rows = cursor.fetchall()
 
