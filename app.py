@@ -40,15 +40,14 @@ def get_route_delay():
         route = request.args.get('route')
         cursor = conn.cursor()
         cursor.execute("""
-            SELECT COUNT(*), AVG(arrival_delay), MAX(arrival_delay)
+            SELECT COUNT(*), AVG(arrival_delay)
             FROM delays
-            WHERE route = %s AND start_date = CURRENT_DATE()
+            WHERE route = %s
         """, (route,))
-        count, avg, max_delay = cursor.fetchone()
+        count, avg = cursor.fetchone()
         return jsonify({
             'total': count,
             'avgDelay': round(avg or 0, 2),
-            'latestDelay': max_delay or 0
         })
     except mysql.connector.Error as err:
         return jsonify({"error": str(err)}), 500

@@ -13,4 +13,5 @@ def get_connection():
         database='buses'
     )
     cursor = connection.cursor()
+    cursor.execute("SET time_zone = 'Australia/Sydney'")
     return connection, cursor
