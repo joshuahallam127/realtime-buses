@@ -7,7 +7,7 @@ from flask_cors import CORS
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app,origins=["https://howshitismybus.com.au", "https://www.howshitismybus.com.au"])
 
 @app.route('/bus-delays', methods=['GET'])
 def get_average_delays():
