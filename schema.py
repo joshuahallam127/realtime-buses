@@ -9,6 +9,7 @@ cursor.execute("""CREATE TABLE delays (
     route VARCHAR(4),
     stop_sequence SMALLINT UNSIGNED,
     arrival_delay SMALLINT UNSIGNED,
+    departure_early SMALLINT UNSIGNED,
     start_date DATE,
     UNIQUE KEY (trip_id, stop_sequence, start_date)
 )""")
