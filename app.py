@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import mysql.connector
 from dotenv import load_dotenv
 import functions
@@ -16,59 +16,33 @@ def get_average_delays():
     try:
         conn, cursor = functions.get_connection()
 
-        # Calculate dates for filtering
-        now_in_sydney = datetime.now(ZoneInfo('Australia/Sydney'))
-        today = now_in_sydney.date()
-        seven_days_ago = today - timedelta(days=7)
-        thirty_days_ago = today - timedelta(days=30)
+        now = datetime.now(ZoneInfo('Australia/Sydney'))
+
+        period = request.args.get('period')
+
+        if period == 'daily':
+            start_date = now.date()
+        elif period == 'weekly':
+            start_date = (now - timedelta(days=now.weekday())).date()
+        elif period == 'monthly':
+            start_date = now.replace(day=1).date()
+        elif period == 'all':
+            start_date = '2025-01-01'
+        else:
+            return jsonify({"error": 'invalid period!'}), 422
 
         query = """
-            SELECT
-                route,
-                ROUND(AVG(CASE WHEN DATE(start_date) = %s THEN arrival_delay END), 2) AS daily_avg,
-                ROUND(AVG(CASE WHEN DATE(start_date) >= %s THEN arrival_delay END), 2) AS weekly_avg,
-                ROUND(AVG(CASE WHEN DATE(start_date) >= %s THEN arrival_delay END), 2) AS monthly_avg,
-                ROUND(AVG(arrival_delay), 2) AS all_time_avg
+            SELECT route, ROUND(AVG(arrival_delay), 2) AS avg_delay
             FROM delays
-            WHERE stop_sequence > 1
+            WHERE stop_sequence > 1 AND DATE(start_date) >= %s
             GROUP BY route
-            ORDER BY all_time_avg DESC
-        """
-        query = """
-            SELECT
-                route,
-                ROUND(AVG(CASE WHEN DATE(start_date) = %s THEN arrival_delay END), 2) AS daily_avg
-            FROM delays
-            WHERE stop_sequence > 1
-            GROUP BY route
-            ORDER BY daily_avg DESC
+            ORDER BY avg_delay DESC
         """
 
-        # cursor.execute(query, (today, seven_days_ago, thirty_days_ago))
-        cursor.execute(query, (today, ))
+        cursor.execute(query, (start_date, ))
         rows = cursor.fetchall()
-        print(rows)
 
-        # Transform to desired JSON structure
-        results = []
-        for row in rows:
-            route = row[0]
-            daily = row[1] if row[1] is not None else 0
-            # weekly = row[2] if row[2] is not None else 0
-            # monthly = row[3] if row[3] is not None else 0
-            # all_time = row[4] if row[4] is not None else 0
-
-            results.append({
-                "route": route,
-                "delays": {
-                    "daily": float(daily),
-                    # "weekly": float(weekly),
-                    # "monthly": float(monthly),
-                    # "all time": float(all_time)
-                }
-            })
-
-        return jsonify(results)
+        return jsonify([{'route': row[0], 'delay': row[1]} for row in rows])
 
     except mysql.connector.Error as err:
         return jsonify({"error": str(err)}), 500
