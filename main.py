@@ -191,6 +191,7 @@ while True:
         conn, cursor = None, None
         print("Unexpected error:", e)
         time.sleep(5)
+        continue
 
     elapsed = time.time() - start_time
     print(f'Elapsed time: {elapsed:.2f} seconds')
