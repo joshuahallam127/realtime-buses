@@ -7,6 +7,8 @@ import json
 import functions
 import time
 from mysql.connector.errors import OperationalError
+from zoneinfo import ZoneInfo
+from datetime import datetime
 
 load_dotenv()
 
@@ -38,7 +40,6 @@ def parse_feed(feed):
         'stop_sequence' : [],
         'arrival_delay' : [],
         'departure_early' : [],
-        'start_date' : [],
     }
     for entity in feed.entity:
         trip_id = entity.trip_update.trip.trip_id
@@ -48,7 +49,7 @@ def parse_feed(feed):
             result['stop_sequence'].append(entity.trip_update.stop_time_update[0].stop_sequence)
             result['arrival_delay'].append(max(0, entity.trip_update.stop_time_update[0].arrival.delay))
             result['departure_early'].append(min(0, entity.trip_update.stop_time_update[0].departure.delay) * -1)
-            result['start_date'].append(entity.trip_update.trip.start_date) # TODO consider just using current date, might be more indicative
+    result['start_date'] = [datetime.now(ZoneInfo('Australia/Sydney')).date()]*len(result['trip_id'])
     return result
 
 def write_json(feed):
