@@ -188,7 +188,9 @@ while True:
         continue
 
     except Exception as e:
+        conn, cursor = None, None
         print("Unexpected error:", e)
+        time.sleep(5)
 
     elapsed = time.time() - start_time
     print(f'Elapsed time: {elapsed:.2f} seconds')
