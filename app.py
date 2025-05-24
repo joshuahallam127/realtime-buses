@@ -32,9 +32,9 @@ def get_average_delays():
             return jsonify({"error": 'invalid period!'}), 422
 
         query = """
-            SELECT route, ROUND(AVG(arrival_delay), 2) AS avg_delay
-            FROM delays
-            WHERE stop_sequence > 1 AND DATE(start_date) >= %s
+            SELECT route, ROUND(SUM(total_delay) / SUM(delay_count), 2) AS avg_delay
+            FROM route_daily_delays
+            WHERE date >= %s
             GROUP BY route
             ORDER BY avg_delay DESC
         """

@@ -5,13 +5,21 @@ conn, cursor = functions.get_connection()
 # Create the 'stops' table
 cursor.execute("""DROP TABLE IF EXISTS delays""")
 cursor.execute("""CREATE TABLE delays (
-    trip_id VARCHAR(9),
+    trip_id VARCHAR(9) UNIQUE,
     route VARCHAR(4),
     stop_sequence SMALLINT UNSIGNED,
     arrival_delay SMALLINT UNSIGNED,
     departure_early SMALLINT UNSIGNED,
     start_date DATE,
     UNIQUE KEY (trip_id, stop_sequence, start_date)
+)""")
+cursor.execute("""DROP TABLE IF EXISTS route_daily_delays""")
+cursor.execute("""CREATE TABLE route_daily_delays (
+    route VARCHAR(4),
+    date DATE,
+    total_delay INT UNSIGNED,
+    delay_count INT UNSIGNED,
+    PRIMARY KEY (route, date)
 )""")
 
 conn.commit()
