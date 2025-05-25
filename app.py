@@ -56,7 +56,7 @@ def get_average_delays():
         result = []
         for row in rows:
             route_name = route_to_name.get(row[0], 'Unknown Route')
-            result.append({'route': f'{row[0]} {route_name}', 'delay': row[1]})
+            result.append({'route': f'{row[0]}, {route_name}', 'delay': row[1]})
         return jsonify(result)
 
     except mysql.connector.Error as err:
