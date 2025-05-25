@@ -9,6 +9,7 @@ import time
 from mysql.connector.errors import OperationalError
 from zoneinfo import ZoneInfo
 from datetime import datetime
+import csv
 
 load_dotenv()
 
@@ -22,6 +23,17 @@ url = 'https://api.transport.nsw.gov.au/v1/gtfs/realtime/buses'
 headers = {
     'Authorization': f'apikey {os.getenv("APIKEY")}',
 }
+
+# get all the valid bus_routes before running the script
+valid_routes = set()
+
+# route_map = {}
+sydney_routes = set()
+with open('routes.txt', newline='', encoding='utf-8') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        if row['route_desc'] == 'Sydney Buses Network':
+            sydney_routes.add((row['agency_id'], row['route_short_name']))
 
 def run():
     response = requests.get(url, headers=headers)
@@ -43,6 +55,9 @@ def parse_feed(feed):
     }
     for entity in feed.entity:
         trip_id = entity.trip_update.trip.trip_id
+        agency_id, route = entity.trip_update.trip.route_id.split('_')
+        if (agency_id, route) not in sydney_routes:
+            continue
         if entity.trip_update.trip.schedule_relationship == 0 and entity.trip_update.stop_time_update[0].stop_sequence != 1:
             result['trip_id'].append(trip_id)
             result['route'].append(entity.trip_update.trip.route_id.split('_')[1])
