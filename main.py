@@ -27,7 +27,6 @@ headers = {
 # get all the valid bus_routes before running the script
 valid_routes = set()
 
-# route_map = {}
 sydney_routes = set()
 with open('routes.txt', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)

@@ -5,11 +5,22 @@ import functions
 from flask_cors import CORS
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
+import csv
 
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app,origins=["https://howshitismybus.com.au", "https://www.howshitismybus.com.au"])
+
+# get all the valid bus_routes before running the script
+route_to_name = {}
+with open('routes.txt', newline='', encoding='utf-8') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        if row['route_desc'] == 'Sydney Buses Network':
+            if row['route_short_name'] in route_to_name:
+                print('bad bad for route:', row['route_short_name'])
+            route_to_name[row['route_short_name']] = row['route_long_name']
 
 @app.route('/api/bus-delays', methods=['GET'])
 def get_average_delays():
@@ -42,7 +53,11 @@ def get_average_delays():
         cursor.execute(query, (start_date, ))
         rows = cursor.fetchall()
 
-        return jsonify([{'route': row[0], 'delay': row[1]} for row in rows])
+        result = []
+        for row in rows:
+            route_name = route_to_name.get(row[0], 'Unknown Route')
+            result.append({'route': f'{row[0]} {route_name}', 'delay': row[1]})
+        return jsonify(result)
 
     except mysql.connector.Error as err:
         return jsonify({"error": str(err)}), 500
