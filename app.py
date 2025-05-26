@@ -13,14 +13,12 @@ app = Flask(__name__)
 CORS(app,origins=["https://howshitismybus.com.au", "https://www.howshitismybus.com.au"])
 
 # get all the valid bus_routes before running the script
-route_to_name = {}
+route_id_name = {}
 with open('routes.txt', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         if row['route_desc'] == 'Sydney Buses Network':
-            if row['route_short_name'] in route_to_name:
-                print('bad bad for route:', row['route_short_name'])
-            route_to_name[row['route_short_name']] = row['route_long_name']
+            route_id_name[row['agency_id'] + '_' + row['route_short_name']] = row['route_long_name']
 
 @app.route('/api/bus-delays', methods=['GET'])
 def get_average_delays():
@@ -43,10 +41,10 @@ def get_average_delays():
             return jsonify({"error": 'invalid period!'}), 422
 
         query = """
-            SELECT route, ROUND(SUM(total_delay) / SUM(delay_count), 2) AS avg_delay
+            SELECT route_id, ROUND(SUM(total_delay) / SUM(delay_count), 2) AS avg_delay
             FROM route_daily_delays
             WHERE date >= %s
-            GROUP BY route
+            GROUP BY route_id
             ORDER BY avg_delay DESC
         """
 
@@ -55,8 +53,8 @@ def get_average_delays():
 
         result = []
         for row in rows:
-            route_name = route_to_name.get(row[0], 'Unknown Route')
-            result.append({'route': f'{row[0]} {route_name}', 'delay': row[1]})
+            route_name = route_id_name.get(row[0], 'Unknown Route')
+            result.append({'route': f'{row[0].split('_')[1]} {route_name}', 'delay': row[1]})
         return jsonify(result)
 
     except mysql.connector.Error as err:

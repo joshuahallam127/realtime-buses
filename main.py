@@ -25,14 +25,12 @@ headers = {
 }
 
 # get all the valid bus_routes before running the script
-valid_routes = set()
-
-sydney_routes = set()
+sydney_route_ids = set()
 with open('routes.txt', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         if row['route_desc'] == 'Sydney Buses Network':
-            sydney_routes.add((row['agency_id'], row['route_short_name']))
+            sydney_route_ids.add(row['agency_id'] + '_' + row['route_short_name'])
 
 def run():
     response = requests.get(url, headers=headers)
@@ -47,19 +45,18 @@ def run():
 def parse_feed(feed):
     result = {
         'trip_id' : [],
-        'route' : [],
+        'route_id' : [],
         'stop_sequence' : [],
         'arrival_delay' : [],
         'departure_early' : [],
     }
     for entity in feed.entity:
-        trip_id = entity.trip_update.trip.trip_id
-        agency_id, route = entity.trip_update.trip.route_id.split('_')
-        if (agency_id, route) not in sydney_routes:
+        route_id = entity.trip_update.trip.route_id
+        if route_id not in sydney_route_ids:
             continue
         if entity.trip_update.trip.schedule_relationship == 0 and entity.trip_update.stop_time_update[0].stop_sequence != 1:
-            result['trip_id'].append(trip_id)
-            result['route'].append(entity.trip_update.trip.route_id.split('_')[1])
+            result['trip_id'].append(entity.trip_update.trip.trip_id)
+            result['route_id'].append(route_id)
             result['stop_sequence'].append(entity.trip_update.stop_time_update[0].stop_sequence)
             result['arrival_delay'].append(max(0, entity.trip_update.stop_time_update[0].arrival.delay))
             result['departure_early'].append(min(0, entity.trip_update.stop_time_update[0].departure.delay) * -1)
@@ -119,7 +116,7 @@ def cache_data(cursor, delay_data):
     # get the data to cache
     placeholders = ','.join(['%s']*len(to_cache))
     query = f"""
-        SELECT trip_id, route, start_date, arrival_delay
+        SELECT trip_id, route_id, start_date, arrival_delay
         FROM delays
         WHERE trip_id IN ({placeholders})
     """
@@ -128,19 +125,19 @@ def cache_data(cursor, delay_data):
 
     # aggregate the data to cache based on route and start_date
     aggregate_cached = {}
-    for trip_id, route, start_date, arrival_delay in rows_to_cache:
-        if (route, start_date) not in aggregate_cached:
-            aggregate_cached[(route, start_date)] = {'total_delay': 0, 'delay_count': 0}
-        aggregate_cached[(route, start_date)]['total_delay'] += arrival_delay
-        aggregate_cached[(route, start_date)]['delay_count'] += 1
+    for trip_id, route_id, start_date, arrival_delay in rows_to_cache:
+        if (route_id, start_date) not in aggregate_cached:
+            aggregate_cached[(route_id, start_date)] = {'total_delay': 0, 'delay_count': 0}
+        aggregate_cached[(route_id, start_date)]['total_delay'] += arrival_delay
+        aggregate_cached[(route_id, start_date)]['delay_count'] += 1
     
     # insert the aggregated data
     data_to_insert = [
-        (route, start_date, data['total_delay'], data['delay_count'])
-        for (route, start_date), data in aggregate_cached.items()
+        (route_id, start_date, data['total_delay'], data['delay_count'])
+        for (route_id, start_date), data in aggregate_cached.items()
     ]
     cursor.executemany("""
-        INSERT INTO route_daily_delays (route, date, total_delay, delay_count)
+        INSERT INTO route_daily_delays (route_id, date, total_delay, delay_count)
         VALUES (%s, %s, %s, %s)
         ON DUPLICATE KEY UPDATE
             total_delay = total_delay + VALUES(total_delay),
@@ -158,7 +155,7 @@ def cache_data(cursor, delay_data):
 def insert_or_update_delays(cursor, delay_data, chunk_size=1000):
     data = list(zip(
         delay_data['trip_id'],
-        delay_data['route'],
+        delay_data['route_id'],
         delay_data['stop_sequence'],
         delay_data['arrival_delay'],
         delay_data['departure_early'],
@@ -166,7 +163,7 @@ def insert_or_update_delays(cursor, delay_data, chunk_size=1000):
     ))
 
     query = """
-        INSERT INTO delays (trip_id, route, stop_sequence, arrival_delay, departure_early, start_date)
+        INSERT INTO delays (trip_id, route_id, stop_sequence, arrival_delay, departure_early, start_date)
         VALUES (%s, %s, %s, %s, %s, %s)
         ON DUPLICATE KEY UPDATE
             arrival_delay = VALUES(arrival_delay),
@@ -190,6 +187,7 @@ while True:
 
         feed = run()
         delay_data = parse_feed(feed)
+
 
         cache_data(cursor, delay_data)
         insert_or_update_delays(cursor, delay_data)
