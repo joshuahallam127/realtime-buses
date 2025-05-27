@@ -25,13 +25,23 @@ headers = {
 }
 
 # get all the valid bus_routes before running the script
-valid_routes = set()
-
 sydney_routes = set()
+to_ignore = [
+    ("5405","594"),
+    ("5405","595"),
+    ("5405","596"),
+    ("5405","597"),
+    ("5979","953"),
+    ("5979","954"),
+    ("5493","870"),
+]
+school_buses = set()
 with open('routes.txt', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        if row['route_desc'] == 'Sydney Buses Network':
+        if row['route_desc'] == 'School buses':
+            school_buses.add((row['agency_id'], row['route_short_name']))
+        if row['route_desc'] == 'Sydney Buses Network' and (row['agency_id'], row['route_short_name']) not in to_ignore:
             sydney_routes.add((row['agency_id'], row['route_short_name']))
 
 def run():
