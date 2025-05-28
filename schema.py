@@ -21,6 +21,13 @@ cursor.execute("""CREATE TABLE route_daily_delays (
     delay_count INT UNSIGNED,
     PRIMARY KEY (route, date)
 )""")
+cursor.execute("""DROP TABLE IF EXISTS routes""")
+cursor.execute("""CREATE TABLE routes (
+    route_id VARCHAR(4) PRIMARY KEY,
+    route_long_name VARCHAR(255),
+    route_short_name VARCHAR(4),
+    agency_id VARCHAR(4)
+)""")
 
 conn.commit()
 

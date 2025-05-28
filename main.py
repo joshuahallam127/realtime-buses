@@ -39,8 +39,6 @@ school_buses = set()
 with open('routes.txt', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        if row['route_desc'] == 'School buses':
-            school_buses.add((row['agency_id'], row['route_short_name']))
         if row['route_desc'] == 'Sydney Buses Network' and (row['agency_id'], row['route_short_name']) not in to_ignore:
             sydney_routes.add((row['agency_id'], row['route_short_name']))
 
