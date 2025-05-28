@@ -1,0 +1,1377 @@
+id,long_name,is_in_sydney
+701_SC01,Kiama to Bomaderry,False
+701_SC01,Kiama to Bomaderry,False
+701_SC01,Kiama to Bomaderry,False
+701_SH100,Moss Vale to Goulburn,False
+2501_545,Macquarie Park to Parramatta via Eastwood and Telopea,True
+2501_668,Richmond to Windsor via Glossodia and Wilberforce,True
+2501_669,Wilberforce to Sackville via Ebenezer,False
+2501_671,Riverstone to Windsor via McGraths Hill and Vineyard,True
+2501_672,Windsor to Wisemans Ferry (Loop Service),True
+2501_673,Penrith to Windsor via Cranebrook,True
+2501_674,Mount Druitt to Windsor via Shanes Park and Bligh Park,True
+2501_675A,Windsor to Richmond via RAAF Base and Bligh Park (Loop Service),True
+2501_675C,Windsor to Richmond via Bligh Park and RAAF Base (Loop Service),True
+2501_676,Windsor to South Windsor (Loop Service),True
+2501_677,Penrith to Richmond via Londonderry,True
+2501_678,Penrith to Richmond via Cranebrook,True
+2501_679,Windsor to Maraylya via McGraths Hill,True
+2501_680,Richmond to Bowen Mountain via Grose Vale and Grose Wold (Loop Service),True
+2501_682,Richmond to Kurrajong via Berambing (Loop Service),True
+2501_718,Seven Hills to Kings Langley,True
+2501_721,Blacktown to Blacktown Hospital (Loop Service),True
+2501_722,Blacktown to Prospect via Flushcombe Rd (Loop Service),True
+2501_723,Blacktown to Mount Druitt via Eastern Creek,True
+2501_724,Blacktown to Arndell Park via Huntingwood (Loop Service),True
+2501_726,Blacktown to Doonside via Monash Rd (Loop Service),True
+2501_728,Blacktown to Mount Druitt,True
+2501_729,Blacktown to Mount Druitt via Minchinbury,True
+2501_730,Blacktown to Castle Hill via Glenwood and Norwest,True
+2501_731,Blacktown to Rouse Hill Station via Stanhope Gardens,True
+2501_732,Blacktown to Rouse Hill Station via The Ponds,True
+2501_734,Blacktown to Riverstone via Schofields,True
+2501_735,Rouse Hill to Blacktown (Loop Service),True
+2501_738,Mount Druitt to Eastern Creek via Rooty Hill (Loop Service),True
+2501_739V,Mount Druitt to Mount Druitt South (Loop Service),True
+2501_740,Rouse Hill to Gables,True
+2501_741,Riverstone to Oakville via Box Hill and Maraylya,True
+2501_742,Rouse Hill Station to Marsden Park,True
+2501_743,Blacktown to Kings Langley,True
+2501_744,Blacktown to Blacktown Industrial Area,True
+2501_745,St Marys to Norwest Private Hospital via Stanhope Gardens,True
+2501_746,Rouse Hill to Riverstone,True
+2501_747,Rouse Hill Station to Mount Druitt via Riverstone and Marsden Park,True
+2501_748,Tallawong Station to Melonba via Schofields,True
+2501_750,Blacktown to Mount Druitt via Bidwill,True
+2501_751,Blacktown to Melonba via Colebee,True
+2501_752,Blacktown to Rouse Hill Station via Quakers Hill,True
+2501_753,Blacktown to Doonside (Loop Service),True
+2501_754,Blacktown to Mount Druitt via Hassall Grove,True
+2501_755,Mount Druitt to Shalvey and Plumpton Marketplace,True
+2501_756,Blacktown to Mount Druitt via Woodcroft and Plumpton,True
+2501_758,St Marys to Mount Druitt via Tregear and Shalvey,True
+2501_759,St Marys to Mount Druitt via Ropes Crossing,True
+2501_761,Mount Druitt to Bidwill (Loop Service),True
+2501_770,Penrith to Mount Druitt via St Marys,True
+2501_771,Mount Druitt to St Marys via Colyton,True
+2501_774,Penrith to Mount Druitt via Nepean Hospital,True
+2501_775,Penrith to Mount Druitt via Erskine Park,True
+2501_776,Penrith to Mount Druitt via St Clair,True
+2501_779,Kemps Creek to St Marys via Erskine Park,True
+2501_780,Mount Druitt to Penrith via Ropes Crossing,True
+2501_781,Penrith to St Marys via Glenmore Park,True
+2501_782,Penrith to St Marys via Werrington,True
+2501_783,Penrith to Werrington via Jordan Springs,True
+2501_784,Penrith to Cranebrook (Loop Service),True
+2501_785,Werrington to Penrith via Cambridge Park,True
+2501_786,Penrith to Cranebrook via North Penrith (Loop Service),True
+2501_789,Penrith to Luddenham,True
+2501_791,Penrith to Jamisontown via South Penrith (Loop Service),True
+2501_793,Penrith to South Penrith (Loop Service),True
+2501_794,Penrith to Glenmore Park via The Northern Rd,True
+2501_795,Warragamba to Penrith,True
+2501_797,Penrith to Glenmore Park (Loop Service),True
+2501_799,Penrith to Glenmore Park via Regentville,True
+2501_S11,St Marys to St Clair (Loop Service),True
+2501_S13,Penrith to Mountainview Retreat Retirement Village (Loop Service),True
+2501_S7,Blacktown to Myrtle Glen Stanhope Gardens,True
+2502_31,"Camden to Cut Hill Rd, Cobbitty via Coates Park Rd",True
+2502_32,Camden to Warragamba via Theresa Park and Werombi,True
+2502_38,Camden to Spring Creek and Brownlow Hill (Loop Service),True
+2502_39,Camden to The Oaks via Mowbray Park and Belimbla Park,True
+2502_40,Camden to Belimbla Park and Oakdale via The Oaks (Loop Service),True
+2502_49,Camden to Menangle and Razorback (Loop Service),True
+2502_840,Campbelltown Hospital to Oran Park,True
+2502_841,Leppington to Narellan via Gregory Hills,True
+2502_850,Minto to Narellan Town Centre,True
+2502_851,Liverpool to Carnes Hill Marketplace via Cowpasture Rd,True
+2502_852,Liverpool to Carnes Hill Marketplace via Greenway Dr and Cowpasture Rd,True
+2502_853,Liverpool to Carnes Hill via Hoxton Park Rd,True
+2502_854,Liverpool to Carnes Hill via Greenway Dr and Hoxton Park Rd,True
+2502_855,Liverpool to Rutleigh Park via Austral and Leppington Station,True
+2502_856,Liverpool to Bringelly,True
+2502_857,Liverpool to Narellan,True
+2502_858,Leppington to Oran Park Town Centre,True
+2502_859,Edmondson Park Station to Carnes Hill,True
+2502_861,Carnes Hill to Denham Court via Austral,True
+2502_864,Glenfield to Carnes Hill via Horningsea Park,True
+2502_865,Liverpool to Casula Mall via Lurnea Shops,True
+2502_866,Liverpool to Casula Mall,True
+2502_867,Glenfield to Prestons,True
+2502_868,Ingleburn to Edmondson Park Station,True
+2502_869,Liverpool to Ingleburn via Prestons and Edmondson Park,True
+2502_870,Liverpool to Campbelltown via Glenfield,True
+2502_871,Liverpool to Campbelltown,True
+2502_872,Liverpool to Campbelltown via Macquarie Fields,True
+2502_873,Ingleburn to Minto,True
+2502_874,Minto to Raby (Loop Service),True
+2502_875,Minto to St Andrews (Loop Service),True
+2502_876,Macquarie Fields Station to Eucalyptus Dr (Loop Service),True
+2502_877,Campbelltown to Kearns via Eagle Vale and Eschol Park (Loop Service),True
+2502_878,Campbelltown to Kearns via Eschol Park,True
+2502_879,Campelltown to Leumeah Station via Blair Athol,True
+2502_880,Campbelltown to Minto via Eagle Vale and Kearns,True
+2502_881,Campbelltown to Leumeah North (Loop Service),True
+2502_882,Campbelltown to Leumeah South (Loop Service),True
+2502_883K,Campbelltown to Kentlyn via Ruse,True
+2502_883,Campbelltown to Ruse (Loop Service),True
+2502_884,Campbelltown to Airds (Loop Service),True
+2502_884W,Campbelltown to Wedderburn via Airds,True
+2502_885A,Campbelltown to Bradbury via Airds (Loop Service),True
+2502_885,Campbelltown to Bradbury and St Helens Park North (Loop Service),True
+2502_886,Campbelltown to Glen Alpine (Loop Service),True
+2502_887,Campbelltown to Wollongong via Appin,True
+2502_888,Campbelltown to St Helens Park via Ambarvale and Rosemeadow (Loop Service),True
+2502_889,Campbelltown to Menangle via Menangle Park,True
+2502_890C,Campbelltown to Camden via Narellan,True
+2502_890,Campbelltown to Harrington Park via Narellan Vale and Narellan (Loop Service),True
+2502_891,Campbelltown to Mount Annan via Currans Hill,True
+2502_892,Campbelltown to Mount Annan via Narellan Vale (Loop Service),True
+2502_893,Campbelltown to Narellan via Spring Farm and Elderslie,True
+2502_894,Campbelltown to Bridgewater Estate via Narellan and Camden,True
+2502_894X,Campbelltown to Bridgewater Estate via Camden bypass,True
+2502_895,Campbelltown to Camden South via Camden (Loop Service),True
+2502_896,Campbelltown to Oran Park via Gregory Hills (Loop Service),True
+2502_897,Campbelltown to Smeaton Grange,True
+2502_898,Campbelltown to Harrington Park via Narellan Rd,True
+2502_899,Camden to Catherine Field,True
+2502_S17,Camden to Narellan via Spring Farm,True
+2503_800,Fairfield to Blacktown via Pemulwuy,True
+2503_801,Liverpool to Badgerys Creek,True
+2503_802,Parramatta to Liverpool via Guildford West,True
+2503_803,Liverpool to Miller (Loop Service),True
+2503_804,Parramatta to Liverpool via Fairfield West,True
+2503_805,Cabramatta to Liverpool via Bonnyrigg,True
+2503_806,Parramatta to Liverpool via Abbotsbury,True
+2503_807,Cabramatta to Cecil Hills via Bonnyrigg,True
+2503_808,Fairfield to Liverpool via Abbotsbury,True
+2503_809,Merrylands to Pemulwuy via South Wentworthville,True
+2503_810X,Parramatta to Merrylands via Pemulwuy,True
+2503_811X,Parramatta to Pemulwuy via Beresford Rd,True
+2503_812,Fairfield to Blacktown via Prospect Hwy,True
+2503_813,Fairfield to Western Sydney Parklands and Bonnyrigg,True
+2503_814,Fairfield to Smithfield and Wetherill Park Industrial Area (Loop Service),True
+2503_815,Cabramatta to Mount Pritchard (Loop Service),True
+2503_816,Cabramatta to Greenfield Park (Loop Service),True
+2503_817,Fairfield to Cabramatta via Edensor Park,True
+2503_818,Merrylands to Westmead Hospitals,True
+2503_819,Liverpool to Prairiewood via Orange Grove Rd (Loop Service),True
+2503_820,Merrylands to Guildford via Woodpark,True
+2503_821,Guildford to Woodpark or Smithfield Industrial Area,True
+2503_822,Merrylands to Guildford (Loop Service),True
+2503_823,Liverpool to Warwick Farm (Loop Service),True
+2503_824,Parramatta to Westmead Hospitals via South Wentworthville,True
+2503_827,Liverpool to Carnes Hill,True
+2503_835,Prairiewood to WSU Penrith,True
+2503_901,Liverpool to Holsworthy via Wattle Grove,True
+2503_902,Liverpool  to Holsworthy via Moorebank,True
+2503_902X,Holsworthy to Sandy Point via Voyager Point,True
+2503_903,Liverpool to Chipping Norton (Loop Service),True
+2503_904,Liverpool to Fairfield,True
+2503_905,Fairfield to Bankstown,True
+2503_906,Fairfield to Parramatta,True
+2503_907,Parramatta to Bankstown via Bass Hill,True
+2503_908,Bankstown to Merrylands via Auburn and Birrong,True
+2503_909,Parramatta to Bankstown via Auburn and Birrong,True
+2503_911,Bankstown to Auburn via Georges Hall,True
+2503_913,Bankstown to Strathfield,True
+2503_914,Strathfield to Greenacre,True
+2503_916,Guildford to Chester Hill,True
+2503_925,Lidcombe to East Hills via Bankstown,True
+2503_M90,Burwood to Liverpool,True
+2503_M91,Parramatta to Hurstville via Chester Hill and Padstow,True
+2503_N30,City Town Hall to Macarthur (Night Service),True
+2503_N40,City Town Hall to East Hills (Night Service),True
+2503_S10,Heckenberg to Miller Shops,True
+2503_S1,Cabramatta to Lansvale (Loop Service),True
+2503_S2,Granville to Sefton,True
+2503_S3,Auburn to Chrisholm Road,True
+2503_S4,Fairfield to Chester Hill via Villawood and Carramar,True
+2503_S5,Padstow to Milperra via Panania,True
+2503_T80,Parramatta to Liverpool via T-way,True
+2504_590,Pennant Hills to Hornsby via Normanhurst,True
+2504_600,Parramatta to Pennant Hills via Castle Hill,True
+2504_601,Parramatta to Rouse Hill Station via Hills Showground,True
+2504_603,Parramatta to Rouse Hill Station via Glenhaven,True
+2504_604,Parramatta to Dural via Castle Hill,True
+2504_605,Rouse Hill Station to North Kellyville,True
+2504_606,Parramatta to Winston Hills,True
+2504_607X,City QVB to Bella Vista Station (Express Service),True
+2504_608,Rouse Hill to Windsor,True
+2504_609,Parramatta to North Parramatta (Loop Service),True
+2504_610X,City QVB to Castle Hill (Express Service),True
+2504_611,Macquarie Park to Blacktown via M2 Mwy,True
+2504_612X,North Sydney to Castle Hill (Express Service),True
+2504_613X,City QVB to Bella Vista (Express Service),True
+2504_614X,City QVB to Crestwood (Express Service),True
+2504_615X,City QVB to Kellyville and North Kellyville (Express Service),True
+2504_616X,City QVB to Kellyville Ridge (Express Service),True
+2504_617,Kellyville Station to Rouse Hill via Beaumont Hills,True
+2504_620X,City Wynyard to Dural via Cherrybrook (Express Service),True
+2504_622,Milsons Point to Dural via Cherrybrook,True
+2504_625,Parramatta to Pennant Hills,True
+2504_626,Pennant Hills to Kellyville via Cherrybrook,True
+2504_630,Epping to Blacktown via Baulkham Hills,True
+2504_632,Pennant Hills to Rouse Hill Station via Norwest and Castle Hill,True
+2504_633,Pennant Hills to Rouse Hill via Kellyville and Castle Hill,True
+2504_635,Beecroft to Castle Hill via West Pennant Hills,True
+2504_637,Castle Hill to Glenorie via Round Corner and Galston,True
+2504_638,Castle Hill or Pennant Hills to Berrilee and Berowra Waters,True
+2504_639,Castle Hill to Kenthurst and Maraylya,True
+2504_640,Kenthurst Pitt Town Rd to Kenthurst Cadwells Rd,True
+2504_641,Dural to Rouse Hill,True
+2504_642X,City Wynyard to Dural (Express Service),True
+2504_643,Rouse Hill to Gables via Box Hill,True
+2504_651,Epping to Rouse Hill Station via Castle Hill,True
+2504_652X,City Wynyard to West Pennant Hills (Express Service),True
+2504_660,Parramatta to Castlewood via Norwest,True
+2504_661,Parramatta to Blacktown via North West Twy and Kings Langley,True
+2504_662,Parramatta to Castle Hill via North West Twy and Bella Vista,True
+2504_663,Parramatta to Rouse Hill Station via Glenwood,True
+2504_664,Parramatta to Rouse Hill Station via Norwest,True
+2504_665,Parramatta to Rouse Hill Station,True
+2504_700,Parramatta to Blacktown,True
+2504_702,Seven Hills to Blacktown,True
+2504_705,Parramatta to Blacktown via Pendle Hill,True
+2504_706,Parramatta to Blacktown via Kings Langley and Winston Hills,True
+2504_708,Parramatta to Constitution Hill Retirement Community via Pendle Hill,True
+2504_709,Wentworthville Shopping Plaza to Constitution Hill Retirement Community,True
+2504_711,Parramatta to Blacktown via Constitution Hill,True
+2504_714,Seven Hills to Norwest Station via Crestwood,True
+2504_715,Seven Hills to Rouse Hill Station via Norwest and Kellyville,True
+2504_N31,Liverpool to Leppington (Night Service),True
+2504_N50,City Town Hall to Liverpool via Strathfield (Night Service),True
+2504_N60,City Town Hall to Fairfield via Strathfield (Night Service),True
+2504_N61,City Town Hall to Carlingford via Strathfield (Night Service),True
+2504_N70,City Town Hall to Penrith via Parramatta (Night Service),True
+2504_N71,City Town Hall to Richmond via Parramatta (Night Service),True
+2504_N92,City Town Hall to Tallawong via Macquarie Park (Night Service),True
+2507_113,Royal North Shore Hospital to Chatswood,True
+2507_115,Chatswood to North Sydney Station (Loop Service),True
+2507_119,Gore Hill to North Sydney Station (Loop Service),True
+2507_120,Chatswood to City QVB (Loop Service),True
+2507_202,City Bridge St to Northbridge via North Sydney,True
+2507_203,Milsons Point to Castlecrag via North Sydney,True
+2507_204,City Bridge St to Northbridge via Freeway,True
+2507_205,City Bridge St to East Willoughby via Freeway,True
+2507_206,City Bridge St to East Lindfield via Freeway,True
+2507_207,City Bridge St to East Lindfield via North Sydney,True
+2507_208,City Bridge St to East Lindfield via North Sydney and Northbridge,True
+2507_209,Milsons Point to East Lindfield via North Sydney,True
+2507_251,City Wynyard to Lane Cove West via Freeway,True
+2507_252,North Sydney to Gladesville,True
+2507_253,City Wynyard to Riverview via Freeway,True
+2507_254,McMahons Point to Riverview via North Sydney,True
+2507_255,Chatswood to Colwell Cres and Beaconsfield Rd,True
+2507_256,Chatswood to Chatswood West (Loop Service),True
+2507_258,Chatswood to Lane Cove West,True
+2507_261,North Sydney to Lane Cove via Longueville,True
+2507_265,North Sydney to Lane Cove via Crows Nest,True
+2507_267,Greenwich to Chatswood via Crows Nest,True
+2507_269,North Sydney to Milsons Point via Kirribilli (Loop Service),True
+2507_275,Castlecrag to Chatswood,True
+2507_285,City Wynyard to Lane Cove West via Freeway,True
+2507_286,Milsons Point to Denistone East via North Sydney and St Leonards,True
+2507_287,Milsons Point to Ryde via North Sydney and St Leonards,True
+2507_288,City Erskine St to Macquarie University via Freeway,True
+2507_290,City Erskine St to Epping via North Sydney (Night Service),True
+2507_291,McMahons Point to Epping via North Sydney,True
+2507_292,"City Erskine St to Marsfield via Freeway, Lane Cove North and Macquarie Park",True
+2507_293,City Wynyard to Marsfield via Lane Cove Tunnel,True
+2507_295,Epping to North Epping (Loop Service),True
+2507_297,City Wynyard to Denistone East via Lane Cove Tunnel,True
+2507_500N,City Hyde Park to Parramatta via Victoria Rd (Night Service),True
+2507_500X,City Hyde Park to West Ryde via Victoria Rd (Express Service),True
+2507_501,Central Pitt St to Parramatta via Pyrmont and Victoria Rd,True
+2507_505,City Town Hall to Woolwich,True
+2507_506,City Domain to Macquarie University via East Ryde,True
+2507_507,City Hyde Park and Gladesville to Meadowbank via Putney,True
+2507_513,West Ryde to Carlingford via Dundas Valley,True
+2507_515,Ryde to Eastwood,True
+2507_516,Chatswood to Top Ryde City via North Ryde,True
+2507_517,Ryde to Macquarie Park via Bridge Rd,True
+2507_518,Meadowbank Wharf to Macquarie University via Ryde,True
+2507_521,Eastwood to Parramatta via Park Rd,True
+2507_523,West Ryde to Parramatta via Bartlett St,True
+2507_524,Ryde and West Ryde to Parramatta via Melrose Park,True
+2507_525,Sydney Olympic Park to Parramatta via Newington,True
+2507_533,Chatswood to Sydney Olympic Park via North Ryde and Rhodes,True
+2507_536,Chatswood to Gladesville via Hunters Hill,True
+2507_538,Woolwich to Gladesville,True
+2507_540,Silverwater Remand Centre to Auburn,True
+2507_541,Eastwood to Epping,True
+2507_544,Macquarie Centre to Auburn via Eastwood,True
+2507_546,Epping to Parramatta via North Rocks and Oatlands,True
+2507_549,Epping to Parramatta via North Rocks,True
+2507_550,Macquarie Park to Parramatta via Epping,True
+2507_551,Marsfield to Eastwood via Vimiera Rd,True
+2507_552,Oatlands to Parramatta,True
+2507_553,Beecroft to North Rocks via West Pennant Hills,True
+2507_N80,City Town Hall to Hornsby via Strathfield (Night Service),True
+2507_N81,City Town Hall to Parramatta via Sydney Olympic Park (Night Service),True
+2507_N90,City Town Hall to Hornsby via Chatswood (Night Service),True
+2507_N91,Macquarie Centre to City Town Hall (Night Service),True
+X0000_BMT,Blue Mountains Line,True
+X0000_CCN,Central Coast and Newcastle Line,True
+X0000_SCO,South Coast Line,True
+x0001_T1,T1 North Shore and Western Line,True
+x0001_T1,T1 North Shore and Western Line,True
+x0001_T2,T2 Leppington and Inner West Line,True
+x0001_T3,T3 Liverpool and Inner West Line,True
+x0001_T4,T4 Eastern Suburbs and Illawarra Line,True
+x0001_T5,T5 Cumberland Line,True
+x0001_T6,T6 Lidcombe and Bankstown Line,True
+x0001_T7,T7 Olympic Park Line,True
+x0001_T8,T8 Airport and South Line,True
+x0001_T9,T9 Northern Line,True
+2606_32/4,Mangrove Mountain to Gosford via Kariong,False
+2606_32,Gosford to Spencer,False
+2606_33/4,Gosford to Somersby industrial Estate and Kariong (Loop Service),False
+2606_33,Gosford to Somersby via West Gosford and Industrial Estate,False
+2606_34/2,Gosford to Mangrove Mountain via Kariong,False
+2606_34,Gosford to Kariong (Loop Service),False
+2606_36,Gosford to Westfield Tuggerah via Niagara Park,False
+2606_37/8,Ourimbah to Gosford via Wyoming,False
+2606_37,Gosford to Tuggerah via Lisarow,False
+2606_38,Gosford to Wyoming (Loop Service),False
+2606_50/3,Woy Woy to Umina and Booker Bay (Loop Service),False
+2606_50,Woy Woy to Umina via Ocean Beach Rd (Loop Service),False
+2606_5364,Woy Woy to Kincumber via Ettalong and Empire Bay,False
+2606_53,Woy Woy to Booker Bay (Loop Service),False
+2606_54/0,Umina Beach to Woy Woy via Pearl Beach,False
+2606_54,Woy Woy to Pearl Beach and Patonga via Umina Beach (Loop Service),False
+2606_55/3,Woy Woy to Ettalong and Umina Beach (Loop Service),False
+2606_55,Gosford to Ettalong Beach via Umina Beach and Woy Woy,False
+2606_57,Umina Beach West to Woy Woy via Umina Beach and Woy Woy South,False
+2606_58,Woy Woy to Woy Woy Bay and Phegans Bay (Loop Service),False
+2606_59,"Woy Woy to Wagstaffe via Ettalong, Booker Bay and Empire Bay",False
+2606_63,Gosford to Saratoga and Davistown via Green Pt and Erina Fair (Loop Service),False
+2606_64,Gosford to Woy Woy via Empire Bay and Kincumber,False
+2606_65,Gosford to Wagstaffe via Kincumber and Macmasters Beach,False
+2606_66A,Gosford to Avoca Beach and Copacabana via Kincumber and Green Pt (Loop Service),False
+2606_66C,Gosford to Copacabana and Avoca Beach via Kincumber and Green Pt (Loop Service),False
+2606_67,Gosford to North Avoca via Terrigal (Loop Service),False
+2606_68,Gosford to Wamberal via Terrigal (Loop Service),False
+2606_70,"Gosford to Ettalong Beach via Woy Woy, Pt Clare and Tascott",False
+2606_78,Lake Haven to Tuggerah via Warnervale and Wadalba,False
+2606_79,"Lake Haven to Tuggerah via Woongarrah, Hamlyn Terrace and Wattanobi",False
+2606_80,Lake Haven to Tuggerah via Lake Haven Dr and Pacific Hwy,False
+2606_81,"Lake Haven to Tuggerah via Kanwal, Wyongah and Wadalba",False
+2606_82,"Lake Haven to Tuggerah via Wyongah, Tuggerawong and Tacoma",False
+2606_90,LakeHaven to Toukley and Budgewoi (Loop Service),False
+2606_91,Lake Haven to Norah Head via Toukley and Noraville (Loop Service),False
+2606_92,Lake Haven to Budgewoi and Toukley (Loop Service),False
+2606_93,Noraville to Tuggerah via Wyong and Toukley,False
+2606_94,Budgewoi to Tuggerah via San Remo and Wyong,False
+2606_95,Lake Haven to Morisset via Gwandalan and Mannering Park,False
+2606_95X,Lake Haven to Wyee via Gwandalan,False
+2606_96,Budgewoi to Wyee via Blue Haven,False
+2606_97,Lake Haven to Wyee and Mannering Park (Loop Service),False
+2606_98,Lake Haven to Chain Valley Bay via Blue Haven (Loop Service),False
+2606_99,"Charlestown to Lake Haven via Swansea, Gwandalan and Blue Haven",False
+2607_14X,Tuggerah to The Entrance,False
+2607_15,Tuggerah to Bay Village,False
+2607_16,Wyong to The Entrance,False
+2607_17,Gosford to The Entrance North,False
+2607_17X,Gosford to The Entrance,False
+2607_18,Gosford to The Entrance,False
+2607_19,Gosford to Wyong,False
+2607_20,Gosford to Matcham via Erina Fair (Loop Service),False
+2607_21,Gosford to The Entrance North via Bateau Bay East,False
+2607_22,Gosford to The Entrance via Killarney Vale,False
+2607_23,Gosford to The Entrance via Bateau Bay West,False
+2607_24,Wyong to The Entrance,False
+2607_25,Wyong to The Entrance,False
+2607_26,Wyong to The Entrance,False
+2607_28,Gosford to The Entrance via Springfield,False
+2607_29,Wyong Hospital to Bay Village via Lake Haven,False
+2607_30,South Tacoma to Wyong (Loop Service),False
+2607_40,North Gosford to Gosford (Loop Service),False
+2607_41,West Gosford to Gosford (Loop Service),False
+2607_42,Point Frederick to Gosford,False
+2607_43,Gosford to Springfield,False
+2607_44,Gosford to Erina Fair via Springfield,False
+2607_45,Bay Village to Mingara via Bateau Bay West,False
+2607_47,Tuggerah to Ourimbah,False
+2607_48,Bay Village to Tumbi Umbi (Loop Service),False
+2508_100,Taronga Zoo to City QVB,True
+2508_111,South Mosman Wharf to Chowder Bay,True
+2508_114,Royal North Shore Hospital to Balmoral,True
+2508_142,Manly to Allambie Heights,True
+2508_144,Chatswood to Manly via St Leonards,True
+2508_145,Seaforth to Warringah Mall,False
+2508_150X,Milsons Point to Manly (Express Service),True
+2508_154X,Milsons Point to Dee Why (Express Service),True
+2508_155,Frenchs Forest to Bayview Garden Village,True
+2508_156,Mona Vale to McCarrs Creek,False
+2508_160X,Chatswood to Dee Why via Frenchs Forest (Express Service),True
+2508_161,Manly to North Head (Loop Service),False
+2508_162,Manly to Seaforth,False
+2508_165X,City Wynyard to South Curl Curl (Express Service),True
+2508_166,Manly to Frenchs Forest via Dee Why Beach,True
+2508_167,Manly to Warringah Mall via South Curl Curl,False
+2508_168X,City Wynyard to Balgowlah via North Balgowlah (Express Service),True
+2508_170X,City Wynyard to Manly (Express Service),True
+2508_171X,City Wynyard to Balgowlah via Clontarf (Express Service),True
+2508_172X,City Wynyard to Warringah Mall via North Balgowlah (Express Service),True
+2508_173X,City Wynyard to Warringah Mall via Balgowlah Shops (Express Service),True
+2508_174X,City Wynyard to Narraweena (Express Service),True
+2508_176X,City Wynyard to Dee Why via North Curl Curl (Express Service),True
+2508_177,Warringah Mall to Dee Why,False
+2508_177X,City Wynyard to Dee Why via Wingala (Express Service),True
+2508_178,Warringah Mall to Cromer Heights,False
+2508_179,Warringah Mall to Wheeler Heights,False
+2508_180,Warringah Mall to Collaroy Plateau,False
+2508_180X,City Wynyard to Collaroy Plateau (Express Service),True
+2508_181X,City Wynyard to Narrabeen (Express Service),True
+2508_182,Narrabeen to Mona Vale,False
+2508_185,Narrabeen to Mona Vale via Warriewood Valley,False
+2508_190X,City Wynyard to North Avalon (Express Service),True
+2508_191,Avalon Beach to Taylors Point (Loop Service),False
+2508_192,Avalon Beach to Stokes Point (Loop Service),False
+2508_199,Manly to Palm Beach via Dee Why and Mona Vale,False
+2508_201,City Bridge St to Cremorne,True
+2508_225,Neutral Bay Wharf to Cremorne Point Wharf,True
+2508_228,Mosman to Clifton Gardens,False
+2508_229,North Sydney to Beauty Point,True
+2508_230,Milsons Point to Mosman Wharf via North Sydney,True
+2508_238,Balmoral to Taronga Zoo Wharf,False
+2508_243,City Wynyard to Spit Junction via North Cremorne,True
+2508_246,City Wynyard to Balmoral Heights,True
+2508_249,City Wynyard to Beauty Point,True
+2508_263,City Bridge St to Crows Nest via Cremorne,True
+2508_280,Chatswood to Warringah Mall,True
+2508_B1,B-Line City Wynyard to Mona Vale,True
+2508_BN1,B-Line City QVB to Mona Vale (Night Service),True
+SMNW_M1,M1 Metro North West and Bankstown Line,True
+2509_001,Moore Park Interchange to Central Chalmers Street,True
+2509_304,City Circular Quay to Green Square (Loop Service),True
+2509_306,Redfern to Mascot Station (Loop Service),True
+2509_307,Eastgardens to Mascot Station (Loop Service),True
+2509_309,Redfern to Port Botany,True
+2509_310,Central Railway Square to Botany,True
+2509_311,City Millers Point to Central Belmore Park via Potts Point and Darlinghurst,True
+2509_313,Bondi Junction to Coogee via Carrington Rd,False
+2509_323,Edgecliff to North Bondi via New South Head Rd,True
+2509_324,City Walsh Bay to Watsons Bay via Old South Head Rd,True
+2509_325,City Walsh Bay to Watsons Bay via Vaucluse Rd,True
+2509_326,Edgecliff to Bondi Junction via Bellevue Hill,True
+2509_327,Edgecliff to Bondi Junction via Manning Rd and Bellevue Rd,True
+2509_328,Bondi Junction to Darling Point via Edgecliff (Loop Service),True
+2509_333,City Circular Quay to North Bondi via Bondi Junction,True
+2509_339,Clovelly to Central Foveaux St (Loop Service),True
+2509_339X,City Martin Place to Clovelly (Express Service),True
+2509_342,Kingsford to Daceyville,True
+2509_343,City Circular Quay to Kingsford,True
+2509_350,Bondi Junction to Sydney Airport Domestic,True
+2509_352,"Bondi Junction to Marrickville Metro via Oxford St, Crown St and King St",True
+2509_355,Bondi Junction to Marrickville Metro via Moore Park and Erskineville,True
+2509_356,Bondi Junction to Eastgardens,True
+2509_360,Bondi Junction to Clovelly,False
+2509_362,Rose Bay to Coogee,False
+2509_370,Glebe Point to Coogee,True
+2509_373,Coogee to City Museum (Loop Service),True
+2509_373X,City Martin Place to Coogee (Express Service),True
+2509_374,Central Belmore Park to Coogee via Bream St,True
+2509_374X,City Martin Place to Coogee via Bream St (Express Service),True
+2509_375,Eastgardens to Randwick (Loop Service),True
+2509_377X,City Martin Place to Maroubra Beach via South Coogee (Express Service),True
+2509_379,Bronte to North Bondi,False
+2509_380,Bondi Junction to Watsons Bay via Bondi Beach,False
+2509_381,Bondi Junction to Tamarama (Loop Service),False
+2509_386,Bondi Junction to Vaucluse via New South Head Rd and Old South Head Rd,False
+2509_387,Bondi Junction to South Head Cemetery,False
+2509_388,Paddington to Bondi Junction,True
+2509_390X,Bondi Junction to La Perouse (Express Service),True
+2509_392N,City Circular Quay to Matraville (Night Service),True
+2509_392,Redfern to Little Bay,True
+2509_392X,Little Bay to City Museum (Loop Service),True
+2509_393,Eastgardens to Matraville,True
+2509_394X,La Perouse to City Museum (Express Service),True
+2509_396,City Circular Quay to Maroubra Beach,True
+2509_396X,City Martin Place to Maroubra Beach (Express Service),True
+2509_397,Eastgardens to South Maroubra (Loop Service),True
+2509_397X,City Martin Place to South Maroubra (Express Service),True
+2509_399,Little Bay to UNSW (Loop Service),True
+2510_446,Roselands to St George Hospital,True
+2510_450,Hurstville to Strathfield,True
+2510_452,Rockdale to Beverly Hills,True
+2510_453,Rockdale Station to Percival Street Rockdale,True
+2510_455,St George Hospital to Kingsgrove,True
+2510_920,Bankstown to Parramatta,True
+2510_922,Bankstown to East Hills via Milperra,True
+2510_923,Bankstown to Panania via Picnic Point,True
+2510_924,Bankstown to East Hills via Panania,True
+2510_926,Bankstown to Revesby Heights,True
+2510_927,Padstow to One Tree Point,True
+2510_939,Greenacre to Bankstown,True
+2510_940,Hurstville to Bankstown via Riverwood,True
+2510_941,Hurstville to Bankstown via Greenacre,True
+2510_942,Campsie to Lugarno,True
+2510_943,Hurstville to Lugarno,True
+2510_944,Mortdale to Bankstown via Peakhurst Heights,True
+2510_945,Hurstville to Bankstown via Mortdale,True
+2510_946,Bankstown to Roselands via Lakemba and Greenacre,True
+2510_947,Hurstville to Kogarah via Dolls Point,True
+2510_953,Hurstville to Connells Point (Loop Service),True
+2510_954,Hurstville to Hurstville Grove,True
+2510_955,Hurstville to Mortdale via Oatley,True
+2510_958,Hurstville to Kogarah via Carss Park,True
+2510_959,Hurstville to Bald Face Point (Loop Service),True
+2510_960,Bankstown to Sutherland,True
+2510_961,Miranda to Barden Ridge,True
+2510_962,Miranda to East Hills,True
+2510_963,Menai Marketplace to Alfords Point (Loop Service),True
+2510_965,Sutherland to Woronora (Loop Service),True
+2510_967,Miranda to Como West via Oyster Bay,True
+2510_968,Miranda to Bonnet Bay via Kareela,True
+2510_969,Sutherland to Cronulla,True
+2510_970,Hurstville to Miranda,True
+2510_971,Hurstville to Cronulla,True
+2510_972,Miranda to Sylvania via Sylvania Waters,True
+2510_973,Miranda to Yowie Bay (Loop Service),True
+2510_974,Miranda to Gymea Bay (Loop Service),True
+2510_975,Miranda to Grays Point (Loop Service),True
+2510_976,Sutherland to Grays Point (Loop Service),True
+2510_977,Miranda to Lilli Pilli (Loop Service),True
+2510_978,Miranda to Dolans Bay via Port Hacking (Loop Service),True
+2510_985,Miranda to Cronulla via Woolooware Bay,True
+2510_986,Miranda to Miranda North,True
+2510_987,Cronulla to Kurnell (Loop Service),True
+2510_988,Caringbah to Cronulla via Burraneer,True
+2510_989,Bundeena to Maianbar (Loop Service),True
+2510_991,Sutherland to Heathcote,True
+2510_992,Engadine to Kingswood Rd (Loop Service),True
+2510_993,Miranda to Woronora Heights (Loop Service),True
+2510_996,Engadine to Heathcote East (Loop Service),True
+2510_N10,City Town Hall to Sutherland (Night Service),True
+2510_N11,City Town Hall to Cronulla (Night Service),True
+2510_N20,City Town Hall to Riverwood via Airport (Night Service),True
+2510_S14,Mount Lewis to Lakemba via Roselands,True
+24561_9N,UOW North Gong Shuttle,False
+24561_9N,UOW North Gong Shuttle,False
+24561_9N,UOW North Gong Shuttle,False
+24561_9,UOW North Gong Shuttle via Ring Road,False
+2514_141,Manly to Austlink via Seaforth and Frenchs Forest,True
+2514_193,Austlink to Warringah Mall via Frenchs Forest,True
+2514_194,City QVB to St Ives,True
+2514_194X,City QVB to St Ives (Express Service),True
+2514_195,Gordon to St Ives Chase (Loop Service),True
+2514_196,Gordon to Mona Vale,True
+2514_197,Macquarie University to Mona Vale via Gordon,True
+2514_260,North Sydney to Terrey Hills,True
+2514_270,City QVB to Terrey Hills,True
+2514_271,City QVB to Belrose,True
+2514_273,Killarney Heights to City QVB via Forestville,True
+2514_274,City QVB to Davidson via Frenchs Forest,True
+2514_277,Chatswood to Castle Cove (Loop Service),True
+2514_278,Chatswood to Killarney Heights (Loop Service),True
+2514_279,Chatswood to Frenchs Forest (Loop Service),True
+2514_281,Chatswood to Davidson (Loop Service),True
+2514_283,Chatswood to Belrose (Loop Service),True
+2514_284,Chatswood to Terrey Hills and Duffys Forest,True
+2514_556,Lindfield to East Killara (Loop Service),True
+2514_558,Lindfield to Chatswood,True
+2514_560,Gordon to West Pymble (Loop Service),True
+2514_562,Macquarie University to Gordon,True
+2514_565,Macquarie University to Chatswood,True
+2514_571,Turramurra to South Turramurra (Loop Service),True
+2514_572,Macquarie University to Turramurra via South Turramura and West Pymble,True
+2514_573,Turramurra to Sydney Adventist Hospital via Fox Valley Rd (Loop Service),True
+2514_575,Macquarie University to Hornsby via Turramurra,True
+2514_576,Wahroonga to North Wahroonga (Loop Service),True
+2514_576T,Turramurra to North Wahroonga (Loop Service),True
+2514_577P,Turramurra to Murdoch St (Loop Service),True
+2514_577,Turramurra to North Turramurra (Loop Service),True
+2514_579,Pymble to East Turramurra,True
+2514_582,Gordon to St Ives Shopping Centre,True
+2514_586,Pennant Hills to Westleigh,True
+2514_587,Hornsby to Westleigh (Loop Service),True
+2514_588,Hornsby to Normanhurst West (Loop Service),True
+2514_589,Hornsby to Sydney Adventist Hospital,True
+2514_591,St Ives to Hornsby,True
+2514_592,Brooklyn to Cheero Point and Mooney Mooney,True
+2514_593,Berowra to Mount Kuring-Gai Beaumont Rd,True
+2514_594,City Clarence St to North Turramurra,True
+2514_595,Hornsby to Mount Colah (Loop Service),True
+2514_596,Hornsby to Hornsby Heights (Loop Service),True
+2514_597,Berowra to Hornsby,True
+2514_598,Hornsby to Asquith (Loop Service),True
+2514_599,Berowra to Berowra Heights (Loop Service),True
+7083_SW1,Sydenham to Bankstown,True
+7083_SW3,Sydenham to Campsie via Canterbury (Limited stops),True
+7084_SW2,Sydenham to Bankstown (Limited stops),True
+302_BRKL,BRKL Brooklyn Ferry,False
+300_BUNC,BUNC Bundeena Ferry,True
+305_CCLC,CCLC Lane Cove Ferry,True
+305_CCSH,CCSH Shark Island Ferry,True
+305_CCTZ,CCTZ Taronga Zoo Ferry,True
+305_CCWB,CCWB Watsons Bay Ferry,True
+305_CCWM,CCWM Manly and Watsons Bay Ferry,True
+304_CHCP,CHCP Church Point Ferry,False
+CRF_CRF,CRF Clarence River Ferry,False
+303_EMPB,EMPB Woy Woy to Empire Bay Ferry,False
+301_PLMB,PLMB Palm Beach to Mackerel Ferry,False
+301_WAGE,WAGE Palm Beach to Ettalong Ferry,False
+301_WGEF,WGE Wagstaffe to Ettalong Ferry,False
+2447_160,Newcastle to Cessnock,False
+2447_161,Cessnock to Hospital Hill and Vineyard Grove (Loop Service),False
+2447_162,Cessnock to Abernethy via Kearsley,False
+2447_163,Morisset to Cessnock via Kurri Kurri,False
+2447_164,Maitland to Cessnock via Kurri Kurri,False
+2447_165,Cessnock to West Cessnock (Loop Service),False
+2447_166,Kurri Kurri to Maitland,False
+2447_167,Cessnock to Nulkaba (Loop Service),False
+2447_168,Cessnock to Millfield (Loop Service),False
+2447_171,Weston to Kurri Kurri,False
+2447_172,Kurri Kurri Rotary Park to Deakin St,False
+2448_136,Raymond Terrace to Stockton via Medowie,False
+2448_137,Raymond Terrace to Lemon Tree Passage via Medowie,False
+2448_138,Lemon Tree Passage to Newcastle Interchange via Airport,False
+2448_140,Raymond Terrace to Newcastle Interchange,False
+2448_141,Raymond Terrace to Dawson Rd and Kent St (Loop Service),False
+2448_145,Green Hills Shopping Centre to Newcastle Airport via Raymond Terrace,False
+2448_177,Rutherford to Aberglasslyn via Budgeree Dr (Loop Service),False
+2448_178,Rutherford to Anambah Rd via Rutherford Industrial Estate (Loop Service),False
+2448_179,Green Hills Shopping Centre to North Rothbury via Maitland,False
+2448_180,Stockland Green Hills to Singleton Heights via Maitland,False
+2448_180X,Maitland Station to Singleton Station (Express Service),False
+2448_181,"Woodberry to Rutherford via Beresfield, Green Hills Shopping Centre and Maitland",False
+2448_182,"Thornton to Rutherford via Ashtonfield, Green Hills Shopping Centre and Maitland",False
+2448_183,Tenambit to Rutherford via Green Hills Shopping Centre and Maitland,False
+2448_184,Green Hills Shopping Centre to Morpeth via East Maitland and Tenambit,False
+2448_185,Maitland to Largs and Gresford  via Lorn and Bolwarra,False
+2448_186,Rutherford to Aberglasslyn via Denton Park Dr (Loop Service),False
+2448_187,Green Hills Shopping Centre to Wilton Dr (Loop Service),False
+2448_188,Woodlands Estate to Green Hills Shopping Centre via Maitland Hospital,False
+2448_189,Thornton to Green Hills Shopping Centre via Chisholm,False
+2448_192,Maitland to South Maitland (Loop Service),False
+2448_401,Singleton Square to Hospital via Civic Park and Station (Loop Service),False
+2448_402,Singleton to Hunterview via Darlington (Loop Service),False
+2448_403,Singleton to Hunterview via Singleton Heights (Loop Service),False
+2448_404,Singleton to Singleton Heights via Hunterview (Loop Service),False
+2449_130,Newcastle to Fingal Bay via Gan Gan Rd,False
+2449_131,Newcastle to Fingal Bay (Express Service),False
+2449_132,Soldiers Point to Nelson Bay and Shoal Bay,False
+2449_133,Soldiers Point to Nelson Bay and Shoal Bay,False
+2449_134,Soldiers Point to Anna Bay,False
+2449_135,Raymond Terrace to Anna Bay and Salamander Bay,False
+MFF_MFF,MFF Manly Fast Ferry,True
+5880_550,Parkes Town Centre to Parkes Hospital via Currajong St and South Parkes (Loop Service),False
+5880_551,Parkes Danilenko St to Parkes Town Centre,False
+5880_552,Parkes Town Centre to Parkes Hospital via East Parkes (Loop Service),False
+5880_553,Parkes Town Centre to North Parkes via Thomas St (Loop Service),False
+5880_554,Parkes Town Centre to West Parkes via Best St (Loop Services),False
+5902_555,Dubbo to Narromine via Mitchell Hwy,False
+5902_556,Dubbo to Wellington via Wongarbon and Geurie,False
+6003_570,Dubbo CBD to Orana Mall via South Dubbo and Southlakes,False
+6003_571,"Dubbo CBD to Orana Mall via North Dubbo, Base Hospital and Eastridge",False
+6003_572,Orana Mall to West Dubbo via Base Hospital and CBD (Loop Service),False
+6003_573,"Orana Mall to West Dubbo via South Dubbo, CBD and Zoo (Loop Service)",False
+6003_575,Dubbo CBD to Orana Mall via South Dubbo and Keswick,False
+5841_586,Forbes Town Centre to Forbes Dawson St via Edward St (Loop Service),False
+5841_587,Forbes Town Centre to Forbes Alder St via Calarie Rd (Loop Service),False
+5841_588,Forbes Town Centre to Riverside Tourist Park via Forbes Hospital (Loop Service),False
+5405_594,Broken Hill to Menindee,False
+5405_595,Broken Hill to Wilcannia,False
+5405_596,Broken Hill CBD to Broken Hill South and Hillside (Loop Service),False
+5405_597,Broken Hill CBD to Thomas St and Broken Hill North (Loop Service),False
+5979_950,Mildura to Wentworth via Dareton,False
+5979_951,Wentworth to Mildura via Dareton,False
+5979_953,Mildura to Gol Gol via Buronga,False
+5979_954,Gol Gol to Mildura via Buronga,False
+5979_956,Dareton to Mildura via Merbein and Curlwaa (Loop Service),False
+5979_S126,Mildura Primary to Mildura via Mildura Schools,False
+5603_170,Glen Innes to Emmaville,False
+5961_428,Tamworth to Quirindi,False
+5961_430,Tamworth to Oxley Vale via Tamworth Hospital (Loop Service),False
+5961_431,Tamworth to North Tamworth via Tamworth Hospital (Loop Service),False
+5961_433,Tamworth to South Tamworth (Loop Service),False
+5961_435,Tamworth to Tamworth Sports Dome via South Tamworth (Loop Service),False
+5961_436,Tamworth to Calala via Goonoo Goonoo Rd (Loop Service),False
+5943_437,Tamworth to Westdale and Coledale (Loop Service),False
+5943_438,Tamworth to Coledale and Westdale (Loop Service),False
+5961_443,Tamworth to Manilla,False
+5961_444,Tamworth to Bendemeer,False
+5941_451,Gunnedah to Gunnedah Southwest (Loop Service),False
+5941_452,Gunnedah to Gunnedah Southeast (Loop Service),False
+5940_455,Gunnedah Schools and Curlewis Public to Gunnedah,False
+5942_457,Narrabri West to Narrabri (Loop Service),False
+5945_471,Inverell CBD to Ross Hill and Southside (Loop Service),False
+5945_472,Inverell CBD to Belgravia (Loop Service),False
+5962_480,Armidale to Uralla,False
+5962_481,Armidale to University of New England,False
+5962_483,Armidale to South Hill (Loop Service),False
+5962_484,Armidale to North Hill (Loop Service),False
+5970_150,"Newcastle Interchange to Taree via Hawks Nest, Forster and Tuncurry",False
+5970_151,Newcastle Interchange to Taree Station via Forster and Tuncurry,False
+5970_152,Newcastle to Hawks Nest,False
+5970_153,Bulahdelah to Upper Myall (Loop Service),False
+5970_154,Bulahdelah to Taree (Loop Service),False
+5969_301,Wingham to Wingham North via Isabella St and Richardson St,False
+5969_302,Wingham to Wingham South (Loop Service),False
+5968_303,Stockland Forster to Tuncurry via Legacy Village (Loop Service),False
+5968_304,Stockland Forster to Tuncurry via Pacific Pde and Chapmans Rd (Loop Service),False
+5968_305,Forster to Stockland Forster via Great Lakes Country Club,False
+5968_306,Stockland Forster to Forster Keys via Pipers Bay (Loop Service),False
+5968_307,Forster to Coomba Park via Tarbuck Bay,False
+5968_308,Gloucester to Forster via Nabiac and Failford,False
+5956_309,Taree to Forster via Blackhead and Diamond Beach,False
+5956_310,Taree to Forster,False
+5956_311,Taree to Chatham via Taree North (Loop Service),False
+5956_312,Taree to Cundletown,False
+5956_313,Taree to West Taree (Loop Service),False
+5956_314,Taree to Old Bar (Loop Service),False
+5956_315,Taree to Manning Point (Loop Service),False
+5957_316,Taree to Tinonee (Loop Service),False
+5969_318,Wingham to Elands via Marlee and Bobin,False
+5956_319,Taree to Wingham,False
+5956_320,Taree to Harrington and Crowdy Head via Coopernook,False
+5956_321,Taree to Lansdowne,False
+5944_411,Muswellbrook Town Centre to Sydney St (Loop Service),False
+5944_412,Muswellbrook Town Centre to Muswellbrook North (Loop Service),False
+5944_413,Muswellbrook Town Centre to Highbrook (Loop Service),False
+5944_414,Muswellbrook to Scone via Aberdeen (Loop Service),False
+5944_415,Muswellbrook to Denman (Loop Service),False
+5944_418,Muswellbrook Town Centre to Muswellbrook Eastlinks (Loop Service),False
+5944_419,Muswellbrook Town Centre to Queen St (Loop Service),False
+5949_678,Kyogle to Urbenville,False
+5971_322,Port Macquarie to Lighthouse Plaza via Pacific Dr,False
+5971_323,Port Macquarie to Lighthouse Beach (Loop Service),False
+5971_324,Settlement City to Port Macquarie Marbuk Ave,False
+5971_325,Port Macquarie to Port Macquarie The Ruins Way (Loop Service),False
+5971_326,Wauchope to Yarras Forbes River Rd,False
+5971_327,Port Macquarie to MacKillop College (Loop Service),False
+5971_328,Port Macquarie Base Hospital to Settlement Point,False
+5971_329,Settlement City to Port Macquarie Yarranabee Rd (Loop Service),False
+5971_332,Laurieton to Camden Head (Loop Service),False
+5971_333,Port Macquarie to Kendall via Bonny Hills,False
+5971_334,Settlement City to Lighthouse Plaza,False
+5971_335,Port Macquarie to Port Macquarie Base Hospital,False
+5971_336,Port Macquarie to Wauchope (Loop Service),False
+5971_337,Wauchope to Comboyne,False
+5971_339,Wauchope to Beechwood,False
+5971_340,Port Macquarie to Kempsey,False
+5971_341,Port Macquarie Airport to Port Macquarie,False
+5971_344,Kempsey to Willawarrin,False
+5971_345,Kempsey to Crescent Head (Loop Service),False
+5971_350,Kempsey to South West Rocks via Frederickton and Smithtown,False
+5967_351,Macksville to Bowraville via Rodeo Dr,False
+5967_352,Macksville to Bowraville via Wilson Rd,False
+5971_353,Kempsey to Collombatti (Loop Service),False
+5971_354,Kempsey to Kempsey Airport (Loop Service),False
+5971_355,Kempsey to Bellbrook,False
+5967_356,Macksville to Scotts Head via Grassy Head (Loop Service),False
+5967_357,Bellingen to Repton via Mylestom,False
+5967_358,Bellingen to Macksville via Urunga and Nambucca Heads,False
+5967_359,Urunga to Bonville via Mylestom and Repton,False
+5967_360,"Park Beach Plaza to Macksville via Toormina, Urunga and Nambucca Heads",False
+5967_360X,Coffs Harbour Park Ave to Macksville via Nambucca Heads (Express Service),False
+5967_361,Coffs Harbour Park Ave to Bellingen via Toormina,False
+5967_365,Coffs Harbour Park Ave to Park Beach Plaza via Jetty and Park Beach,False
+5967_366,Coffs Harbour Park Ave to Park Beach Plaza via Frances St,False
+5967_367,Coffs Harbour Health Campus to Park Beach Plaza via Donn Patterson Dr,False
+5967_368,Coffs Harbour Park Ave to Park Beach Plaza via Pearce Dr,False
+5966_373,Grafton City Centre to South Grafton via Fairway Dr (Loop Service),False
+5966_374,Grafton City Centre to South Grafton via Bimble Ave (Loop Service),False
+5966_376,Grafton City Centre to Grafton Base Hospital (Loop Service),False
+5966_377,Grafton City Centre to Junction Hill,False
+5966_378,Grafton to Cangai via South Grafton,False
+5966_379,Grafton to Copmanhurst via South Grafton,False
+5966_380,Grafton to Yamba via Angourie,False
+5966_381,Grafton City Centre to Westlawn via Arthur St (Loop Service),False
+5966_382,Grafton City Centre to Westlawn via Bacon St (Loop Service),False
+5950_384,Grafton to Lawrence,False
+5950_385,Maclean to Lawrence,False
+5966_386,Maclean to Iluka (Loop Service),False
+5948_390,Park Beach Plaza to Toormina Community Centre via Sawtell,False
+5948_391,Park Beach Plaza to Toormina Community Centre via Toormina Rd,False
+5948_392,Coffs Harbour Park Ave to Bonville Bambara Dr via Airport,False
+5964_393,Toormina Gardens to Woolgoolga and Grafton via Coffs Harbour,False
+5948_394,Toormina Gardens to Boambee (Loop Service),False
+6007_805,Mittagong to Hill Top via Colo Vale,False
+6007_806,Bowral to Bargo via Mittagong,False
+6007_808,Bowral to Moss Vale via Robertson and Kangaloon (Loop Service),False
+6007_810,Moss Vale to Nowra via Fitzroy Falls and Kangaroo Valley,False
+6007_811,Willow Vale to Moss Vale via Mittagong and Bowral,False
+6007_812,Moss Vale to Berrima via Medway,False
+6007_813,"Moss Vale to Tallong via Exeter, Bundanoon , Penrose and Wingello",False
+6007_814,Bowral to Bowral Hospital (Loop Service),False
+6007_815,Bowral to East Bowral (Loop Service),False
+6007_816,Moss Vale Courthouse to Willow Dr and Argyle St (Loop Service),False
+6007_817,Bowral to West Bowral (Loop Service),False
+5978_818,Goulburn to Crookwell,False
+6016_821,Goulburn to Kenmore via Gibson St and Goulburn Base Hospital (Loop Service anti-clockwise),False
+6016_822,Goulburn to Kenmore via Gibson St and Goulburn Base Hospital (Loop Service clockwise),False
+6016_823,Goulburn to West Goulburn (Loop Service),False
+6016_825,Goulburn to Eastgrove (Loop Service),False
+6007_828,Bowral to Picton,False
+5981_874,Bega to Bermagui,False
+5791_885,Bega to Tathra via Auckland St and SE Regional Hospital,False
+5791_886,Kalaru to Tathra,False
+5791_890,Bega to Eden via Wolumla and Merimbula,False
+5791_891,Bega to Eden via Kalaru and Tura Beach,False
+6008_100,Nowra to Ulladulla,False
+6008_101,East Nowra and Worrigee to Nowra (Loop Service),False
+6008_102,Bomaderry Station and Nowra to Basin View via St Georges Basin,False
+6008_102X,Bomaderry Station to St Georges Basin via Nowra and Sanctuary Point,False
+6008_104,Hyams Beach and Erowal Bay to Vincentia (Loop Service),False
+6008_106,West Nowra to Nowra via UOW Shoalhaven Campus (Loop Service),False
+6008_106X,Bomaderry Station to UOW Shoalhaven Campus via Nowra,False
+5975_110,Greenwell Point to Bomaderry Station via Worrigee Rd and Nowra,False
+5975_111,Bomaderry Station to Orient Point via Culburra Beach and Nowra,False
+5975_112,Nowra to Kangaroo Valley via Cambewarra and Bomaderry,False
+5407_120,Nowra to Currarong and Callala via Myola,False
+6009_125,Kiama to Jamberoo and Minnamurra Falls,False
+6009_126,Kiama to Gerroa via Gerringong,False
+6011_130,"Nowra to Gerringong via Nowra TAFE, Berry and Gerroa",False
+6011_131,Bomaderry to Nowra via Bomaderry Station (Loop Service),False
+6011_132,North Nowra to Nowra (Loop Service),False
+6011_134,Huskisson to Sussex Inlet and Berrara via Vincentia and Sanctuary Point,False
+6011_135,"Bomaderry Station to Berrara via Nowra, Tomerong and Sussex Inlet",False
+6011_139,Nowra to Shoalhaven Heads via Bomaderry Station,False
+6140_737,Kiama Station to Bomaderry Station via Gerringong Station and Berry,False
+5977_740,Ulladulla to Milton via Mollymook and Narrawallee,False
+5977_741,Ulladulla to Kioloa via Bawley Point,False
+6010_900,Campbelltown and Narellan to Picton,True
+6010_901,Picton to Wilton via Douglas Park,False
+6010_911,Picton to Bargo and Yanderra via Tahmoor,False
+6010_912,Picton to Tahmoor via Thirlmere,False
+6010_913,Buxton to Tahmoor and Picton,False
+6010_914,Buxton to Picton via Tahmoor and Thirlmere,False
+6010_915,Picton to Nangarin Vineyard Estate via Barkers Lodge Rd,False
+2450_259,"Glendale to Minmi via Cardiff, Wallsend and Maryland",False
+2450_260,"Minmi to University of Newcastle via Fletcher, Maryland and Wallsend",False
+2450_261,Fletcher to University of Newcastle via Maryland and Wallsend,False
+2450_262,Cameron Park to Charlestown via Constitution Dr,False
+2450_263,Cameron Park to Charlestown,False
+2450_264,Adamstown to Minmi via Kotara and Glendale,False
+2450_266,West Wallsend to Newcastle,False
+2450_267,West Wallsend to Glendale,False
+2450_268,Killingworth to Glendale,False
+2450_269,Toronto to Charlestown,False
+2450_270,Toronto West to University of Newcastle,False
+2450_271,Toronto to Glendale,False
+2450_273,Toronto to Fassifern,False
+2450_274,Toronto to Coal Point (Loop Service),False
+2450_275,Wangi to Toronto via Fishing Point and Rathmines,False
+2450_278,Morisset to Silverwater (Loop Service),False
+2450_279,Morisset to Sunshine (Loop Service),False
+2450_280,Morisset to Cooranbong,False
+2450_281,Lake Haven to Wangi Wangi,False
+5803_921,Wagga Wagga to Junee via Wallacetown and Harefield,False
+5803_922,Wagga Wagga to Junee via Wallacetown and Yathella,False
+5803_923,Junee to Wagga Wagga via Byrnes Rd,False
+5803_924,Wagga Wagga to Junee via Hampden Ave and Wallacetown,False
+5980_930,Wagga Wagga to Ganmain via Coolamon,False
+5980_931,Coolamon to Wagga Wagga,False
+6002_940,Griffith to Collina via East Griffith (Loop Service),False
+6002_941,Griffith to North Griffith via Hospital Precinct (Loop Service),False
+6002_942,Griffith to South Griffith via Pioneer (Loop Service),False
+6002_943,Griffith to Hospital Precinct via Pioneer and South Griffith (Loop Service),False
+6002_944,Griffith to Beelbangera and Yenda (Loop Service),False
+6002_945,Darlington Point to Griffith via Hanwood,False
+6002_946,Griffith to Three Ways via Mayfair and Hospital Precinct (Loop Service),False
+6014_960,"Wagga Wagga, Estella and University to Lake Albert",False
+6014_961,Wagga Wagga - Bourkelands - Wagga Wagga,False
+6014_962,Glenfield Park to Wagga Wagga via Ashmont,False
+6014_963,Glenfield Park to Wagga Wagga via Bruce St and Turvey Park,False
+6014_965,Wagga Wagga to Forest Hill,False
+6014_966,Wagga Wagga - Estelle - Wagga Wagga,False
+6014_969,Wagga Wagga to Tatton,False
+2454_685H,Springwood to North Hazelbrook (Loop Service),True
+2454_685,Katoomba to North Wentworth Falls (Loop Service),False
+2454_686G,Katoomba to Katoomba Golf Club via Cliff Dr (Loop Service),False
+2454_686,Katoomba to Scenic World via Echo Pt (Loop Service),False
+2454_688,Penrith to Emu Heights (Loop Service),True
+2454_689,Penrith to Leonay (Loop Service),True
+2454_690C,Springwood to Faulconbridge (Loop Service),True
+2454_690H,Katoomba to Katoomba Hospital (Loop Service),False
+2454_690K,Katoomba to Springwood,True
+2454_690P,Penrith to Springwood,True
+2454_691,Penrith to Mount Riverview,True
+2454_692B,Springwood to Buckland via Lomatia Gardens and Hospital (Loop Service),True
+2454_692H,Springwood to Hawkesbury Heights (Loop Service),True
+2454_692W,Springwood to Winmalee (Loop Service),True
+2454_692Y,Springwood to Yellow Rock (Loop Service),True
+2454_693,Springwood to Burns Road via Lalor Rd (Loop Service),True
+2454_694,Springwood to Bee Farm Road (Loop Service),True
+2454_695,Katoomba to South Leura (Loop Service),False
+2454_696,Katoomba to South Katoomba via Clissold and Ada Sts (Loop Service),False
+2454_697,Katoomba to North Katoomba (Loop Service),False
+2454_698,Katoomba to Blackheath (Loop Service),False
+2454_698V,Katoomba to Mt Victoria (Loop Service),False
+2454_N70,City Town Hall to Penrith via Parramatta (Night Service),True
+2455_15,Helensburgh to Stanwell Park,False
+2455_2,Wollongong to Stanwell Park via Thirroul,False
+2456_10,Wollongong to West Wollongong (Loop Service),False
+2456_11,Wollongong to Wollongong University (Loop Service),False
+2456_24,Wollongong to Figtree via Mangerton (Loop Service),False
+2456_30,Dapto to Kembla Grange via Wongawilli,False
+2456_31,Wollongong to Horsley via Unanderra (Loop Service),False
+2456_32,Dapto to Brooks Reach (Loop Service),False
+2456_33,Wollongong to Dapto via Unanderra (Loop Service),False
+2456_34,Wollongong to Warrawong via Unanderra (Loop Service),False
+2456_35,Unanderra to Wollongong via Farmborough Heights,False
+2456_36,Wollongong to Kembla Heights via Cordeaux Heights (Loop Service),False
+2456_37,Wollongong to Shellharbour via Dapto (Loop Service),False
+2456_39,Wollongong to Figtree via Mt Keira (Loop Service),False
+2456_3,Wollongong to Bellambi via Towradgi (Loop Service),False
+2456_41,University of Wollongong to Dapto,False
+2456_43,Port Kembla to Mt Brown (Loop Service),False
+2456_51,Wollongong to Oak Flats via Stockland Shellharbour,False
+2456_52,Shellharbour Junction to Flinders,False
+2456_53,Wollongong to Shellharbour via Warrawong and Shell Cove,False
+2456_55A,University of Wollongong to Wollongong via Gwynneville (Loop Service),False
+2456_55C,University of Wollongong to Wollongong via Fairy Meadow (Loop Service),False
+2456_57,Wollongong to Shellharbour via Warrawong (Loop Service),False
+2456_65,North Wollongong to Port Kembla (Loop Service),False
+2456_6,Wollongong to Mount Pleasant (Loop Service),False
+2456_71,Shellharbour to Kiama (Loop Service),False
+2456_72,Shellharbour to Barrack Point (Loop Service),False
+2456_75,Stockland Shellharbour to Calderwood and Tullimbar (Loop Service),False
+2456_76,Shellharbour Village to Albion Park (Loop Service),False
+2456_77,Shellharbour to Albion Park (Loop Service),False
+2456_7,Wollongong to Bellambi (Loop Service),False
+2456_8,Wollongong to Bellambi via Balgownie (Loop Service),False
+2456_S268,Tullimbar PS to Calderwood,False
+2457_10,Warnervale to Tuggerah via Wyee,False
+2457_11,Tuggerah to Lake Haven via Warnervale,False
+2457_12,Tuggerah to Dooralong via Durren Durren,False
+2457_13,Tuggerah to Lemon Tree via Warnervale,False
+2457_78,Lake Haven to Tuggerah via Warnervale and Wadalba,False
+2457_80,Lake Haven to Tuggerah via Lake Haven Dr and Pacific Hwy,False
+2457_91,Lake Haven to Norah Head via Toukley and Noraville (Loop Service),False
+2457_98,Lake Haven to Chain Valley Bay via Blue Haven (Loop Service),False
+2458_90,Wollongong to Austinmer Station,False
+2458_91,University of Wollongong to Austinmer Station,False
+2458_92,Wollongong to Bulli,False
+2458_93,University of Wollongong to Bulli,False
+6005_100,South Bowenfels to Lithgow via Littleton (Loop Service),False
+6005_200,Bowenfels to Lithgow via Lithgow Hospital (Loop Service),False
+6005_304,Hermitage Flat to Lithgow via Morts Estate and Oakley Park (Loop Service),False
+6005_500,Vale of Clwydd to Lithgow (Loop Service),False
+5790_515,Bathurst to Oberon,False
+5790_516,Blayney to Orange (Loop Service),False
+6004_520,Bathurst to Windradyne,False
+6004_521,Bathurst to Kelso,False
+6004_522,Bathurst to Gormans Hill,False
+6004_523,Bathurst to Eglinton via Llanarth,False
+6004_523X,Bathurst to Eglinton via Eglinton Rd (Express Service),False
+6004_524,Bathurst to Raglan,False
+6004_525,Charles Sturt University to Kelso,False
+6004_526,Bathurst to West Bathurst via South Bathurst (Loop Service),False
+6004_527,Charles Sturt University to Raglan via Kelso,False
+6004_528,Bathurst to South Bathurst via West Bathurst (Loop Service),False
+6004_529,Bathurst to Kelso,False
+6004_530,Orange to Bathurst,False
+6006_530,Orange to Bathurst,False
+6006_530X,Orange to Bathurst (Express Service),False
+6004_530X,Bathurst to Orange (Express Service),False
+6006_531,Orange City Centre to Glenroi (Loop Service),False
+6006_532,Orange City Centre to East Orange (Loop Service),False
+6006_533,Orange City Centre to North Orange Shopping Centre,False
+6006_534,Orange City Centre to Warrendine (Loop Service),False
+6006_535,North Orange Shopping Centre to Orange Hospital,False
+6006_536,Orange to Molong,False
+6006_537,Orange City Centre to West Orange and Calare (Loop Service),False
+6006_539,Orange City Centre to Bel Air and North West Orange (Loop Service),False
+6006_540,Orange Hospital to Charles Sturt Uni via N Orange Shopping Centre,False
+5982_541,West Cowra to Cowra Town Centre (Loop Service),False
+5982_543,East Cowra to Cowra Town Centre (Loop Service),False
+5982_544,Taragala to Cowra Town Centre (Loop Service),False
+5982_545,Mulyan and North Cowra to Cowra Town Centre (Loop Service),False
+5959_560,Mudgee East (Loop Service),False
+5959_561,Mudgee West (Loop Service),False
+5959_562,Mudgee South (Loop Service),False
+5959_563,Mudgee North (Loop Service),False
+6006_581,Orange City Centre to Glenroi (Loop Service),False
+6006_582,Orange City Centre to East Orange (Loop Service),False
+6006_584,Orange City Centre to Warrendine (Loop Service),False
+6005_600,Portland to Lithgow via Wallerawang,False
+6005_636,Bathurst to Lithgow via Portland and Wallerawang,False
+6000_300,Gays Hill to Casino (Loop Service),False
+6000_301,Northwest Casino to Casino via Casino Hospital (Loop Service),False
+6000_303,East Casino to Casino (Loop Service),False
+6000_304,South Casino to Casino (Loop Service),False
+5955_600,Tweed Heads West to Banora Point via Coolangatta and Tweed Mall,False
+5955_601,Tweed Mall to Tweed Valley Hospital via Kingscliff,False
+5955_602,Tweed City to Banora Point,False
+5955_603,"Tweed City to Pottsville via Chinderah, Tweed Valley Hospital, Cabarita Beach and Hastings Point",False
+5955_604,Tweed City to Banora Point via Heffron Street and Hillcrest Avenue,False
+5955_605,Tweed Mall to Murwillumbah via Lochlomond Drive and Tumbulgum,False
+5955_606,Tweed City to Fingal Head,False
+5955_608,Tweed City to Bilambil Heights via Kennedy Drive and Tweed Heads West,False
+5955_609,Kingscliff TAFE and Tweed Valley Hospital to Murwillumbah,False
+5963_610,Lismore to Byron Bay,False
+5972_610,Byron Bay to Lismore via Bangalow,False
+5952_616,Murwillumbah to Bogangar via Mooball (Loop Service),False
+5952_618,Murwillumbah to Pottsville via Mooball (Loop Service),False
+5951_621,Sunnyside Mall to Golden Links (Loop Service),False
+5951_622,Sunnyside Mall to East Murwillumbah via Hospital (Loop Service),False
+5951_623,Sunnyside Mall to Greenhills (Loop Service),False
+5951_624,Sunnyside Mall to Barnby Estate (Loop Service),False
+5951_625,Murwillumbah to Uki,False
+5947_626,Murwillumbah to Tyalgum (Loop Service),False
+5958_630,Murwillumbah to Nimbin (Loop Service),False
+5963_635,Lismore to Mullumbimby,False
+5946_637,Byron Bay Interchange to Sunrise Bvd (Loop Service),False
+5946_640,Mullumbimby to Ballina via Byron Bay,False
+6161_640X,"Byron Bay to Lismore via Lennox Head, Ballina and Alstonville",False
+5946_641,Byron Bay to Ballina via Bangalow,False
+6161_641X,"Byron Bay to Lismore via Bangalow, Clunes and Bexhill",False
+5946_645,Ocean Shores to Byron Bay,False
+5965_650,Lismore to Nimbin,False
+5953_652,Lismore to Tuntable Creek via Keerrong and The Channon,False
+5954_653,Lismore to Dunoon and Dorroughby,False
+5972_660,Ballina to Evans Head via Broadwater,False
+5963_661,Ballina to Lismore via Wollongbar and Alstonville,False
+5972_661,Ballina to Lismore via Wollongbar and Alstonville,False
+5972_662,Lismore to Lennox Head via Wollongbar,False
+5946_664,Cumbalum to Ballina via North Creek Rd,False
+5946_665,Ballina Kerr St to Tamar St via East Ballina,False
+5972_668,Ballina to West Ballina (Loop Service),False
+5972_669,Ballina to East Ballina (Loop Service),False
+5963_670,Lismore to Casino,False
+5963_675,Lismore to Kyogle via Casino,False
+5963_676,Lismore to Tenterfield,False
+5963_682,Lismore to Goonellabah via Invercauld Rd,False
+5963_683,Lismore Heights to Lismore City Centre via East Lismore (Loop Service),False
+5972_684,South Lismore to Lismore City Centre (Loop Service),False
+5963_684,South Lismore to Lismore City Centre (Loop Service),False
+5972_685,Lismore to Goonellabah,False
+5963_685,Lismore to Goonellabah,False
+5963_688,Goonellabah to Lismore via Ballina Rd,False
+5963_690,Lismore to Evans Head via Coraki,False
+5963_695,Lismore to Grafton via Evans Head,False
+5972_S531,Pelican Bus - Wollongbar Public to Alstonville Schools via Lismore Rd,False
+3000_10X,Newcastle Interchange to Charlestown (Express Service),False
+3000_11,Newcastle to Charlestown via Jesmond,False
+3000_12,Merewether Beach to Maryland via Wallsend and Newcastle Interchange,False
+3000_13,Newcastle to Glendale via John Hunter Hospital and Cardiff,False
+3000_14,"Newcastle to Swansea Heads via Kotara, Charlestown and Belmont",False
+3000_21,Newcastle to Broadmeadow via Merewether,False
+3000_22,Newcastle West to Charlestown via Merewether,False
+3000_23,Newcastle East to Wallsend via Newcastle Interchange and Lambton,False
+3000_24,Marketown to Wallsend via Mayfield,False
+3000_25,Broadmeadow to Charlestown via Kotara,False
+3000_26,Newcastle West to Wallsend via Newcastle Interchange and Kotara,False
+3000_27,Broadmeadow to Wallsend via Newcastle University,False
+3000_28,Newcastle West to Mount Hutton via Newcastle Interchange and Broadmeadow,False
+3000_29,Glendale to Swansea North via Cardiff and Belmont,False
+3000_41,Charlestown to Belmont via Mount Hutton and Croudace Bay,False
+3000_42,John Hunter Hospital to Wallsend,False
+3000_43,Charlestown to Belmont via Mount Hutton and Floraville,False
+3000_44,"Kotara to Warners Bay via Macquarie Hills, Cardiff and Glendale",False
+3000_46,Wallsend to Glendale,False
+3000_47,Marketown to Jesmond via Warabrook,False
+3000_48,Warners Bay to Belmont via Redhead and Charlestown,False
+3000_55N,Newcastle to Stockton,False
+3000_Stkn,Stkn Stockton Ferry,False
+2459_303,Prince of Wales Hospital to Sans Souci,True
+2459_305,Redfern to Mascot Stamford Hotel,True
+2459_308,Marrickville Metro to Central Eddy Ave via Redfern (Loop Service),True
+2459_320,Central Railway Square to Green Square (Loop Service),True
+2459_348,Prince of Wales Hospital to Wolli Creek,True
+2459_358,Sydenham to Randwick (Loop Service),True
+2459_389,Pyrmont to Bondi Junction,True
+2459_401,Lidcombe Station to Lidcombe Birnie Ave (Loop Service),True
+2459_406,Hurlstone Park to Five Dock,True
+2459_407,Strathfield to Burwood,True
+2459_408,Burwood to Rookwood Cemetery via Flemington,True
+2459_410,Hurstville to Macquarie Park,True
+2459_412,City Martin Place to Campsie via Earlwood and Dulwich Hill,True
+2459_413,Central Pitt St to Campsie,True
+2459_415,Campsie to Chiswick,True
+2459_418,Burwood to Sydenham and Tempe,True
+2459_420,Burwood to Mascot Station,True
+2459_422,Central Pitt St to Kogarah,True
+2459_423,City Martin Place to Kingsgrove,True
+2459_423X,City Martin Place to Kingsgrove,True
+2459_426,City Martin Place to Dulwich Hill,True
+2459_428,City Martin Place to Canterbury,True
+2459_428X,City Martin Place to Canterbury,True
+2459_430,Sydenham to Central Railway Square (Loop Service),True
+2459_431,City Martin Place to Glebe Point,True
+2459_433,Central Pitt St to Balmain Gladstone Park,True
+2459_437,City QVB to Five Dock via City West Link,True
+2459_438N,City Martin Place to Abbotsford,True
+2459_438X,City Martin Place to Abbotsford,True
+2459_440,Rozelle to Bondi Junction,True
+2459_441,Birchgrove to City Art Gallery via QVB (Loop Service),True
+2459_442,Balmain East Wharf to City QVB (Loop Service),True
+2459_445,Balmain to Campsie via MarketPlace Leichhardt,True
+2459_458,Burwood to Ryde,True
+2459_461N,City Hyde Park to Burwood,True
+2459_461X,City Domain to Burwood,True
+2459_464,Ashfield to Mortlake,True
+2459_466,Burwood to Cabarita,True
+2459_469,MarketPlace Leichhardt to Glebe (Loop Service),True
+2459_470,City Martin Place to Lilyfield,True
+2459_473,Campsie to Rockdale,True
+2459_476,Rockdale to Dolls Point (Loop Service),True
+2459_477,Rockdale to Miranda,True
+2459_478,Rockdale to Miranda via Ramsgate,True
+2459_479,Unknown,True
+2459_480,Central Pitt St to Strathfield via Homebush Rd,True
+2459_483,Central Pitt St to Strathfield via South Strathfield,True
+2459_487,Canterbury to Bankstown Central,True
+2459_490,Drummoyne to Hurstville,True
+2459_491,Five Dock to Hurstville,True
+2459_492,Drummoyne to Rockdale,True
+2459_493,Rockdale to Roselands,True
+2459_502,City Town Hall and Drummoyne to Cabarita Wharf,True
+2459_504,City Domain to Chiswick,True
+2459_526,Strathfield to Rhodes Shopping Centre,True
+2459_530,Chatswood to Burwood,True
+6040_901,QEII Square to West Albury via Private Hospital (Loop Service),False
+6040_902,QEII Square to South Albury (Loop Service),False
+6040_903,QEII Square to East Albury via Base Hospital (Loop Service),False
+6012_906,Albury to Lavington via North Albury,False
+6012_907,Albury to Quicks Hill via Glenroy and Lavington,False
+6012_908,Albury to Thurgoona via Lavington and Charles Sturt University,False
+6012_909,Albury to Thurgoona via Base Hospital and Airport,False
+6012_910,Aware Programs Wodonga to Albury via Lavington,False
+5974_915,Albury to Corowa via Howlong,False
+5472_918,McCrabb Rd to Deniliquin CBD (Loop Service),False
+5472_919,Mathoura to Deniliquin,False
+5840_937,Echuca to 24 Lane (Loop Service),False
+5840_938,Echuca to Moama (Loop Service),False
+711_135,Broadmeadow to Taree,False
+711_136,Taree to Broadmeadow,False
+711_141,Grafton to Moree Town,False
+711_142,Moree Town to Grafton,False
+711_143,Grafton to Byron Bay,False
+711_144,Byron Bay to Grafton,False
+711_151,Central to Grafton,True
+711_152,Grafton to Central,True
+711_153,Central to Grafton,True
+711_154,Grafton to Central,True
+711_161,Casino to Tweed Heads,False
+711_162,Tweed Heads to Casino,False
+711_163,Casino to Surfers Paradise,False
+711_164,Surfers Paradise to Casino,False
+711_165,Casino to Tweed Heads,False
+711_166,Tweed Heads to Casino,False
+711_167,Casino to Tweed Heads,False
+711_168,Tweed Heads to Casino,False
+711_171,Casino to Robina,False
+711_172,Surfers Paradise to Casino,False
+711_173,Casino to Surfers Paradise,False
+711_174,Robina to Casino,False
+711_175,Casino to Roma Street (Brisbane),False
+711_176,Roma Street (Brisbane) to Casino,False
+711_182,Port Macquarie to Wauchope,False
+711_183,Wauchope to Port Macquarie,False
+711_185,Macksville to Nambucca Heads,False
+711_186,Nambucca Heads to Macksville,False
+711_223,223,True
+711_224,224,True
+711_243,243,False
+711_244,244,False
+711_311,Tamworth to Inverell,False
+711_312,Inverell to Tamworth,False
+711_31,31,True
+711_327,Armidale to Tenterfield,False
+711_328,Tenterfield to Armidale,False
+711_329,Narrabri to Burren Junction,False
+711_32,32,True
+711_330,Burren Junction to Narrabri,False
+711_331,Narrabri to Wee Waa,False
+711_332,Wee Waa to Narrabri,False
+711_333,Narrabri to Wee Waa,False
+711_334,Wee Waa to Narrabri,False
+711_335,Narrabri to Burren Junction,False
+711_336,Burren Junction to Narrabri,False
+711_337,Armidale to Inverell,False
+711_338,Inverell to Armidale,False
+711_33,33,True
+711_34,34,True
+711_361,Dubbo to Tamworth,False
+711_362,Tamworth to Dubbo,False
+711_371,Port Macquarie to Tamworth,False
+711_372,Tamworth to Port Macquarie,False
+711_373,Port Macquarie to Tamworth,False
+711_374,Tamworth to Port Macquarie,False
+711_427,427,True
+711_428,428,True
+711_445,445,True
+711_446,446,True
+711_511,Dubbo to Bourke Coach Stop,False
+711_512,Bourke Coach Stop to Dubbo,False
+711_513,Dubbo to Lightning Ridge,False
+711_514,Lightning Ridge to Dubbo,False
+711_517,Coolabah to Brewarrina,False
+711_518,Brewarrina to Coolabah,False
+711_519,Orange to Parkes,False
+711_520,Parkes to Orange,False
+711_521,Orange to Parkes,False
+711_522,Parkes to Orange,False
+711_523,Dubbo to Bourke Coach Stop,False
+711_524,Bourke Coach Stop to Dubbo,False
+711_525,Coolabah to Brewarrina,False
+711_526,Brewarrina to Coolabah,False
+711_531,Bathurst to Grenfell,False
+711_532,Grenfell to Bathurst,False
+711_539,Lithgow to Coonabarabran,False
+711_540,Coonabarabran to Lithgow,False
+711_541,Lithgow to Gulgong,False
+711_543,Lithgow to Gulgong,False
+711_544,Gulgong to Lithgow,False
+711_545,Lithgow to Coonabarabran,False
+711_546,Coonabarabran to Lithgow,False
+711_547,Lithgow to Coonabarabran,False
+711_549,Lithgow to Coonabarabran,False
+711_550,Grenfell to Lithgow,False
+711_551,Lithgow to Grenfell,False
+711_561,Lithgow to Orange,False
+711_562,Orange to Lithgow,False
+711_563,Lithgow to Orange,False
+711_564,Orange to Lithgow,False
+711_565,Lithgow to Orange,False
+711_566,Orange to Lithgow,False
+711_568,Orange to Lithgow,False
+711_569,Lithgow to Nyngan,False
+711_570,Nyngan to Lithgow,False
+711_571,Lithgow to Parkes,False
+711_572,Parkes to Lithgow,False
+711_573,Lithgow to Baradine,False
+711_574,Baradine to Lithgow,False
+711_575,Lithgow to Gulgong,False
+711_576,Gulgong to Lithgow,False
+711_580,Bathurst to Lithgow,False
+711_582,Lightning Ridge to Dubbo,False
+711_585,Broken Hill Town to Adelaide Central Bus Station,False
+711_586,Royal Adelaide Hospital to Broken Hill Town,False
+711_587,Broken Hill Town to Mildura,False
+711_588,Mildura to Broken Hill Town,False
+711_589,Dubbo to Broken Hill Town,False
+711_590,Broken Hill Town to Dubbo,False
+711_591,Lithgow to Dubbo,False
+711_592,Dubbo to Lithgow,False
+711_595,Parkes to Condobolin Town,False
+711_596,Condobolin Town to Parkes,False
+711_597,Bathurst to Orange,False
+711_598,Orange to Bathurst,False
+711_599,Bathurst to Orange,False
+711_600,Orange to Bathurst,False
+711_621,621,True
+711_622,622,True
+711_623,623,True
+711_624,624,True
+711_631,631,True
+711_632,632,True
+711_633,633,True
+711_634,634,True
+711_635,635,True
+711_636,636,True
+711_641,641,False
+711_643,643,False
+711_644,644,False
+711_701,Queanbeyan Bus Interchange to Wagga Wagga,False
+711_702,Wagga Wagga to Queanbeyan Bus Interchange,False
+711_703,Queanbeyan Bus Interchange to Wagga Wagga,False
+711_704,Wagga Wagga to Queanbeyan Bus Interchange,False
+711_719,Wagga Wagga to Condobolin Town,False
+711_720,Condobolin Town to Wagga Wagga,False
+711_721,Wagga Wagga to Condobolin Town,False
+711_722,Condobolin Town to Wagga Wagga,False
+711_723,Cootamundra to Tumbarumba,False
+711_724,Tumbarumba to Cootamundra,False
+711_725,Cootamundra to Mildura,False
+711_726,Mildura to Cootamundra,False
+711_727,Wagga Wagga to Tumbarumba,False
+711_728,Tumbarumba to Wagga Wagga,False
+711_731,Wagga Wagga to Griffith,False
+711_732,Griffith to Wagga Wagga,False
+711_733,Wagga Wagga to Echuca,False
+711_734,Echuca to Wagga Wagga,False
+711_735,Wagga Wagga to Griffith,False
+711_736,Griffith to Wagga Wagga,False
+711_741,Albury to Echuca,False
+711_742,Echuca to Albury,False
+711_749,Bundanoon to Wollongong,False
+711_751,Moss Vale to Wollongong,False
+711_752,Wollongong to Moss Vale,False
+711_753,Moss Vale to Wollongong,False
+711_754,Wollongong to Moss Vale,False
+711_755,Moss Vale to Wollongong,False
+711_756,Wollongong to Bundanoon,False
+711_771,Canberra Hospital to Eden,False
+711_772,Eden to Canberra Civic,False
+711_775,Canberra Civic to Bombala,False
+711_776,Bombala to Canberra Civic,False
+711_777,Campbelltown to Goulburn,True
+711_778,Goulburn to Campbelltown,True
+711_779,Campbelltown to Goulburn,True
+711_780,Goulburn to Campbelltown,True
+711_781,Queanbeyan to Cootamundra,False
+711_782,Cootamundra to Queanbeyan,False
+711_783,Goulburn to Canberra,False
+711_784,Canberra to Goulburn,False
+711_791,Cootamundra to Dubbo,False
+711_792,Dubbo to Cootamundra,False
+711_793,Cootamundra to Bathurst,False
+711_794,Bathurst to Cootamundra,False
+711_813,Walcha Road to Walcha,False
+711_814,Walcha to Walcha Road,False
+711_815,Lismore to Alstonville,False
+711_816,Lennox Head to Lismore,False
+X000_BMT,Blue Mountains Line,True
+X000_HUN,Hunter Line,False
+X000_SCO,South Coast Line,False
+X000_SHL,Southern Highlands Line,True
+6015_830,Canberra CBD to Googong via Karabar and Queanbeyan,False
+6015_831,Woden to Karabar via Fyshwick and Queanbeyan,False
+6015_832,Queanbeyan to East Queanbeyan (Loop Service),False
+6015_834,"Queanbeyan to Brindabela Business Park, Majura Park and Canberra Airport",False
+6015_835,Tralee to Queanbeyan via South Jerrabomberra and Queanbeyan West (Loop Service),False
+6015_836,Jerrambomberra to Queanbeyan (Loop Service),False
+6015_838,Queanbeyan to Queanbeyan West via Oaks Estate and Queanbeyan Station (Loop Service),False
+6015_840X,Canberra CBD to Googong via Russell and Jerrabomberra (Express Service),False
+6015_842,Canberra City Centre to Yass via Canberra Hospital and Woden Interchange,False
+6015_843,Canberra City Centre to Yass Rossi St via Calvary Hospital and Belconnen,False
+6015_844,Queanbeyan to Bungendore,False
+6015_844X,Canberra CBD to Bungendore via Russell and Queanbeyan (Express Service),False
+5973_857,Batemans Bay to Long Beach via Surfside and Maloneys Beach (Loop Service),False
+5973_860,Moruya to Batemans Bay via Broulee and Surf Beach,False
+5973_861,Batemans Bay to Sunshine Bay via Catalina and Batehaven (Loop Service),False
+5325_866,Dalmeny to Narooma via Kianga,False
+5493_870,Cooma (Loop Service),False
+LR_L1,L1 Dulwich Hill Line,True
+SLR_L2,L2 Randwick Line,True
+SLR_L3,L3 Kingsford Line,True
+PLR_L4,L4 Westmead and Carlingford Line,True
+SLR_LX,LX Special Event Services,True
+NT_NLR,NLR,False
+6001_346,Kempsey to West Kempsey via North St and Kemp St (Loop Service),False
+6001_347,Kempsey to West Kempsey via Tozer St (Loop Service),False
+6001_348,Kempsey to South West Rocks,False
+6001_349,Kempsey to West Kempsey via North St and Sea St (Loop Service),False
+6001_467,Kempsey to Stuarts Point,False
+6001_468,Kempsey to Macksville,False
+6001_474,Kempsey to East Kempsey (Loop Service),False
+6001_475,Kempsey to South Kempsey (Loop Service),False
+30908_150,Wodonga to Albury via Biralle (Loop Service),False
+30908_160,Wodonga to Albury via Birallee and Oakmount (Loop Service),False
+5503_598,Tarana to Oberon,False
+B025_700-1,Bomaderry to Eden,False
+B079_855,Wollongong to Canberra,False
+IC03_899,Wyangala to Canberra,False
+B020_915,Corowa to Albury via Howlong,False
+B003_938,Echuca to Moama (Loop Service),False
+5979_955,"Dareton Loop via Mildura, Merbein and Curlwaa",False
+IC02_998,Tumut to Wagga Wagga,False
+30908_AW,Albury to Wodonga,False
+B008_DTS,Purtills Depot to Deniliquin CBD via Pioneer Caravan Park (Loop Service),False
+B079_MCS,Canberra to South Coast,False
+SF_F10,F10 Blackwattle Bay,True
+SF_F1,F1 Manly,True
+SF_F2,F2 Taronga Zoo,True
+SF_F3,F3 Parramatta River,True
+SF_F4,F4 Pyrmont Bay,True
+SF_F5,F5 Neutral Bay,True
+SF_F6,F6 Mosman Bay,True
+SF_F7,F7 Double Bay,True
+SF_F8,F8 Cockatoo Island,True
+SF_F9,F9 Watsons Bay,True
