@@ -9,7 +9,6 @@ import time
 from mysql.connector.errors import OperationalError
 from zoneinfo import ZoneInfo
 from datetime import datetime
-import csv
 
 load_dotenv()
 

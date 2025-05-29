@@ -24,9 +24,10 @@ cursor.execute("""CREATE TABLE delays (
 cursor.execute("""CREATE TABLE route_daily_delays (
     route_id VARCHAR(10) REFERENCES routes(id),
     date DATE,
-    total_delay INT UNSIGNED,
-    total_early INT UNSIGNED,
-    total_count INT UNSIGNED,
+    total_delay INT UNSIGNED NOT NULL DEFAULT 0,
+    total_early INT UNSIGNED NOT NULL DEFAULT 0,
+    total_count INT UNSIGNED NOT NULL DEFAULT 0,
+    hits INT UNSIGNED NOT NULL DEFAULT 0,
     PRIMARY KEY (route_id, date)
 )""")
 
