@@ -36,7 +36,7 @@ cursor.execute("""CREATE TABLE route_daily_delays (
     before_5_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     before_10_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     total_cancelled SMALLINT UNSIGNED NOT NULL DEFAULT 0,
-    total_trips SMALLINT UNSIGNED NOT NULL DEFAULT 0
+    total_trips SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     hits INT UNSIGNED NOT NULL DEFAULT 0,
     PRIMARY KEY (route_id, date)
 )""")
