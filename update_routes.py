@@ -1,7 +1,7 @@
 import csv
 import functions
 
-conn, cursor = functions.get_connection()
+conn, cursor = functions.get_connection('buses')
 with open('routes.csv', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:

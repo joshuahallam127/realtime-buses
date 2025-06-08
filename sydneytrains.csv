@@ -1,0 +1,74 @@
+﻿objectid,shape_id,route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_color,route_text_color,exact_times,route_type_text,st_length(shape)
+1,APS_1a,APS_1a,SydneyTrains,T8,City Circle to Macarthur via Airport,T8 Airport & South Line,2,00954C,FFFFFF,,Rail,67399.1093583179
+54,SCO_1a,SCO_1a,NSWTrains,SCO,Bondi Junction and Central to Bomaderry,South Coast Line,2,005AA3,FFFFFF,,Rail,194277.573535351
+55,SCO_1b,SCO_1b,NSWTrains,SCO,Bondi Junction and Central to Port Kembla,South Coast Line,2,005AA3,FFFFFF,,Rail,118023.250080708
+56,SCO_2a,SCO_2a,NSWTrains,SCO,Bomaderry to Central and Bondi Junction,South Coast Line,2,005AA3,FFFFFF,,Rail,194277.573535351
+57,SCO_2b,SCO_2b,NSWTrains,SCO,Port Kembla to Central and Bondi Junction,South Coast Line,2,005AA3,FFFFFF,,Rail,118023.250080708
+58,SHL_1d,SHL_1d,NSWTrains,SHL,Central to Campbelltown and Goulburn via East Hills and Sydenham,Southern Highlands Line,2,00954C,FFFFFF,,Rail,262139.626819741
+59,SHL_1e,SHL_1e,NSWTrains,SHL,Campbelltown to Goulburn,Southern Highlands Line,2,00954C,FFFFFF,,Rail,206951.619680883
+60,SHL_2d,SHL_2d,NSWTrains,SHL,Goulburn to Campbelltown and Central via East Hills and Sydenham,Southern Highlands Line,2,00954C,FFFFFF,,Rail,262139.626819741
+61,SHL_2e,SHL_2e,NSWTrains,SHL,Goulburn to Campbelltown,Southern Highlands Line,2,00954C,FFFFFF,,Rail,206951.619680883
+2,APS_1c,APS_1c,SydneyTrains,T8,City Circle to Macarthur via Sydenham,T8 Airport & South Line,2,00954C,FFFFFF,,Rail,64669.0176736635
+3,APS_1e,APS_1e,SydneyTrains,T8,City Circle to Leppington via Sydenham,T8 Airport & South Line,2,00954C,FFFFFF,,Rail,57993.3354537196
+4,APS_1f,APS_1f,SydneyTrains,T8,City Circle to Leppington via Sydenham,T8 Airport & South Line,2,00954C,FFFFFF,,Rail,57991.813537723
+7,APS_2d,APS_2d,SydneyTrains,T8,Macarthur to City Circle via Sydenham,T8 Airport & South Line,2,00954C,FFFFFF,,Rail,64667.495757667
+5,APS_2a,APS_2a,SydneyTrains,T8,Macarthur to City Circle via Airport,T8 Airport & South Line,2,00954C,FFFFFF,,Rail,67399.1093583179
+30,IWL_1a,IWL_1a,SydneyTrains,T2,City Circle to Parramatta,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,35038.7602227301
+6,APS_2b,APS_2b,SydneyTrains,T8,Leppington to City Circle via Airport,T8 Airport & South Line,2,00954C,FFFFFF,,Rail,60723.427138374
+31,IWL_1b,IWL_1b,SydneyTrains,T2,City Circle to Parramatta,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,35040.7645745302
+8,APS_2f,APS_2f,SydneyTrains,T8,Leppington to City Circle via Sydenham,T8 Airport & South Line,2,00954C,FFFFFF,,Rail,57993.3354537197
+9,BMT_1,BMT_1,NSWTrains,BMT,Central to Lithgow and Bathurst,Blue Mountains Line,2,F99D1C,FFFFFF,,Rail,288448.267395435
+10,BMT_2,BMT_2,NSWTrains,BMT,Bathurst and Lithgow to Central,Blue Mountains Line,2,F99D1C,FFFFFF,,Rail,288448.267395435
+11,CCN_1a,CCN_1a,NSWTrains,CCN,Central to Newcastle Interchange via Strathfield,Central Coast & Newcastle Line,2,D11F2F,FFFFFF,,Rail,198850.146975325
+12,CCN_1b,CCN_1b,NSWTrains,CCN,Central to Newcastle Interchange via Gordon,Central Coast & Newcastle Line,2,D11F2F,FFFFFF,,Rail,188447.88513921
+13,CCN_1c,CCN_1c,NSWTrains,CCN,Central to Newcastle Interchange via Strathfield,Central Coast & Newcastle Line,2,D11F2F,FFFFFF,,Rail,198850.146975325
+14,CCN_2a,CCN_2a,NSWTrains,CCN,Newcastle Interchange to Central via Strathfield,Central Coast & Newcastle Line,2,D11F2F,FFFFFF,,Rail,198850.146975325
+15,CCN_2b,CCN_2b,NSWTrains,CCN,Newcastle Interchange to Central via Gordon,Central Coast & Newcastle Line,2,D11F2F,FFFFFF,,Rail,188447.88513921
+69,T6_2a,T6_2a,SydneyTrains,T6,Bankstown to Lidcombe,T6 Lidcombe & Bankstown Line,2,7C3E21,FFFFFF,,Rail,9778.50575851555
+16,CMB_1a,CMB_1a,SydneyTrains,T5,Richmond to Leppington,T5 Cumberland Line,2,C4258F,FFFFFF,,Rail,81898.5049022298
+17,CMB_1b,CMB_1b,SydneyTrains,T5,Emu Plains to Leppington,T5 Cumberland Line,2,C4258F,FFFFFF,,Rail,78009.5111883831
+18,CMB_2a,CMB_2a,SydneyTrains,T5,Leppington to Richmond,T5 Cumberland Line,2,C4258F,FFFFFF,,Rail,81898.5049022298
+19,CMB_2b,CMB_2b,SydneyTrains,T5,Leppington to Emu Plains,T5 Cumberland Line,2,C4258F,FFFFFF,,Rail,78009.5111883832
+20,CMB_2c,CMB_2c,SydneyTrains,T5,Campbelltown to Richmond,T5 Cumberland Line,2,C4258F,FFFFFF,,Rail,88573.9224688082
+21,ESI_1a,ESI_1a,SydneyTrains,T4,Bondi Junction to Waterfall via City,T4 Eastern Suburbs & Illawarra Line,2,005AA3,FFFFFF,,Rail,55094.2429863624
+22,ESI_1c,ESI_1c,SydneyTrains,T4,City Circle to Waterfall,T4 Eastern Suburbs & Illawarra Line,2,005AA3,FFFFFF,,Rail,53855.2872064906
+40,IWL_2b,IWL_2b,SydneyTrains,T2,Parramatta to City Circle,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,35040.7645745303
+23,ESI_1d,ESI_1d,SydneyTrains,T4,Bondi Junction to Cronulla via City,T4 Eastern Suburbs & Illawarra Line,2,005AA3,FFFFFF,,Rail,50304.0407242823
+24,ESI_2a,ESI_2a,SydneyTrains,T4,Waterfall to Bondi Junction via City,T4 Eastern Suburbs & Illawarra Line,2,005AA3,FFFFFF,,Rail,55094.2429863624
+47,NTH_1a,NTH_1a,SydneyTrains,T9,North Shore to Hornsby and Berowra via City and Strathfield,T9 Northern Line,2,D11F2F,FFFFFF,,Rail,97344.1936136075
+25,ESI_2d,ESI_2d,SydneyTrains,T4,Cronulla to Bondi Junction via City,T4 Eastern Suburbs & Illawarra Line,2,005AA3,FFFFFF,,Rail,50304.0407242823
+48,NTH_1b,NTH_1b,SydneyTrains,T9,North Shore to Hornsby and Berowra via City and Strathfield,T9 Northern Line,2,D11F2F,FFFFFF,,Rail,97344.1936136075
+49,NTH_2a,NTH_2a,SydneyTrains,T9,Berowra and Hornsby to North Shore via Strathfield and City,T9 Northern Line,2,D11F2F,FFFFFF,,Rail,97344.1936136074
+50,OLY_1a,OLY_1a,SydneyTrains,T7,Central to Olympic Park,T7 Olympic Park Line,2,6F818E,FFFFFF,,Rail,25690.5496817296
+26,HUN_1a,HUN_1a,NSWTrains,HUN,Newcastle Interchange to Dungog,Hunter Line,2,833134,FFFFFF,,Rail,101333.390826888
+27,HUN_1b,HUN_1b,NSWTrains,HUN,Newcastle Interchange to Scone,Hunter Line,2,833134,FFFFFF,,Rail,183473.32287636
+28,HUN_2a,HUN_2a,NSWTrains,HUN,Dungog to Newcastle Interchange,Hunter Line,2,833134,FFFFFF,,Rail,101333.390826888
+29,HUN_2b,HUN_2b,NSWTrains,HUN,Scone to Newcastle Interchange,Hunter Line,2,833134,FFFFFF,,Rail,183473.32287636
+32,IWL_1c,IWL_1c,SydneyTrains,T2,City Circle to Leppington via Granville,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,68700.4473897465
+51,OLY_1b,OLY_1b,SydneyTrains,T7,Olympic Park to Blacktown,T7 Olympic Park Line,2,6F818E,FFFFFF,,Rail,27555.1821520983
+33,IWL_1d,IWL_1d,SydneyTrains,T2,City Circle to Leppington via Granville,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,68702.4517415466
+34,IWL_1e,IWL_1e,SydneyTrains,T2,City Circle to Leppington via Regents Park,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,64370.7499837355
+35,IWL_1f,IWL_1f,SydneyTrains,T2,City Circle to Leppington via Regents Park,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,64372.7543355356
+36,IWL_1g,IWL_1g,SydneyTrains,T2,Bankstown to Leppington,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,44110.8077168798
+37,IWL_1i,IWL_1i,SydneyTrains,T2,City Circle to Campbelltown via Granville,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,75375.8649563249
+52,OLY_2a,OLY_2a,SydneyTrains,T7,Olympic Park to Central,T7 Olympic Park Line,2,6F818E,FFFFFF,,Rail,25690.5784130111
+38,IWL_1j,IWL_1j,SydneyTrains,T2,City Circle to Campbelltown via Granville,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,75377.869308125
+39,IWL_2a,IWL_2a,SydneyTrains,T2,Parramatta to City Circle,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,35038.7602227301
+41,IWL_2d,IWL_2d,SydneyTrains,T2,Leppington to City Circle via Granville,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,68702.4517415466
+42,IWL_2f,IWL_2f,SydneyTrains,T2,Leppington to City Circle via Regents Park,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,64370.7499837355
+43,IWL_2g,IWL_2g,SydneyTrains,T2,Leppington to Bankstown,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,44110.8077168798
+44,IWL_2j,IWL_2j,SydneyTrains,T2,Campbelltown to City Circle via Granville,T2 Leppington & Inner West Line,2,0098CD,FFFFFF,,Rail,75377.8693081249
+53,OLY_2b,OLY_2b,SydneyTrains,T7,Blacktown to Olympic Park,T7 Olympic Park Line,2,6F818E,FFFFFF,,Rail,54942.6428994088
+45,NSN_1a,NSN_1a,SydneyTrains,T1,City to Hornsby and Berowra via Gordon,T1 North Shore Line,2,F99D1C,FFFFFF,,Rail,43413.377493538
+46,NSN_2a,NSN_2a,SydneyTrains,T1,Berowra and Hornsby to City via Gordon,T1 North Shore Line,2,F99D1C,FFFFFF,,Rail,43413.377493538
+62,T3_1a,T3_1a,SydneyTrains,T3,City Circle to Liverpool via Regents Park,T3 Liverpool & Inner West Line,2,F37021,FFFFFF,,Rail,45833.1849435874
+63,T3_1c,T3_1c,SydneyTrains,T3,Lidcombe to Liverpool via Regents Park,T3 Liverpool & Inner West Line,2,F37021,FFFFFF,,Rail,18679.2438975965
+64,T3_1d,T3_1d,SydneyTrains,T3,Bankstown to Liverpool,T3 Liverpool & Inner West Line,2,F37021,FFFFFF,,Rail,25573.2426767317
+65,T3_2a,T3_2a,SydneyTrains,T3,Liverpool to City Circle via Regents Park,T3 Liverpool & Inner West Line,2,F37021,FFFFFF,,Rail,45833.1849435875
+66,T3_2c,T3_2c,SydneyTrains,T3,Liverpool to Lidcombe via Regents Park,T3 Liverpool & Inner West Line,2,F37021,FFFFFF,,Rail,18679.2438975965
+67,T3_2d,T3_2d,SydneyTrains,T3,Liverpool to Bankstown,T3 Liverpool & Inner West Line,2,F37021,FFFFFF,,Rail,25573.2426767317
+68,T6_1a,T6_1a,SydneyTrains,T6,Lidcombe to Bankstown,T6 Lidcombe & Bankstown Line,2,7C3E21,FFFFFF,,Rail,9778.50575851556
+70,WST_1a,WST_1a,SydneyTrains,T1,City to Emu Plains,T1 Western Line,2,F99D1C,FFFFFF,,Rail,69005.2129353594
+71,WST_1b,WST_1b,SydneyTrains,T1,City to Richmond,T1 Western Line,2,F99D1C,FFFFFF,,Rail,72894.206649206
+72,WST_2c,WST_2c,SydneyTrains,T1,Emu Plains to Berowra via City,T1 Western Line,2,F99D1C,FFFFFF,,Rail,112773.089475532
+73,WST_2d,WST_2d,SydneyTrains,T1,Richmond to Berowra via City,T1 Western Line,2,F99D1C,FFFFFF,,Rail,116662.083189379

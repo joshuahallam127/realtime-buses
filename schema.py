@@ -1,13 +1,11 @@
 import functions
 
-conn, cursor = functions.get_connection()
+conn, cursor = functions.get_connection('buses')
 
-# drop existing tables if they exist
 cursor.execute("""DROP TABLE IF EXISTS route_daily_delays""")
 cursor.execute("""DROP TABLE IF EXISTS delays""")
 cursor.execute("""DROP TABLE IF EXISTS routes""")
 
-# create new tables
 cursor.execute("""CREATE TABLE routes (
     id VARCHAR(10) PRIMARY KEY,
     long_name VARCHAR(255),
@@ -31,9 +29,7 @@ cursor.execute("""CREATE TABLE route_daily_delays (
     PRIMARY KEY (route_id, date)
 )""")
 
-# commit the changes
 conn.commit()
 
-# Close the cursor and connection
 cursor.close()
 conn.close()
