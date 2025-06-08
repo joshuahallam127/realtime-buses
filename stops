@@ -1,5 +1,5 @@
 {
-  "T1 North Shore & Western Line": [
+  "T1": [
     "Emu Plains",
     "Penrith",
     "Kingswood",
@@ -35,7 +35,7 @@
     "Town Hall",
     "Central"
   ],
-  "T2 Inner West & Leppington Line": [
+  "T2": [
     "Leppington",
     "Edmondson Park",
     "Glenfield",
@@ -67,7 +67,7 @@
     "East Richmond",
     "Richmond"
   ],
-  "T3 Liverpool & Inner West Line": [
+  "T3": [
     "Liverpool",
     "Warwick Farm",
     "Cabramatta",
@@ -99,7 +99,7 @@
     "St James",
     "Museum"
   ],
-  "T4 Eastern Suburbs & Illawarra Line": [
+  "T4": [
     "Bondi Junction",
     "Edgecliff",
     "Kings Cross",
@@ -134,7 +134,7 @@
     "Heathcote",
     "Waterfall"
   ],
-  "T5 Cumberland Line": [
+  "T5": [
     "Richmond",
     "East Richmond",
     "Clarendon",
@@ -166,7 +166,7 @@
     "Edmondson Park",
     "Leppington"
   ],
-  "T6 Lidcombe & Bankstown Line": [
+  "T6": [
     "Lidcombe",
     "Berala",
     "Regents Park",
@@ -174,11 +174,11 @@
     "Yagoona",
     "Bankstown"
   ],
-  "T7 Olympic Park Line": [
+  "T7": [
     "Olympic Park",
     "Lidcombe"
   ],
-  "T8 Airport & South Line": [
+  "T8": [
     "Town Hall",
     "Wynyard",
     "Circular Quay",
@@ -214,7 +214,7 @@
     "Campbelltown",
     "Macarthur"
   ],
-  "T9 Northern Line": [
+  "T9": [
     "Gordon",
     "Killara",
     "Lindfield",
@@ -247,4 +247,4 @@
     "Normanhurst",
     "Hornsby"
   ]
-} 
+}
