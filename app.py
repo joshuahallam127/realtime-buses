@@ -127,7 +127,7 @@ def get_average_train_stop_delays():
             query += " AND routes.is_in_sydney = TRUE"
 
         query += """    GROUP BY stops.name, sdd.route_short_name, stops.id
-            ORDER BY sdd.route_short_name, stop_id DESC
+            ORDER BY avg_delay DESC
         """
 
         cursor.execute(query, (start_date, end_date))
