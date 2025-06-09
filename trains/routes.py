@@ -1,5 +1,5 @@
 import csv
-import functions
+from functions import get_connection
 
 data = set()
 with open('sydneytrains.csv', newline='', encoding='utf-8') as csvfile:
@@ -14,7 +14,7 @@ with open('sydneytrains.csv', newline='', encoding='utf-8') as csvfile:
             
 data.add(('T1', 'T1 North Shore & Western Line', True))  # Add T1 route manually
 
-conn, cursor = functions.get_connection('trains')
+conn, cursor = get_connection()
 cursor.executemany("""
     INSERT INTO routes (short_name, description, is_in_sydney)
     VALUES (%s, %s, %s)

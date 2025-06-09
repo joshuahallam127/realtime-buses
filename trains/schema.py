@@ -1,6 +1,6 @@
-import functions
+from functions import get_connection
 
-conn, cursor = functions.get_connection('trains')
+conn, cursor = get_connection()
 
 cursor.execute("DROP TABLE IF EXISTS route_daily_delays")
 cursor.execute("DROP TABLE IF EXISTS stop_daily_delays")
@@ -31,9 +31,22 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS route_daily_delays (
     total_delay INT UNSIGNED NOT NULL DEFAULT 0,
     total_early INT UNSIGNED NOT NULL DEFAULT 0,
     total_count INT UNSIGNED NOT NULL DEFAULT 0,
+    above_1_minute SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    above_2_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    above_5_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    above_10_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    above_15_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    above_30_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    before_1_minute SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    before_2_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    before_5_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    before_10_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    total_cancelled SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    total_trips SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     hits INT UNSIGNED NOT NULL DEFAULT 0,
     PRIMARY KEY (route_short_name, date)      
 )""")
+# sometimes trains don't stop at a station, so we might need to track cancellations per station? or is it cancelled for the whole trip? who knows
 cursor.execute("""CREATE TABLE IF NOT EXISTS stop_daily_delays (
     route_short_name VARCHAR(3) REFERENCES routes(short_name),
     stop_id VARCHAR(10) REFERENCES stops(id),
@@ -41,6 +54,16 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS stop_daily_delays (
     total_delay INT UNSIGNED NOT NULL DEFAULT 0,
     total_early INT UNSIGNED NOT NULL DEFAULT 0,
     total_count INT UNSIGNED NOT NULL DEFAULT 0,
+    above_1_minute SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    above_2_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    above_5_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    above_10_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    above_15_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    above_30_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    before_1_minute SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    before_2_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    before_5_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    before_10_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     hits INT UNSIGNED NOT NULL DEFAULT 0,
     PRIMARY KEY (route_short_name, stop_id, date)
 )""")

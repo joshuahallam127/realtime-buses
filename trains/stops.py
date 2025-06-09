@@ -1,5 +1,5 @@
 import csv
-import functions
+from functions import get_connection
 
 stop_ids = set()
 parent_stop_ids = set()
@@ -10,7 +10,7 @@ with open('stops.txt', newline='', encoding='utf-8') as csvfile:
             stop_ids.add(row['\ufeffstop_id'])
             parent_stop_ids.add(row['parent_station'])
 
-conn, cursor = functions.get_connection('trains')
+conn, cursor = get_connection()
 with open('stops.txt', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:

@@ -1,3 +1,5 @@
 .env
 *.txt
 *.json
+buses/__pycache__
+trains/__pycache__

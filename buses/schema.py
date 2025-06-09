@@ -1,6 +1,6 @@
-import functions
+from functions import get_connection
 
-conn, cursor = functions.get_connection('buses')
+conn, cursor = get_connection()
 
 cursor.execute("""DROP TABLE IF EXISTS route_daily_delays""")
 cursor.execute("""DROP TABLE IF EXISTS delays""")

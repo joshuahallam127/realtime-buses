@@ -108,7 +108,7 @@ id,long_name,is_in_sydney
 2502_875,Minto to St Andrews (Loop Service),True
 2502_876,Macquarie Fields Station to Eucalyptus Dr (Loop Service),True
 2502_877,Campbelltown to Kearns via Eagle Vale and Eschol Park (Loop Service),True
-2502_878,Campbelltown to Kearns via Eschol Park,True
+2502_878,Kearns to Campbelltown via Eschol Park,True
 2502_879,Campelltown to Leumeah Station via Blair Athol,True
 2502_880,Campbelltown to Minto via Eagle Vale and Kearns,True
 2502_881,Campbelltown to Leumeah North (Loop Service),True
@@ -1338,6 +1338,7 @@ X000_SHL,Southern Highlands Line,True
 5973_861,Batemans Bay to Sunshine Bay via Catalina and Batehaven (Loop Service),False
 5325_866,Dalmeny to Narooma via Kianga,False
 5493_870,Cooma (Loop Service),False
+5493_EJS,East Jindabyne Shuttle,False
 LR_L1,L1 Dulwich Hill Line,True
 SLR_L2,L2 Randwick Line,True
 SLR_L3,L3 Kingsford Line,True

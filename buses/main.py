@@ -4,7 +4,7 @@ import requests
 import os
 from dotenv import load_dotenv
 import json
-import functions
+from functions import get_connection
 import time
 from mysql.connector.errors import OperationalError
 from zoneinfo import ZoneInfo
@@ -20,7 +20,7 @@ headers = {
 }
 
 # get valid routes from the database
-conn, cursor = functions.get_connection('buses')
+conn, cursor = get_connection()
 cursor.execute("SELECT id FROM routes")
 valid_routes = set(row[0] for row in cursor.fetchall())
 cursor.close()
@@ -119,8 +119,8 @@ def cache_data(cursor, delay_data):
 
     # aggregate the data to cache based on route and start_date
     aggregate_cached = {}
-    before_ranges = [1, 2, 5, 10]
     above_ranges = [1, 2, 5, 10, 15, 30]
+    before_ranges = [1, 2, 5, 10]
     for trip_id, route_id, start_date, arrival_delay, departure_early in rows_to_cache:
         if (route_id, start_date) not in aggregate_cached:
             aggregate_cached[(route_id, start_date)] = {
@@ -137,12 +137,12 @@ def cache_data(cursor, delay_data):
         aggregate_cached[(route_id, start_date)]['total_count'] += 1
         if trip_id in missing_trip_ids:
             aggregate_cached[(route_id, start_date)]['total_trips'] += 1
-        for i in range(len(before_ranges)):
-            if departure_early > before_ranges[i] * 60:
-                aggregate_cached[(route_id, start_date)][f'before_{before_ranges[i]}_minutes'] += 1
         for i in range(len(above_ranges)):
             if arrival_delay > above_ranges[i] * 60:
                 aggregate_cached[(route_id, start_date)][f'above_{above_ranges[i]}_minutes'] += 1
+        for i in range(len(before_ranges)):
+            if departure_early > before_ranges[i] * 60:
+                aggregate_cached[(route_id, start_date)][f'before_{before_ranges[i]}_minutes'] += 1
     
     # insert the aggregated data
     data_to_insert = [
@@ -230,7 +230,7 @@ while True:
 
     try:
         if conn is None or not conn.is_connected():
-            conn, cursor = functions.get_connection('buses')
+            conn, cursor = get_connection()
 
         feed = get_feed()
         delay_data = parse_feed(feed)

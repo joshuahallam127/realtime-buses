@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, request
 import mysql.connector
 from dotenv import load_dotenv
-import functions
 from flask_cors import CORS
 import os
 from zoneinfo import ZoneInfo
@@ -14,11 +13,23 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app,origins=["https://howshitismybus.com.au", "https://www.howshitismybus.com.au"])
 
+def get_connection(database):
+    connection = mysql.connector.connect(
+        host=os.getenv("RDS_HOST", '127.0.0.1'),
+        port=int(os.getenv("RDS_PORT", 3308)),
+        user=os.getenv("RDS_USER", 'root'),     
+        password=os.getenv("RDS_PASSWORD", 'password'),
+        database=database
+    )
+    cursor = connection.cursor()
+    cursor.execute("SET time_zone = 'Australia/Sydney'")
+    return connection, cursor
+
 with open('stops') as f:
     stops = json.load(f)
 
 stop_name_to_id = {}
-conn, cursor = functions.get_connection('trains')
+conn, cursor = get_connection('trains')
 cursor.execute("SELECT id, name FROM stops")
 rows = cursor.fetchall()
 for row in rows:
@@ -29,7 +40,7 @@ conn.close()
 @app.route('/api/bus-delays', methods=['GET'])
 def get_average_delays():
     try:
-        conn, cursor = functions.get_connection('buses')
+        conn, cursor = get_connection('buses')
 
         start_date = request.args.get('start_date')
         end_date = request.args.get('end_date')
@@ -66,7 +77,7 @@ def get_average_delays():
 @app.route('/api/train-delays', methods=['GET'])
 def get_average_train_delays():
     try:
-        conn, cursor = functions.get_connection('trains')
+        conn, cursor = get_connection('trains')
 
         start_date = request.args.get('start_date')
         end_date = request.args.get('end_date')
@@ -102,7 +113,7 @@ def get_average_train_delays():
 @app.route('/api/train-stop-delays', methods=['GET'])
 def get_average_train_stop_delays():
     try:
-        conn, cursor = functions.get_connection('trains')
+        conn, cursor = get_connection('trains')
 
         start_date = request.args.get('start_date')
         end_date = request.args.get('end_date')
@@ -166,7 +177,7 @@ def hit_bus_route(route_id):
     end_date = request.args.get('end_date')
     today = datetime.now(ZoneInfo('Australia/Sydney')).date()
     try:
-        conn, cursor = functions.get_connection('buses')
+        conn, cursor = get_connection('buses')
 
         update_query = """
             INSERT INTO route_daily_delays (route_id, date, hits)
@@ -212,7 +223,7 @@ def hit_train_route(route_short_name):
     station = request.args.get('station')
     today = datetime.now(ZoneInfo('Australia/Sydney')).date()
     try:
-        conn, cursor = functions.get_connection('trains')
+        conn, cursor = get_connection('trains')
 
         update_query = """
             INSERT INTO route_daily_delays (route_short_name, date, hits)

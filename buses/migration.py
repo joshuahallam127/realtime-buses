@@ -1,6 +1,6 @@
-import functions
+from functions import get_connection
 
-conn, cursor = functions.get_connection('buses')
+conn, cursor = get_connection()
 cursor.execute("""ALTER TABLE route_daily_delays
     ADD COLUMN above_1_minute SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     ADD COLUMN above_2_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
