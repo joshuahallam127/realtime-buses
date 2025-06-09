@@ -35,7 +35,7 @@ with open('sydneytrains.csv', newline='', encoding='utf-8') as csvfile:
         route_id_to_short_name[row['route_id']] = row['route_short_name']
 
 # get stop_id to parent_id mapping
-with open('train_stops.csv', newline='', encoding='utf-8') as csvfile:
+with open('stop_to_parent.csv', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     stop_id_to_parent_id = {row['stop_id']: row['parent_station'] for row in reader if row['parent_station']}
         

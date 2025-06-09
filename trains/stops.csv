@@ -1,0 +1,380 @@
+stop_id,name
+207720,Hornsby Station
+207730,Asquith Station
+207910,Mount Colah Station
+208010,Mount Kuring-gai Station
+208110,Berowra Station
+208120,Cowan Station
+208310,Hawkesbury River Station
+213110,Ashfield Station
+213210,Croydon Station
+213410,Burwood Station
+213510,Strathfield Station
+214240,Granville Station
+214510,Westmead Station
+214520,Wentworthville Station
+214530,Pendle Hill Station
+214610,Toongabbie Station
+214710,Seven Hills Station
+214810,Blacktown Station
+215020,Parramatta Station
+223210,Sutherland Station
+223220,Loftus Station
+223310,Engadine Station
+223320,Heathcote Station
+223330,Waterfall Station
+225020,Tascott Station
+225030,Point Clare Station
+225040,Gosford Station
+225060,Niagara Park Station
+225070,Lisarow Station
+2250772,Narara Station
+225610,Woy Woy Station
+225620,Koolewong Station
+225810,Ourimbah Station
+225910,Tuggerah Station
+225920,Wyong Station
+250020,Wollongong Station
+250530,Port Kembla North Station
+250540,Port Kembla Station
+250810,Helensburgh Station
+250830,Otford Station
+250850,Coalcliff Station
+251510,Scarborough Station
+251550,Thirroul Station
+251610,Bulli Station
+251710,Woonona Station
+251810,Bellambi Station
+251830,Towradgi Station
+252610,Unanderra Station
+252920,Oak Flats Station
+253010,Kembla Grange Station
+253020,Dapto Station
+253310,Minnamurra Station
+253320,Bombo Station
+253330,Kiama Station
+253420,Gerringong Station
+253510,Berry Station
+254110,Bomaderry Station
+256020,Campbelltown Station
+256030,Macarthur Station
+256310,Menangle Park Station
+256810,Menangle Station
+256910,Douglas Park Station
+257110,Picton Station
+257310,Tahmoor Station
+257420,Bargo Station
+257510,Mittagong Station
+257540,Yerrinbool Station
+257610,Bowral Station
+257620,Burradoo Station
+257710,Moss Vale Station
+257810,Bundanoon Station
+257910,Wingello Station
+257920,Penrose Station
+257930,Exeter Station
+257940,Marulan Station
+257950,Tallong Station
+258010,Goulburn Station
+275010,Penrith Station
+275020,Emu Plains Station
+275030,Lapstone Station
+276010,St Marys Station
+276610,Rooty Hill Station
+276710,Doonside Station
+277010,Mount Druitt Station
+277310,Glenbrook Station
+277410,Blaxland Station
+277420,Warrimoo Station
+277710,Valley Heights Station
+277720,Springwood Station
+211310,Macquarie University Station
+211340,Macquarie Park Station
+212210,Eastwood Station
+2153477,Norwest Station
+2153478,Bella Vista Station
+2154391,Castle Hill Station
+2154392,Hills Showground Station
+2155382,Kellyville Station
+2155383,Rouse Hill Station
+2155384,Tallawong Station
+274710,Werrington Station
+274720,Kingswood Station
+275310,East Richmond Station
+275320,Richmond Station
+275620,Windsor Station
+276220,Schofields Station
+276310,Quakers Hill Station
+276510,Riverstone Station
+216710,Glenfield Station
+217020,Liverpool Station
+217426,Edmondson Park Station
+217933,Leppington Station
+256010,Leumeah Station
+256410,Macquarie Fields Station
+256510,Ingleburn Station
+256610,Minto Station
+200070,Town Hall Station
+204210,Newtown Station
+214110,Lidcombe Station
+214120,Berala Station
+214310,Regents Park Station
+214410,Auburn Station
+216010,Merrylands Station
+216110,Guildford Station
+216210,Sefton Station
+216220,Chester Hill Station
+216310,Leightonfield Station
+216320,Villawood Station
+216510,Fairfield Station
+216610,Canley Vale Station
+216620,Cabramatta Station
+217010,Warwick Farm Station
+217310,Holsworthy Station
+219210,Belmore Station
+219320,Canterbury Station
+219410,Campsie Station
+219520,Wiley Park Station
+219610,Punchbowl Station
+219910,Yagoona Station
+220010,Bankstown Station
+220310,Dulwich Hill Station
+220410,Marrickville Station
+221110,Padstow Station
+221210,Revesby Station
+221310,Panania Station
+221320,East Hills Station
+222010,Hurstville Station
+200080,Wynyard Station
+204810,Stanmore Station
+204910,Petersham Station
+204920,Lewisham Station
+206010,North Sydney Station
+206044,Victoria Cross Station
+206110,Milsons Point Station
+206516,Crows Nest Station
+206520,St Leonards Station
+207710,Waitara Station
+211910,Beecroft Station
+212020,Pennant Hills Station
+212110,Epping Station
+2126158,Cherrybrook Station
+213010,Summer Hill Station
+214010,Homebush Station
+214020,Flemington Station
+214820,Marayong Station
+216120,Yennora Station
+275610,Mulgrave Station
+275630,Clarendon Station
+276520,Vineyard Station
+206020,Waverton Station
+206410,Artarmon Station
+206510,Wollstonecraft Station
+206710,Chatswood Station
+206910,Roseville Station
+207010,Lindfield Station
+207310,Pymble Station
+207620,Normanhurst Station
+211320,North Ryde Station
+211420,West Ryde Station
+211430,Meadowbank Station
+212010,Thornleigh Station
+212710,Olympic Park Station
+213820,Rhodes Station
+200020,Circular Quay
+200030,Martin Place Station
+200040,Museum Station
+200050,St James Station
+200060,Central Station
+201110,Kings Cross Station
+201510,Redfern Station
+201520,Macdonaldtown Station
+201710,Green Square Station
+202010,Mascot Station
+202020,Sydney Domestic Airport Station
+202030,Sydney International Airport Station
+202210,Bondi Junction Station
+202710,Edgecliff Station
+204310,Erskineville Station
+204410,St Peters Station
+204420,Sydenham Station
+204430,Tempe Station
+207110,Killara Station
+207210,Gordon Station
+207410,Turramurra Station
+207420,Warrawee Station
+207610,Wahroonga Station
+211410,Denistone Station
+211920,Cheltenham Station
+213710,North Strathfield Station
+213810,Concord West Station
+214230,Clyde Station
+214320,Birrong Station
+215010,Harris Park Station
+216330,Carramar Station
+217030,Casula Station
+220510,Wolli Creek Station
+220520,Arncliffe Station
+220530,Turrella Station
+220710,Bardwell Park Station
+220720,Bexley North Station
+220810,Kingsgrove Station
+220910,Beverly Hills Station
+220920,Narwee Station
+221010,Riverwood Station
+221610,Banksia Station
+221620,Rockdale Station
+221710,Kogarah Station
+221810,Carlton Station
+222020,Allawah Station
+222210,Penshurst Station
+222310,Mortdale Station
+222320,Oatley Station
+222610,Como Station
+222620,Jannali Station
+222710,Gymea Station
+222810,Miranda Station
+222910,Caringbah Station
+223010,Woolooware Station
+223020,Cronulla Station
+223230,Kirrawee Station
+225010,Wondabyne Station
+225930,Warnervale Station
+225940,Wyee Station
+226410,Morisset Station
+226420,Dora Creek Station
+228310,Awaba Station
+228330,Fassifern Station
+228410,Booragul Station
+228420,Teralba Station
+228430,Cockle Creek Station
+228520,Cardiff Station
+228910,Kotara Station
+228920,Adamstown Station
+229210,Broadmeadow Station
+230310,Hamilton Station
+250010,North Wollongong Station
+250030,Coniston Station
+250510,Lysaghts Station
+250520,Cringila Station
+250840,Stanwell Park Station
+251520,Wombarra Station
+251530,Coledale Station
+251540,Austinmer Station
+251820,Corrimal Station
+251910,Fairy Meadow Station
+252710,Albion Park Station
+277610,Faulconbridge Station
+277810,Woodford Station
+277820,Linden Station
+277910,Hazelbrook Station
+278010,Leura Station
+278020,Katoomba Station
+278030,Medlow Bath Station
+278210,Wentworth Falls Station
+278310,Lawson Station
+278410,Bullaburra Station
+278510,Blackheath Station
+278610,Mount Victoria Station
+278620,Bell Station
+278630,Zig Zag Station
+27871,Tarana Station
+279010,Lithgow Station
+2790128,Rydal Station
+279538,Bathurst Station
+200046,Barangaroo Station
+200066,Gadigal Station
+201721,Waterloo Station
+232020,Maitland Station
+230410,Waratah Station
+230420,Warabrook Station
+232030,Telarah Station
+232050,Mindaribba Station
+232230,Beresfield Station
+232240,Thornton Station
+232310,Metford Station
+232320,Victoria Street Station
+232330,East Maitland Station
+233010,Singleton Station
+233310,Muswellbrook Station
+233510,Branxton Station
+242010,Dungog Station
+242020,Wallarobba Station
+242030,Wirragulla Station
+242040,Hilldale Station
+242050,Martins Creek Station
+242110,Paterson Station
+28202,Wellington Station
+28311,Geurie Station
+234012,Tamworth Station
+23411,Werris Creek Station
+23431,Quirindi Station
+23501,Armidale Station
+233610,Aberdeen Station
+24301,Taree Station
+24391,Kendall Station
+24461,Wauchope Station
+24551,Urunga Station
+24601,Grafton Station
+26631,Junee Station
+26801,Griffith Station
+28001,Orange Station
+26581,Henty Station
+20030,Broadmeadows Station
+20295,Benalla Station
+20342,Seymour Station
+20356,Wangaratta Station
+22180,Melbourne (Southern Cross) Station
+230430,Sandgate Station
+232010,High Street Station
+232110,Lochinvar Station
+232210,Hexham Station
+232220,Tarro Station
+233410,Greta Station
+233710,Scone Station
+23381,Murrurundi Station
+23391,Willow Tree Station
+23521,Kootingal Station
+23541,Walcha Road Station
+235813,Uralla Station
+23801,Gunnedah Station
+23821,Boggabri Station
+23901,Narrabri Station
+23971,Bellata Station
+24001,Moree Station
+24221,Gloucester Station
+24291,Wingham Station
+24401,Kempsey Station
+24411,Eungai Station
+24471,Macksville Station
+24481,Nambucca Heads Station
+24501,Coffs Harbour Station
+24521,Sawtell Station
+24701,Casino Station
+24741,Kyogle Station
+258011,Tarago Station
+25811,Gunning Station
+25871,Harden Station
+25901,Cootamundra Station
+26041,Canberra Station
+26201,Queanbeyan Station
+26211,Bungendore Station
+26401,Albury Station
+26501,Wagga Wagga Station
+26551,The Rock Station
+26601,Culcairn Station
+27001,Narrandera Station
+27011,Coolamon Station
+27051,Leeton Station
+279821,Millthorpe Station
+27991,Blayney Station
+28201,Stuart Town Station
+28301,Dubbo Station
+28701,Parkes Station
+28771,Euabalong West Station
+28772,Condobolin Station
+28781,Darnick Station
+28782,Ivanhoe Station
+28791,Menindee Station
+28801,Broken Hill Station
+40001,Brisbane (Roma Street) Station
