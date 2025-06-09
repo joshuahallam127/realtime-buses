@@ -45,9 +45,10 @@ def get_average_delays():
         start_date = request.args.get('start_date')
         end_date = request.args.get('end_date')
         sydney_only = request.args.get('sydney_only') == 'true'
+        shit_type = 'early' if request.args.get('shit_type') == 'early' else 'delay'
 
-        query = """
-            SELECT rdd.route_id, routes.long_name, ROUND(SUM(rdd.total_delay) / SUM(rdd.total_count), 2) AS avg_delay, SUM(rdd.hits)
+        query = f"""
+            SELECT rdd.route_id, routes.long_name, ROUND(SUM(rdd.total_{shit_type}) / SUM(rdd.total_count), 2) AS avg_delay, SUM(rdd.hits)
             FROM route_daily_delays rdd
             JOIN routes ON rdd.route_id = routes.id
             WHERE rdd.date BETWEEN %s AND %s
