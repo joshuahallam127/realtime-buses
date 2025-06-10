@@ -14,7 +14,7 @@ import csv
 load_dotenv()
 
 # TODO interval shouldn't need to be 5 seconds for trains, even like a minute should be fine
-INTERVAL = 20
+INTERVAL = 10
 
 url = 'https://api.transport.nsw.gov.au/v2/gtfs/realtime/sydneytrains'
 headers = {
