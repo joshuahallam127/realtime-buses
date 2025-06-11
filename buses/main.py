@@ -282,7 +282,6 @@ while True:
 
         feed = get_feed()
         delay_data, cancel_data = parse_feed(feed)
-        write_json(feed)
         
         catch_changes(cursor, delay_data, cancel_data)
 
