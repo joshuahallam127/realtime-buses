@@ -11,7 +11,7 @@ from collections import defaultdict
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app,origins=["https://howshitismybus.com.au", "https://www.howshitismybus.com.au"])
+CORS(app,origins=["https://howshitismybus.com.au", "https://www.howshitismybus.com.au", "https://howshitismytrain.com.au", "https://www.howshitismytrain.com.au"])
 
 def get_connection(database):
     connection = mysql.connector.connect(
@@ -214,7 +214,7 @@ def hit_bus_route(route_id):
 @app.route("/api/hit_train_route/<route_short_name>", methods=["POST"])
 def hit_train_route(route_short_name):
     referer = request.headers.get("Referer", "")
-    if os.getenv('RDS_PORT') and "howshitismybus.com.au" not in referer:
+    if os.getenv('RDS_PORT') and "howshitismytrain.com.au" not in referer:
         return jsonify({"error": "Bruh"}), 403
 
     user_agent = request.headers.get("User-Agent", "").lower()

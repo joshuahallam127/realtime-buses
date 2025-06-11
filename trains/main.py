@@ -144,7 +144,7 @@ def print_replaced(feed):
 
 def write_json(feed):
     feed_dict = MessageToDict(feed)
-    with open("train_feed_data_2.json", "w") as f:
+    with open("train_feed_data.json", "w") as f:
         json.dump(feed_dict, f, indent=2)
 
 def cache_delay_data(cursor, delay_data):

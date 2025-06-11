@@ -67,7 +67,7 @@ def parse_feed(feed):
 
 def write_json(feed):
     feed_dict = MessageToDict(feed)
-    with open("feed_data.json", "w") as f:
+    with open("feed_data_2.json", "w") as f:
         json.dump(feed_dict, f, indent=2)
 
 def cache_delay_data(cursor, delay_data):
