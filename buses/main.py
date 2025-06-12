@@ -266,9 +266,9 @@ def catch_changes(cursor, delay_data, cancel_data):
         cursor.execute(query, tuple(cancelled_to_delayed))
         print(f'Saved {len(cancelled_to_delayed)} trips that were cancelled but are now delayed from being cached')
     if delayed_to_cancelled:
-        print(f'Saved {len(delayed_to_cancelled)} trips that were delayed but are now cancelled from being cached')
         query = f"DELETE FROM delays WHERE trip_id IN ({','.join(['%s'] * len(delayed_to_cancelled))})"
         cursor.execute(query, tuple(delayed_to_cancelled))
+        print(f'Saved {len(delayed_to_cancelled)} trips that were delayed but are now cancelled from being cached')
 
 # Open connection once
 conn, cursor = None, None
