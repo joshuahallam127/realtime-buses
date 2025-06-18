@@ -274,5 +274,163 @@ def hit_train_route(route_short_name):
             cursor.close()
             conn.close()
 
+
+@app.route("/api/train-line-stats", methods=["GET"])
+def get_train_line_stats():
+    try:
+        conn, cursor = get_connection("trains")
+
+        route_short_name = request.args.get("route_short_name")
+        if not route_short_name:
+            return jsonify({"error": "route_short_name parameter is required"}), 400
+
+        shit_type = "early" if request.args.get("shit_type") == "early" else "delay"
+
+        query = f"""
+            SELECT date, ROUND(total_{shit_type} / total_count, 2) as avg_delay, total_trips
+            FROM route_daily_delays
+            WHERE route_short_name = %s AND total_count > 0
+            ORDER BY date;
+        """
+
+        cursor.execute(query, (route_short_name,))
+        rows = cursor.fetchall()
+
+        result = [
+            {
+                "date": row[0].strftime("%Y-%m-%d"),
+                "avg_delay": float(row[1]),
+                "total_trips": row[2],
+            }
+            for row in rows
+        ]
+        return jsonify(result)
+
+    except mysql.connector.Error as err:
+        return jsonify({"error": str(err)}), 500
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+@app.route("/api/train-distribution-stats", methods=["GET"])
+def get_train_distribution_stats():
+    try:
+        conn, cursor = get_connection("trains")
+
+        route_short_name = request.args.get("route_short_name")
+        if not route_short_name:
+            return jsonify({"error": "route_short_name parameter is required"}), 400
+
+        query = """
+            SELECT 
+                date,
+                total_count,
+                before_1_minute,
+                above_1_minute,
+                above_2_minutes,
+                above_5_minutes,
+                above_10_minutes,
+                above_15_minutes,
+                above_30_minutes
+            FROM route_daily_delays
+            WHERE route_short_name = %s AND total_count > 0
+            ORDER BY date;
+        """
+
+        cursor.execute(query, (route_short_name,))
+        rows = cursor.fetchall()
+
+        result = []
+        for row in rows:
+            total = row[1]
+            early = row[2]  # before_1_minute
+            on_time = total - row[2] - row[3]  # total - before_1_minute - above_1_minute
+
+            delay_1_2 = row[3] - row[4]  # above_1_minute - above_2_minutes
+            delay_2_5 = row[4] - row[5]  # above_2_minutes - above_5_minutes
+            delay_5_10 = row[5] - row[6]  # above_5_minutes - above_10_minutes
+            delay_10_15 = row[6] - row[7]  # above_10_minutes - above_15_minutes
+            delay_15_30 = row[7] - row[8]  # above_15_minutes - above_30_minutes
+            delay_30_plus = row[8]  # above_30_minutes
+
+            if total == 0:
+                continue
+
+            early = max(0, early)
+            on_time = max(0, on_time)
+            delay_1_2 = max(0, delay_1_2)
+            delay_2_5 = max(0, delay_2_5)
+            delay_5_10 = max(0, delay_5_10)
+            delay_10_15 = max(0, delay_10_15)
+            delay_15_30 = max(0, delay_15_30)
+            delay_30_plus = max(0, delay_30_plus)
+
+            calculated_total = early + delay_1_2 + delay_2_5 + delay_5_10 + delay_10_15 + delay_15_30 + delay_30_plus
+            if calculated_total != total: # don't think this'll ever happen
+                on_time = total - calculated_total
+                on_time = max(0, on_time)
+
+            result.append(
+                {
+                    "date": row[0].strftime("%Y-%m-%d"),
+                    "total_count": total,
+                    "distribution": {
+                        "early": round(early / total * 100, 1),
+                        "on_time": round(on_time / total * 100, 1),
+                        "delay_1_2": round(delay_1_2 / total * 100, 1),
+                        "delay_2_5": round(delay_2_5 / total * 100, 1),
+                        "delay_5_10": round(delay_5_10 / total * 100, 1),
+                        "delay_10_15": round(delay_10_15 / total * 100, 1),
+                        "delay_15_30": round(delay_15_30 / total * 100, 1),
+                        "delay_30_plus": round(delay_30_plus / total * 100, 1),
+                    },
+                }
+            )
+
+        return jsonify(result)
+
+    except mysql.connector.Error as err:
+        return jsonify({"error": str(err)}), 500
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+@app.route("/api/train-routes", methods=["GET"])
+def get_train_routes():
+    try:
+        conn, cursor = get_connection("trains")
+
+        query = """
+            SELECT DISTINCT r.short_name, r.description
+            FROM routes r
+            JOIN route_daily_delays rdd ON r.short_name = rdd.route_short_name
+            WHERE r.is_in_sydney = TRUE
+            ORDER BY r.description;
+        """
+
+        cursor.execute(query)
+        rows = cursor.fetchall()
+
+        result = [{"short_name": row[0], "description": row[1]} for row in rows]
+        return jsonify(result)
+
+    except mysql.connector.Error as err:
+        return jsonify({"error": str(err)}), 500
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
