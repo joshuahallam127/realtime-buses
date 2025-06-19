@@ -7,29 +7,40 @@ from zoneinfo import ZoneInfo
 from datetime import datetime
 import json
 from collections import defaultdict
+import traceback
 
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app,origins=["https://howshitismybus.com.au", "https://www.howshitismybus.com.au", "https://howshitismytrain.com.au", "https://www.howshitismytrain.com.au"])
+CORS(
+    app,
+    origins=[
+        "https://howshitismybus.com.au",
+        "https://www.howshitismybus.com.au",
+        "https://howshitismytrain.com.au",
+        "https://www.howshitismytrain.com.au",
+    ],
+)
+
 
 def get_connection(database):
     connection = mysql.connector.connect(
-        host=os.getenv("RDS_HOST", '127.0.0.1'),
+        host=os.getenv("RDS_HOST", "127.0.0.1"),
         port=int(os.getenv("RDS_PORT", 3308)),
-        user=os.getenv("RDS_USER", 'root'),     
-        password=os.getenv("RDS_PASSWORD", 'password'),
-        database=database
+        user=os.getenv("RDS_USER", "root"),
+        password=os.getenv("RDS_PASSWORD", "password"),
+        database=database,
     )
     cursor = connection.cursor()
     cursor.execute("SET time_zone = 'Australia/Sydney'")
     return connection, cursor
 
-with open('stops') as f:
+
+with open("stops") as f:
     stops = json.load(f)
 
 stop_name_to_id = {}
-conn, cursor = get_connection('trains')
+conn, cursor = get_connection("trains")
 cursor.execute("SELECT id, name FROM stops")
 rows = cursor.fetchall()
 for row in rows:
@@ -37,34 +48,43 @@ for row in rows:
 cursor.close()
 conn.close()
 
-@app.route('/api/bus-delays', methods=['GET'])
+
+@app.route("/api/bus-delays", methods=["GET"])
 def get_average_delays():
     try:
-        conn, cursor = get_connection('buses')
+        conn, cursor = get_connection("buses")
 
-        start_date = request.args.get('start_date')
-        end_date = request.args.get('end_date')
-        sydney_only = request.args.get('sydney_only') == 'true'
-        shit_type = 'early' if request.args.get('shit_type') == 'early' else 'delay'
+        start_date = request.args.get("start_date")
+        end_date = request.args.get("end_date")
+        sydney_only = request.args.get("sydney_only") == "true"
+        shit_type = "early" if request.args.get("shit_type") == "early" else "delay"
 
         query = f"""
-            SELECT rdd.route_id, routes.long_name, ROUND(SUM(rdd.total_{shit_type}) / SUM(rdd.total_count), 2) AS avg_delay, SUM(rdd.hits)
+            SELECT rdd.route_id, routes.long_name, 
+                   ROUND(SUM(rdd.total_{shit_type}) / SUM(rdd.total_count), 2) AS avg_delay, 
+                   SUM(rdd.hits)
             FROM route_daily_delays rdd
             JOIN routes ON rdd.route_id = routes.id
             WHERE rdd.date BETWEEN %s AND %s
         """
-        if sydney_only: query += " AND routes.is_in_sydney = TRUE"
+        if sydney_only:
+            query += " AND routes.is_in_sydney = TRUE"
         query += """    GROUP BY rdd.route_id, routes.long_name"""
 
         cursor.execute(query, (start_date, end_date))
         rows = cursor.fetchall()
 
-        return jsonify([{
-            'agency_id': row[0].split("_")[0],
-            'route': f'{row[0].split("_")[1]} {row[1]}', 
-            'delay': row[2], 
-            'hits': row[3],
-        } for row in rows])
+        return jsonify(
+            [
+                {
+                    "agency_id": row[0].split("_")[0],
+                    "route": f'{row[0].split("_")[1]} {row[1]}',
+                    "delay": row[2],
+                    "hits": row[3],
+                }
+                for row in rows
+            ]
+        )
 
     except mysql.connector.Error as err:
         return jsonify({"error": str(err)}), 500
@@ -75,33 +95,42 @@ def get_average_delays():
             cursor.close()
             conn.close()
 
-@app.route('/api/train-delays', methods=['GET'])
+
+@app.route("/api/train-delays", methods=["GET"])
 def get_average_train_delays():
     try:
-        conn, cursor = get_connection('trains')
+        conn, cursor = get_connection("trains")
 
-        start_date = request.args.get('start_date')
-        end_date = request.args.get('end_date')
-        sydney_only = request.args.get('sydney_only') == 'true'
-        shit_type = 'early' if request.args.get('shit_type') == 'early' else 'delay'
+        start_date = request.args.get("start_date")
+        end_date = request.args.get("end_date")
+        sydney_only = request.args.get("sydney_only") == "true"
+        shit_type = "early" if request.args.get("shit_type") == "early" else "delay"
 
         query = f"""
-            SELECT routes.description, ROUND(SUM(rdd.total_{shit_type}) / SUM(rdd.total_count), 2) AS avg_delay, SUM(rdd.hits)
+            SELECT routes.description, 
+                   ROUND(SUM(rdd.total_{shit_type}) / SUM(rdd.total_count), 2) AS avg_delay, 
+                   SUM(rdd.hits)
             FROM route_daily_delays rdd
             JOIN routes ON rdd.route_short_name = routes.short_name
             WHERE rdd.date BETWEEN %s AND %s
         """
-        if sydney_only: query += " AND routes.is_in_sydney = TRUE"
+        if sydney_only:
+            query += " AND routes.is_in_sydney = TRUE"
         query += """    GROUP BY rdd.route_short_name, routes.description"""
 
         cursor.execute(query, (start_date, end_date))
         rows = cursor.fetchall()
 
-        return jsonify([{
-            'route': row[0],
-            'delay': row[1],
-            'hits': row[2],
-        } for row in rows])
+        return jsonify(
+            [
+                {
+                    "route": row[0],
+                    "delay": row[1],
+                    "hits": row[2],
+                }
+                for row in rows
+            ]
+        )
 
     except mysql.connector.Error as err:
         return jsonify({"error": str(err)}), 500
@@ -112,24 +141,28 @@ def get_average_train_delays():
             cursor.close()
             conn.close()
 
-@app.route('/api/train-stop-delays', methods=['GET'])
+
+@app.route("/api/train-stop-delays", methods=["GET"])
 def get_average_train_stop_delays():
     try:
-        conn, cursor = get_connection('trains')
+        conn, cursor = get_connection("trains")
 
-        start_date = request.args.get('start_date')
-        end_date = request.args.get('end_date')
-        sydney_only = request.args.get('sydney_only') == 'true'
-        shit_type = 'early' if request.args.get('shit_type') == 'early' else 'delay'
+        start_date = request.args.get("start_date")
+        end_date = request.args.get("end_date")
+        sydney_only = request.args.get("sydney_only") == "true"
+        shit_type = "early" if request.args.get("shit_type") == "early" else "delay"
 
         query = f"""
-            SELECT sdd.route_short_name, stops.name, ROUND(SUM(sdd.total_{shit_type}) / SUM(sdd.total_count), 2) AS avg_delay, SUM(sdd.hits)
+            SELECT sdd.route_short_name, stops.name, 
+                   ROUND(SUM(sdd.total_{shit_type}) / SUM(sdd.total_count), 2) AS avg_delay, 
+                   SUM(sdd.hits)
             FROM stop_daily_delays sdd
             JOIN stops ON sdd.stop_id = stops.id
             JOIN routes ON sdd.route_short_name = routes.short_name
             WHERE sdd.date BETWEEN %s AND %s
         """
-        if sydney_only: query += " AND routes.is_in_sydney = TRUE"
+        if sydney_only:
+            query += " AND routes.is_in_sydney = TRUE"
         query += """    GROUP BY sdd.route_short_name, stops.name"""
 
         cursor.execute(query, (start_date, end_date))
@@ -137,11 +170,13 @@ def get_average_train_stop_delays():
 
         grouped = defaultdict(list)
         for row in rows:
-            grouped[row[0]].append({
-                "station" : row[1],
-                "delay" : row[2],
-                "hits" : row[3],
-            })
+            grouped[row[0]].append(
+                {
+                    "station": row[1],
+                    "delay": row[2],
+                    "hits": row[3],
+                }
+            )
         return jsonify(grouped)
 
         # Sort each route's station list by stop order
@@ -149,12 +184,9 @@ def get_average_train_stop_delays():
         for route, data_list in grouped.items():
             stop_order = stops.get(route, [])
             # Map station name to its order index (for sorting)
-            station_order = {station + ' Station' if station != 'Circular Quay' else station: i for i, station in enumerate(stop_order)}
+            station_order = {station + " Station" if station != "Circular Quay" else station: i for i, station in enumerate(stop_order)}
             # Sort by index in the official stop list
-            sorted_result[route] = sorted(
-                data_list,
-                key=lambda x: station_order.get(x["station"], float("inf"))
-            )
+            sorted_result[route] = sorted(data_list, key=lambda x: station_order.get(x["station"], float("inf")))
         return jsonify(sorted_result)
 
     except mysql.connector.Error as err:
@@ -166,21 +198,22 @@ def get_average_train_stop_delays():
             cursor.close()
             conn.close()
 
+
 @app.route("/api/hit_bus_route/<route_id>", methods=["POST"])
 def hit_bus_route(route_id):
     referer = request.headers.get("Referer", "")
-    if os.getenv('RDS_PORT') and "howshitismybus.com.au" not in referer:
+    if os.getenv("RDS_PORT") and "howshitismybus.com.au" not in referer:
         return jsonify({"error": "Bruh"}), 403
 
     user_agent = request.headers.get("User-Agent", "").lower()
     if any(bot in user_agent for bot in ["curl", "bot", "spider", "python", "scrapy"]):
         return jsonify({"error": "Bot detected"}), 403
 
-    start_date = request.args.get('start_date')
-    end_date = request.args.get('end_date')
-    today = datetime.now(ZoneInfo('Australia/Sydney')).date()
+    start_date = request.args.get("start_date")
+    end_date = request.args.get("end_date")
+    today = datetime.now(ZoneInfo("Australia/Sydney")).date()
     try:
-        conn, cursor = get_connection('buses')
+        conn, cursor = get_connection("buses")
 
         update_query = """
             INSERT INTO route_daily_delays (route_id, date, hits)
@@ -211,22 +244,23 @@ def hit_bus_route(route_id):
             cursor.close()
             conn.close()
 
+
 @app.route("/api/hit_train_route/<route_short_name>", methods=["POST"])
 def hit_train_route(route_short_name):
     referer = request.headers.get("Referer", "")
-    if os.getenv('RDS_PORT') and "howshitismytrain.com.au" not in referer:
+    if os.getenv("RDS_PORT") and "howshitismytrain.com.au" not in referer:
         return jsonify({"error": "Bruh"}), 403
 
     user_agent = request.headers.get("User-Agent", "").lower()
     if any(bot in user_agent for bot in ["curl", "bot", "spider", "python", "scrapy"]):
         return jsonify({"error": "Bot detected"}), 403
 
-    start_date = request.args.get('start_date')
-    end_date = request.args.get('end_date')
-    station = request.args.get('station')
-    today = datetime.now(ZoneInfo('Australia/Sydney')).date()
+    start_date = request.args.get("start_date")
+    end_date = request.args.get("end_date")
+    station = request.args.get("station")
+    today = datetime.now(ZoneInfo("Australia/Sydney")).date()
     try:
-        conn, cursor = get_connection('trains')
+        conn, cursor = get_connection("trains")
 
         update_query = """
             INSERT INTO route_daily_delays (route_short_name, date, hits)
@@ -246,7 +280,7 @@ def hit_train_route(route_short_name):
 
         if not station or station not in stop_name_to_id:
             return jsonify({"hits": hits[0]})
-        
+
         update_query = """
             INSERT INTO stop_daily_delays (route_short_name, stop_id, date, hits)
             VALUES (%s, %s, %s, 1)
@@ -260,7 +294,10 @@ def hit_train_route(route_short_name):
             FROM stop_daily_delays 
             WHERE route_short_name = %s AND stop_id = %s AND date BETWEEN %s AND %s
         """
-        cursor.execute(retrieve_query, (route_short_name, stop_name_to_id[station], start_date, end_date))
+        cursor.execute(
+            retrieve_query,
+            (route_short_name, stop_name_to_id[station], start_date, end_date),
+        )
         stop_hits = cursor.fetchone()
 
         return jsonify({"hits": hits[0], "stop_hits": stop_hits[0]})
@@ -370,7 +407,7 @@ def get_train_distribution_stats():
             delay_30_plus = max(0, delay_30_plus)
 
             calculated_total = early + delay_1_2 + delay_2_5 + delay_5_10 + delay_10_15 + delay_15_30 + delay_30_plus
-            if calculated_total != total: # don't think this'll ever happen
+            if calculated_total != total:  # don't think this'll ever happen
                 on_time = total - calculated_total
                 on_time = max(0, on_time)
 
@@ -432,5 +469,98 @@ def get_train_routes():
             conn.close()
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+@app.route("/api/station-delay-map", methods=["GET"])
+def get_station_delay_map():
+    """Returns per station delays and lines they belong to."""
+    try:
+        conn, cursor = get_connection("trains")
+
+        start_date = request.args.get("start_date")
+        end_date = request.args.get("end_date")
+        route_short_name = request.args.get("route_short_name")
+
+        print("station-delay-map params:", start_date, end_date, route_short_name, flush=True)
+
+        if not start_date or not end_date:
+            return jsonify({"error": "start_date and end_date parameters are required"}), 400
+
+        query = """
+            SELECT 
+                sdd.stop_id,
+                s.name,
+                sdd.route_short_name,
+                SUM(sdd.total_delay) / NULLIF(SUM(sdd.total_count), 0) as avg_delay,
+                SUM(sdd.total_count) as total_trips,
+                (SUM(sdd.total_count) - SUM(sdd.above_1_minute)) * 100.0 / 
+                NULLIF(SUM(sdd.total_count), 0) as on_time_percent
+            FROM stop_daily_delays sdd
+            JOIN stops s ON sdd.stop_id = s.id
+            WHERE sdd.date BETWEEN %s AND %s
+        """
+
+        params = [start_date, end_date]
+
+        if route_short_name:
+            query += " AND sdd.route_short_name = %s"
+            params.append(route_short_name)
+
+        query += " GROUP BY sdd.stop_id, sdd.route_short_name, s.name"
+
+        cursor.execute(query, params)
+        rows = cursor.fetchall()
+
+        # group by cleaned station name then by route
+        stop_stats = {}
+        route_stats = {}
+
+        def clean_station_name(name):
+            return name.replace("Station", "").strip()
+
+        for row in rows:
+            stop_name = row[1]
+            route = row[2]
+            avg_delay = float(row[3]) / 60 if row[3] else 0  # min
+            total_trips = float(row[4])
+            on_time_percent = round(float(row[5]) if row[5] else 100, 1)
+
+            cleaned_name = clean_station_name(stop_name)
+
+            # store stop data by cleaned name per route
+            if cleaned_name not in stop_stats:
+                stop_stats[cleaned_name] = {}
+            stop_stats[cleaned_name][route] = {
+                "avg_delay": avg_delay,
+                "total_trips": total_trips,
+                "on_time_percent": on_time_percent,
+            }
+
+            if route not in route_stats:
+                route_stats[route] = {"total_delay": 0, "total_trips": 0, "stop_count": 0}
+            route_stats[route]["total_delay"] += avg_delay * total_trips
+            route_stats[route]["total_trips"] += total_trips
+            route_stats[route]["stop_count"] += 1
+
+        #  route averages
+        for route, stats in route_stats.items():
+            if stats["total_trips"] > 0:
+                route_stats[route]["avg_delay"] = stats["total_delay"] / stats["total_trips"]
+            else:
+                route_stats[route]["avg_delay"] = 0
+
+        return jsonify({"stops": stop_stats, "routes": route_stats})
+
+    except mysql.connector.Error as err:
+        print("MySQL error in /api/station-delay-map:", err, flush=True)
+        traceback.print_exc()
+        return jsonify({"error": str(err)}), 500
+    except Exception as e:
+        print("Exception in /api/station-delay-map:", e, flush=True)
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)
