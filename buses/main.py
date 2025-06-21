@@ -13,6 +13,7 @@ from datetime import datetime
 load_dotenv()
 
 INTERVAL = 5
+SYDNEY_TZ = ZoneInfo('Australia/Sydney')
 
 url = 'https://api.transport.nsw.gov.au/v1/gtfs/realtime/buses'
 headers = {
@@ -40,14 +41,18 @@ def parse_feed(feed):
     delay_data = {
         'trip_id' : [],
         'route_id' : [],
+        'stop_id': [],
         'stop_sequence' : [],
         'arrival_delay' : [],
         'departure_early' : [],
+        'vehicle_id': [],
+        'timestamp': []
     }
     cancel_data = {
         'trip_id' : [],
         'route_id' : [],
     }
+    feed_timestamp = datetime.fromtimestamp(feed.header.timestamp, tz=SYDNEY_TZ)
     for entity in feed.entity:
         if entity.trip_update.trip.route_id not in valid_routes: continue
         if 'schedule_relationship' not in entity.trip_update.trip: continue
@@ -55,14 +60,17 @@ def parse_feed(feed):
             cancel_data['trip_id'].append(entity.trip_update.trip.trip_id)
             cancel_data['route_id'].append(entity.trip_update.trip.route_id)
         elif entity.trip_update.trip.schedule_relationship == 0 and entity.trip_update.stop_time_update:
-            first_stop_time_update = entity.trip_update.stop_time_update[0]
-            if 'arrival' in first_stop_time_update and 'delay' in first_stop_time_update.arrival and \
-                'departure' in first_stop_time_update and 'delay' in first_stop_time_update.departure:
-                delay_data['trip_id'].append(entity.trip_update.trip.trip_id)
-                delay_data['route_id'].append(entity.trip_update.trip.route_id)
-                delay_data['stop_sequence'].append(entity.trip_update.stop_time_update[0].stop_sequence)
-                delay_data['arrival_delay'].append(max(0, entity.trip_update.stop_time_update[0].arrival.delay))
-                delay_data['departure_early'].append(min(0, entity.trip_update.stop_time_update[0].departure.delay) * -1)
+            for stop_update in entity.trip_update.stop_time_update:
+                if 'arrival' in stop_update and 'delay' in stop_update.arrival and \
+                    'departure' in stop_update and 'delay' in stop_update.departure and 'stop_id' in stop_update:
+                    delay_data['trip_id'].append(entity.trip_update.trip.trip_id)
+                    delay_data['route_id'].append(entity.trip_update.trip.route_id)
+                    delay_data['stop_id'].append(stop_update.stop_id)
+                    delay_data['stop_sequence'].append(stop_update.stop_sequence)
+                    delay_data['arrival_delay'].append(max(0, stop_update.arrival.delay))
+                    delay_data['departure_early'].append(min(0, stop_update.departure.delay) * -1)
+                    delay_data['vehicle_id'].append(entity.trip_update.vehicle.id)
+                    delay_data['timestamp'].append(feed_timestamp)
     return delay_data, cancel_data
 
 def write_json(feed):
@@ -71,14 +79,19 @@ def write_json(feed):
         json.dump(feed_dict, f, indent=2)
 
 def cache_delay_data(cursor, delay_data):
-    # get a map of trip_id to stop_sequence that we currently have in the database
-    cursor.execute("SELECT trip_id, stop_sequence FROM delays")
+    # get a map of trip_id to max stop_sequence that we currently have in the database
+    cursor.execute("SELECT trip_id, MAX(stop_sequence) FROM delays GROUP BY trip_id")
     trip_id_map = {row[0]: row[1] for row in cursor.fetchall()}
-    
+
     # we need to cache if the next stop_sequence of trip_id has been received
     to_cache = set()
+    
+    current_trip_max_sequence = {}
     for i, trip_id in enumerate(delay_data['trip_id']):
-        if trip_id in trip_id_map and delay_data['stop_sequence'][i] > trip_id_map[trip_id]:
+        current_trip_max_sequence[trip_id] = max(current_trip_max_sequence.get(trip_id, 0), delay_data['stop_sequence'][i])
+
+    for trip_id, max_sequence in current_trip_max_sequence.items():
+        if trip_id in trip_id_map and max_sequence > trip_id_map[trip_id]:
             to_cache.add(trip_id)
 
     # we also need to cache if trip_id from the database is not in the new data
@@ -91,20 +104,31 @@ def cache_delay_data(cursor, delay_data):
     # get the data to cache
     placeholders = ','.join(['%s']*len(to_cache))
     query = f"""
-        SELECT trip_id, route_id, arrival_delay, departure_early
+        SELECT trip_id, route_id, stop_id, arrival_delay, departure_early, stop_sequence, vehicle_id, timestamp
         FROM delays
         WHERE trip_id IN ({placeholders})
     """
     cursor.execute(query, tuple(to_cache))
     rows_to_cache = cursor.fetchall()
 
+    # move to history
+    history_to_insert = [
+        (row[0], row[6], row[1], row[2], row[5], row[3], row[4], row[7]) for row in rows_to_cache
+    ]
+    if history_to_insert:
+        cursor.executemany("""
+            INSERT INTO delay_history (trip_id, vehicle_id, route_id, stop_id, stop_sequence, arrival_delay, departure_early, timestamp)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """, history_to_insert)
+
     # aggregate the data to cache based on route and start_date
-    aggregate_cached = {}
+    aggregate_cached_stops = {}
     above_ranges = [1, 2, 5, 10, 15, 30]
     before_ranges = [1, 2, 5, 10]
-    for trip_id, route_id, arrival_delay, departure_early in rows_to_cache:
-        if route_id not in aggregate_cached:
-            aggregate_cached[route_id] = {
+    for trip_id, route_id, stop_id, arrival_delay, departure_early, _, _, _ in rows_to_cache:
+        key = (route_id, stop_id)
+        if key not in aggregate_cached_stops:
+            aggregate_cached_stops[key] = {
                 'total_delay': 0, 
                 'total_early' : 0, 
                 'total_count': 0,
@@ -112,59 +136,133 @@ def cache_delay_data(cursor, delay_data):
                 **{f'before_{n}_minutes': 0 for n in before_ranges},
                 'total_trips': 0,
             }
-        aggregate_cached[route_id]['total_delay'] += arrival_delay
-        aggregate_cached[route_id]['total_early'] += departure_early
-        aggregate_cached[route_id]['total_count'] += 1
+        
+        stop_data = aggregate_cached_stops[key]
+        stop_data['total_delay'] += arrival_delay
+        stop_data['total_early'] += departure_early
+        stop_data['total_count'] += 1
+        
         if trip_id in missing_trip_ids:
-            aggregate_cached[route_id]['total_trips'] += 1
+            # this trip is complete, so increment the total_trips for this stop
+            stop_data['total_trips'] += 1
+            
         for x in above_ranges:
             if arrival_delay > x * 60:
-                aggregate_cached[route_id][f'above_{x}_minutes'] += 1
+                stop_data[f'above_{x}_minutes'] += 1
         for x in before_ranges:
             if departure_early > x * 60:
-                aggregate_cached[route_id][f'before_{x}_minutes'] += 1
+                stop_data[f'before_{x}_minutes'] += 1
     
-    # insert the aggregated data
-    data_to_insert = [
-        (
-            route_id,
-            datetime.now(ZoneInfo('Australia/Sydney')).date(),
-            data['total_delay'],
-            data['total_early'],
-            data['total_count'],
-            data['above_1_minutes'],
-            data['above_2_minutes'],
-            data['above_5_minutes'],
-            data['above_10_minutes'],
-            data['above_15_minutes'],
-            data['above_30_minutes'],
-            data['before_1_minutes'],
-            data['before_2_minutes'],
-            data['before_5_minutes'],
-            data['before_10_minutes'],
-            data['total_trips'],
-        )
-        for route_id, data in aggregate_cached.items()
-    ]
-    cursor.executemany("""
-        INSERT INTO route_daily_delays (route_id, date, total_delay, total_early, total_count, above_1_minute, above_2_minutes, above_5_minutes, above_10_minutes, above_15_minutes, above_30_minutes, before_1_minute, before_2_minutes, before_5_minutes, before_10_minutes, total_trips)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        ON DUPLICATE KEY UPDATE
-            total_delay = total_delay + VALUES(total_delay),
-            total_early = total_early + VALUES(total_early),
-            total_count = total_count + VALUES(total_count),
-            above_1_minute = above_1_minute + VALUES(above_1_minute),
-            above_2_minutes = above_2_minutes + VALUES(above_2_minutes),
-            above_5_minutes = above_5_minutes + VALUES(above_5_minutes),
-            above_10_minutes = above_10_minutes + VALUES(above_10_minutes),
-            above_15_minutes = above_15_minutes + VALUES(above_15_minutes),
-            above_30_minutes = above_30_minutes + VALUES(above_30_minutes),
-            before_1_minute = before_1_minute + VALUES(before_1_minute),
-            before_2_minutes = before_2_minutes + VALUES(before_2_minutes),
-            before_5_minutes = before_5_minutes + VALUES(before_5_minutes),
-            before_10_minutes = before_10_minutes + VALUES(before_10_minutes),
-            total_trips = total_trips + VALUES(total_trips)
-    """, data_to_insert)
+    # insert the aggregated data for stops
+    if aggregate_cached_stops:
+        data_to_insert = [
+            (
+                key[0], # route_id
+                key[1], # stop_id
+                datetime.now(ZoneInfo('Australia/Sydney')).date(),
+                data['total_delay'],
+                data['total_early'],
+                data['total_count'],
+                data['above_1_minutes'],
+                data['above_2_minutes'],
+                data['above_5_minutes'],
+                data['above_10_minutes'],
+                data['above_15_minutes'],
+                data['above_30_minutes'],
+                data['before_1_minutes'],
+                data['before_2_minutes'],
+                data['before_5_minutes'],
+                data['before_10_minutes'],
+                data['total_trips'],
+            )
+            for key, data in aggregate_cached_stops.items()
+        ]
+        cursor.executemany("""
+            INSERT INTO stop_daily_delays (route_id, stop_id, date, total_delay, total_early, total_count, above_1_minute, above_2_minutes, above_5_minutes, above_10_minutes, above_15_minutes, above_30_minutes, before_1_minute, before_2_minutes, before_5_minutes, before_10_minutes, total_trips)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ON DUPLICATE KEY UPDATE
+                total_delay = total_delay + VALUES(total_delay),
+                total_early = total_early + VALUES(total_early),
+                total_count = total_count + VALUES(total_count),
+                above_1_minute = above_1_minute + VALUES(above_1_minute),
+                above_2_minutes = above_2_minutes + VALUES(above_2_minutes),
+                above_5_minutes = above_5_minutes + VALUES(above_5_minutes),
+                above_10_minutes = above_10_minutes + VALUES(above_10_minutes),
+                above_15_minutes = above_15_minutes + VALUES(above_15_minutes),
+                above_30_minutes = above_30_minutes + VALUES(above_30_minutes),
+                before_1_minute = before_1_minute + VALUES(before_1_minute),
+                before_2_minutes = before_2_minutes + VALUES(before_2_minutes),
+                before_5_minutes = before_5_minutes + VALUES(before_5_minutes),
+                before_10_minutes = before_10_minutes + VALUES(before_10_minutes),
+                total_trips = total_trips + VALUES(total_trips)
+        """, data_to_insert)
+
+    # aggregate route data for completed trips
+    aggregate_routes = {}
+    if missing_trip_ids:
+        # reuse the ranges from stop aggregation
+        for trip_id, route_id, _, arrival_delay, departure_early, _, _, _ in rows_to_cache:
+            if trip_id in missing_trip_ids:
+                if route_id not in aggregate_routes:
+                    aggregate_routes[route_id] = {
+                        'total_delay': 0, 'total_early' : 0, 'total_count': 0,
+                        'trip_ids': set(),
+                        **{f'above_{n}_minutes': 0 for n in above_ranges},
+                        **{f'before_{n}_minutes': 0 for n in before_ranges},
+                    }
+                data = aggregate_routes[route_id]
+                data['trip_ids'].add(trip_id)
+                data['total_delay'] += arrival_delay
+                data['total_early'] += departure_early
+                data['total_count'] += 1
+                for x in above_ranges:
+                    if arrival_delay > x * 60:
+                        data[f'above_{x}_minutes'] += 1
+                for x in before_ranges:
+                    if departure_early > x * 60:
+                        data[f'before_{x}_minutes'] += 1
+
+    if aggregate_routes:
+        route_data_to_insert = [
+            (
+                route_id,
+                datetime.now(ZoneInfo('Australia/Sydney')).date(),
+                data['total_delay'],
+                data['total_early'],
+                data['total_count'],
+                data['above_1_minutes'],
+                data['above_2_minutes'],
+                data['above_5_minutes'],
+                data['above_10_minutes'],
+                data['above_15_minutes'],
+                data['above_30_minutes'],
+                data['before_1_minutes'],
+                data['before_2_minutes'],
+                data['before_5_minutes'],
+                data['before_10_minutes'],
+                len(data['trip_ids']), # total_trips
+            )
+            for route_id, data in aggregate_routes.items()
+        ]
+        cursor.executemany("""
+            INSERT INTO route_daily_delays (route_id, date, total_delay, total_early, total_count, above_1_minute, above_2_minutes, above_5_minutes, above_10_minutes, above_15_minutes, above_30_minutes, before_1_minute, before_2_minutes, before_5_minutes, before_10_minutes, total_trips)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ON DUPLICATE KEY UPDATE
+                total_delay = total_delay + VALUES(total_delay),
+                total_early = total_early + VALUES(total_early),
+                total_count = total_count + VALUES(total_count),
+                above_1_minute = above_1_minute + VALUES(above_1_minute),
+                above_2_minutes = above_2_minutes + VALUES(above_2_minutes),
+                above_5_minutes = above_5_minutes + VALUES(above_5_minutes),
+                above_10_minutes = above_10_minutes + VALUES(above_10_minutes),
+                above_15_minutes = above_15_minutes + VALUES(above_15_minutes),
+                above_30_minutes = above_30_minutes + VALUES(above_30_minutes),
+                before_1_minute = before_1_minute + VALUES(before_1_minute),
+                before_2_minutes = before_2_minutes + VALUES(before_2_minutes),
+                before_5_minutes = before_5_minutes + VALUES(before_5_minutes),
+                before_10_minutes = before_10_minutes + VALUES(before_10_minutes),
+                total_trips = total_trips + VALUES(total_trips)
+        """, route_data_to_insert)
 
     query = f"""
         DELETE FROM delays
@@ -215,17 +313,22 @@ def insert_or_update_delays(cursor, delay_data):
     data = list(zip(
         delay_data['trip_id'],
         delay_data['route_id'],
+        delay_data['stop_id'],
         delay_data['stop_sequence'],
         delay_data['arrival_delay'],
         delay_data['departure_early'],
+        delay_data['vehicle_id'],
+        delay_data['timestamp']
     ))
 
     query = """
-        INSERT INTO delays (trip_id, route_id, stop_sequence, arrival_delay, departure_early)
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO delays (trip_id, route_id, stop_id, stop_sequence, arrival_delay, departure_early, vehicle_id, timestamp)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         ON DUPLICATE KEY UPDATE
             arrival_delay = VALUES(arrival_delay),
-            departure_early = VALUES(departure_early)
+            departure_early = VALUES(departure_early),
+            vehicle_id = VALUES(vehicle_id),
+            timestamp = VALUES(timestamp)
     """
     cursor.executemany(query, data)
 

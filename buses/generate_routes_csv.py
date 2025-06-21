@@ -24,25 +24,25 @@ trip_id_to_route_id = {}
 with open('trips.txt', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        trip_id_to_route_id[row['trip_id']] = row['\ufeffroute_id']
+        trip_id_to_route_id[row['trip_id']] = row['route_id']
 
 # get all the stop_ids for each route_id
 route_id_to_stop_ids = {
-    route_id: set() for route_id in [row['\ufeffroute_id'] for row in routes_data]
+    route_id: set() for route_id in [row['route_id'] for row in routes_data]
 }
 with open('stop_times.txt', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        if trip_id_to_route_id[row['\ufefftrip_id']] not in route_id_to_stop_ids:
+        if trip_id_to_route_id[row['trip_id']] not in route_id_to_stop_ids:
             continue
-        route_id_to_stop_ids[trip_id_to_route_id[row['\ufefftrip_id']]].add(row['stop_id'])
+        route_id_to_stop_ids[trip_id_to_route_id[row['trip_id']]].add(row['stop_id'])
 
 # get stop_id to lat/long mapping
 stop_id_to_lat_long = {}
 with open('stops.txt', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        stop_id_to_lat_long[row['\ufeffstop_id']] = {
+        stop_id_to_lat_long[row['stop_id']] = {
             'lat' : row['stop_lat'], 
             'long' : row['stop_lon'],
         }
@@ -73,5 +73,5 @@ with open('routes.csv', 'w', newline='', encoding='utf-8') as csvfile:
         writer.writerow({
             'id': route['agency_id'] + '_' + route['route_short_name'],
             'long_name': route['route_long_name'],
-            'is_in_sydney': route['\ufeffroute_id'] in sydney_routes
+            'is_in_sydney': route['route_id'] in sydney_routes
         })
