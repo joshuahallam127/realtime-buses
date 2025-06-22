@@ -7,12 +7,20 @@ from dotenv import load_dotenv
 from flask_cors import CORS
 import os
 from zoneinfo import ZoneInfo
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 from collections import defaultdict
 import polyline
+import time
 
-NUM_FEATURED_ROUTES = 10
+NUM_FEATURED_ROUTES = 5
+FEATURED_ROUTES_TIME_PERIOD_DAYS = 7
+CACHE_TIMEOUT_SECONDS = 60 * 30 
+
+featured_routes_cache = {
+    "delay": {"data": None, "last_updated": 0},
+    "early": {"data": None, "last_updated": 0},
+}
 
 load_dotenv()
 
@@ -22,7 +30,7 @@ CORS(app,origins=["https://howshitismybus.com.au", "https://www.howshitismybus.c
 def get_connection(database):
     connection = mysql.connector.connect(
         host=os.getenv("RDS_HOST", '127.0.0.1'),
-        port=int(os.getenv("RDS_PORT", 3310)),
+        port=int(os.getenv("RDS_PORT", 3308)),
         user=os.getenv("RDS_USER", 'root'),     
         password=os.getenv("RDS_PASSWORD", 'password'),
         database=database
@@ -779,76 +787,45 @@ def get_encoded_shapes_for_route(cursor, route_id):
     rows = cursor.fetchall()
     return [row[0] for row in rows if row[0]]
 
-# TODO just call the other endpoint for featured ones?
 @app.route("/api/buses/routes/featured", methods=["GET"])
 def get_featured_bus_routes():
-    """Returns random routes based on current hour.
-
-    Example response:
-    {
-    "routes": [
-        {
-            "route": {
-                "id": "2459_438X",
-                "long_name": "Abbotsford to City Martin Place (Express Service)"
-            },
-            "shapes": [
-                "rfumEmsly[`HT`Q`CbHkMhLyDngAiy@eAkJNae@gA_k@nZoBwA}M|AiSkCsv@_AkNaHsf@kEob@?uWaAeVu@kk@uAeHyCeEaAuCoGyIeBoAgCg@hAwJ{FeAyjAiH",
-                "dkqmEmhly[b\\lAlGgCJe@nLiDx^qFrDCdWrClR`@`Q`CbHkMhLyDngAiy@eAkJNae@gA_k@nZoBwA}M|AiSkE_fAaHsf@kEob@?uWaAeVu@kk@uAeHyCeEaAuCoGyIeBoAgCg@hAwJ{FeAyjAiH",
-                "dkqmEmhly[b\\lAlGgCJe@nLiDx^qFrDCdWrClR`@`Q`CbHkMhLyDngAiy@eAkJNae@gA_k@nZoBwA}M|AiSkE_fAaHsf@kEob@?uWaAeVu@kk@eC{JiLkQ",
-                "bwumEgi|y[tkAdHhRpC_JhUdIhBrEjGxApHn@vk@`AbVAlWhElb@jH~g@`EvdA}AdOtAbR_[nB~A`k@Ozd@|@nJ}PjNwu@pj@yKjDaI|M{PeCgKe@gEHeX{CsD?{^tFgUdIc\\mA",
-                "bmxmEag{y[_@z@dIhB~CpDfAjCdA~Fn@vk@`AbVAlWhElb@jH~g@`EvdA}AdOtAbR_[nB~A`k@Ozd@|@nJ}PjNwu@pj@yKjDaI|M{PeCgKe@gEHeX{CsD?{^tFgUdIc\\mA",
-                "bfvmEwuly[vCiFhLyDngAiy@eAkJNae@gA_k@nZoBwA}M|AiSkE_fAaHsf@kEob@?uWaAeVu@kk@uAeHyCeEaAuCoGyIeBoAgCg@hAwJ{FeAyjAiH"
-            ],
-            "stops": [
-                {
-                    "avg_delay": "0",
-                    "id": "2000421",
-                    "lat": "-33.867033",
-                    "lon": "151.210552",
-                    "name": "Martin Place Station, Elizabeth St, Stand C",
-                    "on_time_percent": 100.0,
-                    "total_trips": 1
-                },
-                {
-                    "avg_delay": "0",
-                    "id": "200057",
-                    "lat": "-33.872002",
-                    "lon": "151.209948",
-                    "name": "St James Station, Elizabeth St, Stand C",
-                    "on_time_percent": 100.0,
-                    "total_trips": 1
-                }
-            ]
-        },
-        etc.
-    ]
-    """
-    start_date = request.args.get("start_date")
-    end_date = request.args.get("end_date")
+    now = time.time()
     shit_type = "early" if request.args.get("shit_type") == "early" else "delay"
+    cache_key = shit_type
+
+    if (now - featured_routes_cache[cache_key]["last_updated"]) < CACHE_TIMEOUT_SECONDS:
+        if featured_routes_cache[cache_key]["data"] is not None:
+            return jsonify(featured_routes_cache[cache_key]["data"])
 
     try:
         conn, cursor = get_connection("buses")
 
-        routes_query = """
-            SELECT DISTINCT r.id, r.long_name
-            FROM routes r
-            JOIN route_daily_delays rdd ON r.id = rdd.route_id
-            WHERE r.is_in_sydney = TRUE AND r.id IN (
-                SELECT DISTINCT route_id FROM route_shapes WHERE is_fully_in_central_sydney = TRUE
-            )
-            ORDER BY r.id
-        """
-        cursor.execute(routes_query)
-        candidate_routes = cursor.fetchall()
+        today = datetime.now(ZoneInfo("Australia/Sydney")).date()
+        end_date = today.strftime("%Y-%m-%d")
+        start_date = (today - timedelta(days=FEATURED_ROUTES_TIME_PERIOD_DAYS - 1)).strftime("%Y-%m-%d")
 
-        seed = int(datetime.now().strftime("%Y%m%d%H"))
-        random.seed(seed)
-        if len(candidate_routes) >= NUM_FEATURED_ROUTES:
-            selected_routes_info = random.sample(candidate_routes, NUM_FEATURED_ROUTES)
-        else:
-            selected_routes_info = candidate_routes
+        routes_query = f"""
+            SELECT
+                r.id,
+                r.long_name
+            FROM route_daily_delays rdd
+            JOIN routes r ON rdd.route_id = r.id
+            WHERE
+                rdd.date BETWEEN %s AND %s
+                AND r.is_in_sydney = TRUE
+                AND rdd.total_count > 0
+                AND r.id IN (
+                    SELECT DISTINCT route_id FROM route_shapes WHERE is_fully_in_central_sydney = TRUE
+                )
+            GROUP BY r.id, r.long_name
+            ORDER BY SUM(rdd.total_{shit_type}) / SUM(rdd.total_count) DESC
+            LIMIT %s
+        """
+        cursor.execute(routes_query, (start_date, end_date, NUM_FEATURED_ROUTES))
+        selected_routes_info = cursor.fetchall()
+
+        if not selected_routes_info:
+            return jsonify({"routes": []})
 
         result_data = []
         for route_id, route_long_name in selected_routes_info:
@@ -869,7 +846,7 @@ def get_featured_bus_routes():
             """
             cursor.execute(stops_query, (route_id, start_date, end_date))
             stops_rows = cursor.fetchall()
-            
+
             route_stats_query = f"""
                 SELECT SUM(total_trips)
                 FROM route_daily_delays
@@ -877,34 +854,44 @@ def get_featured_bus_routes():
             """
             cursor.execute(route_stats_query, (route_id, start_date, end_date))
             route_total_trips = cursor.fetchone()[0] or 0
-            
+
             stops_data = []
             for row in stops_rows:
                 total_delay_or_early = row[4] if row[4] is not None else 0
                 total_count = row[5] if row[5] is not None else 0
                 avg_delay = total_delay_or_early / total_count if total_count > 0 else 0
-                on_time_percent = row[7] if shit_type == 'delay' else row[8]
-                stops_data.append({
-                    "id": row[0], "name": row[1], "lat": row[2], "lon": row[3],
-                    "avg_delay": avg_delay,
-                    "on_time_percent": on_time_percent if on_time_percent is not None else 100,
-                    "total_trips": 0
-                })
+                on_time_percent = row[7] if shit_type == "delay" else row[8]
+                stops_data.append(
+                    {
+                        "id": row[0],
+                        "name": row[1],
+                        "lat": row[2],
+                        "lon": row[3],
+                        "avg_delay": avg_delay,
+                        "on_time_percent": on_time_percent if on_time_percent is not None else 100,
+                        "total_trips": 0,
+                    }
+                )
 
             # snapped_stops = snap_stops_to_route(stops_data, encoded_shapes)
             # TODO sometimes overlaps when snapping
-            
+
             for stop in stops_data:
-                stop["avg_delay"] = round(float(stop["avg_delay"]) / 60, 2)  
-            
-            result_data.append({
-                "route": {"id": route_id, "long_name": route_long_name},
-                "shapes": encoded_shapes,
-                "stops": stops_data,
-                "total_trips": route_total_trips  
-            })
-            
-        return jsonify({"routes": result_data}) 
+                stop["avg_delay"] = round(float(stop["avg_delay"]) / 60, 2)
+
+            result_data.append(
+                {
+                    "route": {"id": route_id, "long_name": route_long_name},
+                    "shapes": encoded_shapes,
+                    "stops": stops_data,
+                    "total_trips": route_total_trips,
+                }
+            )
+
+        response_data = {"routes": result_data}
+        featured_routes_cache[cache_key]["data"] = response_data
+        featured_routes_cache[cache_key]["last_updated"] = now
+        return jsonify(response_data)
 
     except mysql.connector.Error as err:
         print("MySQL error in /api/buses/routes/featured:", err, flush=True)
