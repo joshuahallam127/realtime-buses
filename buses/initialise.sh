@@ -10,6 +10,7 @@ python3 generate_routes_csv.py
 python3 routes.py
 python3 load_stops.py
 python3 populate_routes_shapes.py
+python3 consolidate_route_shapes.py
 
 # TODO just put this in one script, and work out when we have to refresh 
 # these things

@@ -13,7 +13,7 @@ def get_connection():
     try:
         connection = mysql.connector.connect(
             host=os.getenv("RDS_HOST", "127.0.0.1"),
-            port=int(os.getenv("RDS_PORT", 3310)),
+            port=int(os.getenv("RDS_PORT", 3308)),
             user=os.getenv("RDS_USER", "root"),
             password=os.getenv("RDS_PASSWORD", "password"),
             database="buses",
