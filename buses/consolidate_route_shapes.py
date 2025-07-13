@@ -1,26 +1,8 @@
-import csv
-import os
-import mysql.connector
-from dotenv import load_dotenv
 import polyline
 import math
-
-
-def get_connection():
-    load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
-    try:
-        connection = mysql.connector.connect(
-            host=os.getenv("RDS_HOST", "127.0.0.1"),
-            port=int(os.getenv("RDS_PORT", 3308)),
-            user=os.getenv("RDS_USER", "root"),
-            password=os.getenv("RDS_PASSWORD", "password"),
-            database="buses",
-        )
-        return connection
-    except mysql.connector.Error as err:
-        print(f"Error connecting to the database: {err}")
-        return None
-
+import csv
+from collections import defaultdict
+from functions import get_connection
 
 def haversine_distance(lat1, lon1, lat2, lon2):
     """calculate distance between two points in meters"""
@@ -33,7 +15,6 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     a = math.sin(delta_lat / 2) ** 2 + math.cos(lat1_rad) * math.cos(lat2_rad) * math.sin(delta_lon / 2) ** 2
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     return R * c
-
 
 def find_closest_point_on_shape(stop_lat, stop_lon, shape_points):
     """find the minimum distance from a stop to any point on a shape"""
@@ -106,110 +87,148 @@ def score_shape_for_stops(shape_points, stops):
     return total_score + coverage_bonus
 
 
+def get_route_stops_from_gtfs():
+    """Load stops for each route from GTFS files"""
+    print("Loading GTFS data...")
+    
+    # Load all stops
+    stops_data = {}
+    with open('stops.txt', 'r', encoding='utf-8-sig') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            stops_data[row['stop_id']] = {
+                'lat': float(row['stop_lat']),
+                'lon': float(row['stop_lon']),
+                'name': row['stop_name']
+            }
+    
+    # Load trips to get route_id for each trip
+    trip_to_route = {}
+    with open('trips.txt', 'r', encoding='utf-8-sig') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            trip_to_route[row['trip_id']] = row['route_id']
+    
+    # Load stop_times and group stops by route
+    route_stops = defaultdict(set)
+    with open('stop_times.txt', 'r', encoding='utf-8-sig') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            trip_id = row['trip_id']
+            stop_id = row['stop_id']
+            
+            if trip_id in trip_to_route and stop_id in stops_data:
+                route_id = trip_to_route[trip_id]
+                route_stops[route_id].add(stop_id)
+    
+    # Convert to final format
+    route_stops_data = {}
+    for route_id, stop_ids in route_stops.items():
+        route_stops_data[route_id] = [
+            {
+                'lat': stops_data[stop_id]['lat'],
+                'lon': stops_data[stop_id]['lon'],
+                'name': stops_data[stop_id]['name']
+            }
+            for stop_id in stop_ids
+        ]
+    
+    print(f"Loaded stops for {len(route_stops_data)} routes")
+    return route_stops_data
+
+
 def consolidate_route_shapes():
     """replace multiple shapes per route with the single best shape"""
-    conn = get_connection()
-    if not conn:
-        return
+    conn, cursor = get_connection()
     
-    cursor = conn.cursor()
+    # Load route stops from GTFS
+    route_stops_data = get_route_stops_from_gtfs()
     
-    try:
-        # get all routes with multiple shapes
-        print("Fetching routes with multiple shapes...")
+    # get all routes with multiple shapes
+    print("Fetching routes with multiple shapes...")
+    cursor.execute("""
+        SELECT route_id, COUNT(*) as shape_count
+        FROM route_shapes
+        GROUP BY route_id
+        HAVING COUNT(*) > 1
+        ORDER BY shape_count DESC
+    """)
+    routes_with_multiple_shapes = cursor.fetchall()
+    
+    print(f"Found {len(routes_with_multiple_shapes)} routes with multiple shapes")
+    
+    for route_id, shape_count in routes_with_multiple_shapes:
+        print(f"\nProcessing route {route_id} ({shape_count} shapes)...")
+        
+        # get all shapes for this route
         cursor.execute("""
-            SELECT route_id, COUNT(*) as shape_count 
-            FROM route_shapes 
-            GROUP BY route_id 
-            HAVING COUNT(*) > 1
-            ORDER BY shape_count DESC
-        """)
-        routes_with_multiple_shapes = cursor.fetchall()
+            SELECT id, shape_id, shape_encoded
+            FROM route_shapes
+            WHERE route_id = %s
+        """, (route_id,))
+        shape_rows = cursor.fetchall()
         
-        print(f"Found {len(routes_with_multiple_shapes)} routes with multiple shapes")
+        # get stops for this route from GTFS data
+        stops = route_stops_data.get(route_id, [])
         
-        for route_id, shape_count in routes_with_multiple_shapes:
-            print(f"\nProcessing route {route_id} ({shape_count} shapes)...")
+        if not stops:
+            print(f"  No stops found for route {route_id}, keeping first shape...")
+            # keep only the first shape
+            shapes_to_delete = [row[0] for row in shape_rows[1:]]
+            if shapes_to_delete:
+                placeholders = ','.join(['%s'] * len(shapes_to_delete))
+                cursor.execute(f"DELETE FROM route_shapes WHERE id IN ({placeholders})", shapes_to_delete)
+            continue
+
+        print(f"  Found {len(shape_rows)} shapes and {len(stops)} stops")
+        
+        # score each shape
+        best_shape = None
+        best_score = -1
+        
+        for shape_row in shape_rows:
+            _, shape_name, encoded_shape = shape_row
             
-            # get all shapes for this route
-            cursor.execute("""
-                SELECT id, shape_id, shape_encoded, is_fully_in_central_sydney 
-                FROM route_shapes 
-                WHERE route_id = %s
-            """, (route_id,))
-            shape_rows = cursor.fetchall()
-            
-            # get stops for this route
-            cursor.execute("""
-                SELECT DISTINCT s.lat, s.lon, s.name 
-                FROM stops s
-                JOIN stop_daily_delays sdd ON s.id = sdd.stop_id
-                WHERE sdd.route_id = %s
-            """, (route_id,))
-            stops = [{"lat": row[0], "lon": row[1], "name": row[2]} for row in cursor.fetchall()]
-            
-            if not stops:
-                print(f"  No stops found for route {route_id}, keeping first shape...")
-                # keep only the first shape
-                shapes_to_delete = [row[0] for row in shape_rows[1:]]
-                if shapes_to_delete:
-                    placeholders = ','.join(['%s'] * len(shapes_to_delete))
-                    cursor.execute(f"DELETE FROM route_shapes WHERE id IN ({placeholders})", shapes_to_delete)
+            if not encoded_shape:
                 continue
                 
-            print(f"  Found {len(shape_rows)} shapes and {len(stops)} stops")
-            
-            # score each shape
-            best_shape = None
-            best_score = -1
-            
-            for shape_row in shape_rows:
-                shape_id, shape_name, encoded_shape, is_central = shape_row
+            try:
+                decoded = polyline.decode(encoded_shape)
+                # convert lat,lon to lon,lat for internal processing
+                shape_points = [[point[1], point[0]] for point in decoded]
                 
-                if not encoded_shape:
-                    continue
+                score = score_shape_for_stops(shape_points, stops)
+                print(f"    Shape {shape_name}: score = {score:.1f}")
+                
+                if score > best_score:
+                    best_score = score
+                    best_shape = shape_row
                     
-                try:
-                    decoded = polyline.decode(encoded_shape)
-                    # convert lat,lon to lon,lat for internal processing
-                    shape_points = [[point[1], point[0]] for point in decoded]
-                    
-                    score = score_shape_for_stops(shape_points, stops)
-                    print(f"    Shape {shape_name}: score = {score:.1f}")
-                    
-                    if score > best_score:
-                        best_score = score
-                        best_shape = shape_row
-                        
-                except Exception as e:
-                    print(f"    Error decoding shape {shape_name}: {e}")
-                    continue
-            
-            if not best_shape:
-                print(f"  No valid shapes found for route {route_id}")
+            except Exception as e:
+                print(f"    Error decoding shape {shape_name}: {e}")
                 continue
-                
-            best_shape_id = best_shape[0]
-            print(f"  Best shape: {best_shape[1]} (score: {best_score:.1f})")
-            
-            # delete all other shapes for this route
-            cursor.execute("""
-                DELETE FROM route_shapes 
-                WHERE route_id = %s AND id != %s
-            """, (route_id, best_shape_id))
-            
-            deleted_count = cursor.rowcount
-            print(f"  Deleted {deleted_count} inferior shapes")
-            
-        conn.commit()
-        print(f"\nSuccessfully consolidated shapes for {len(routes_with_multiple_shapes)} routes")
         
-    except mysql.connector.Error as err:
-        print(f"Database error: {err}")
-        conn.rollback()
-    finally:
-        cursor.close()
-        conn.close()
+        if not best_shape:
+            print(f"  No valid shapes found for route {route_id}")
+            continue
+            
+        best_shape_id = best_shape[0]
+        print(f"  Best shape: {best_shape[1]} (score: {best_score:.1f})")
+        
+        # delete all other shapes for this route
+        cursor.execute("""
+            DELETE FROM route_shapes 
+            WHERE route_id = %s AND id != %s
+        """, (route_id, best_shape_id))
+        
+        deleted_count = cursor.rowcount
+        print(f"  Deleted {deleted_count} inferior shapes")
+        
+    conn.commit()
+    print(f"\nSuccessfully consolidated shapes for {len(routes_with_multiple_shapes)} routes")
+        
+    cursor.close()
+    conn.close()
 
 
 if __name__ == "__main__":

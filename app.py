@@ -860,9 +860,6 @@ def get_featured_bus_routes():
                 rdd.date BETWEEN %s AND %s
                 AND r.is_in_sydney = TRUE
                 AND rdd.total_count > 0
-                AND r.id IN (
-                    SELECT DISTINCT route_id FROM route_shapes WHERE is_fully_in_central_sydney = TRUE
-                )
             GROUP BY r.id, r.long_name
             ORDER BY SUM(rdd.total_{shit_type}) / SUM(rdd.total_count) DESC
             LIMIT %s

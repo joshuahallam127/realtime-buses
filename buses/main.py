@@ -16,14 +16,13 @@ INTERVAL = 5
 SYDNEY_TZ = ZoneInfo('Australia/Sydney')
 
 url = 'https://api.transport.nsw.gov.au/v1/gtfs/realtime/buses'
-headers = {
-    'Authorization': f'apikey {os.getenv("APIKEY")}',
-}
+headers = { 'Authorization': f'apikey {os.getenv("APIKEY")}' }
 
-# get valid routes from the database
 conn, cursor = get_connection()
 cursor.execute("SELECT id FROM routes")
 valid_routes = set(row[0] for row in cursor.fetchall())
+cursor.execute("SELECT id FROM stops")
+valid_stops = set(row[0] for row in cursor.fetchall())
 cursor.close()
 conn.close()
 
@@ -45,7 +44,6 @@ def parse_feed(feed):
         'stop_sequence' : [],
         'arrival_delay' : [],
         'departure_early' : [],
-        'vehicle_id': [],
         'timestamp': []
     }
     cancel_data = {
@@ -60,17 +58,17 @@ def parse_feed(feed):
             cancel_data['trip_id'].append(entity.trip_update.trip.trip_id)
             cancel_data['route_id'].append(entity.trip_update.trip.route_id)
         elif entity.trip_update.trip.schedule_relationship == 0 and entity.trip_update.stop_time_update:
-            for stop_update in entity.trip_update.stop_time_update:
-                if 'arrival' in stop_update and 'delay' in stop_update.arrival and \
-                    'departure' in stop_update and 'delay' in stop_update.departure and 'stop_id' in stop_update:
-                    delay_data['trip_id'].append(entity.trip_update.trip.trip_id)
-                    delay_data['route_id'].append(entity.trip_update.trip.route_id)
-                    delay_data['stop_id'].append(stop_update.stop_id)
-                    delay_data['stop_sequence'].append(stop_update.stop_sequence)
-                    delay_data['arrival_delay'].append(max(0, stop_update.arrival.delay))
-                    delay_data['departure_early'].append(min(0, stop_update.departure.delay) * -1)
-                    delay_data['vehicle_id'].append(entity.trip_update.vehicle.id)
-                    delay_data['timestamp'].append(feed_timestamp)
+            first_stop_time_update = entity.trip_update.stop_time_update[0]
+            if 'arrival' in first_stop_time_update and 'delay' in first_stop_time_update.arrival and \
+                'departure' in first_stop_time_update and 'delay' in first_stop_time_update.departure and \
+                first_stop_time_update.stop_id in valid_stops:
+                delay_data['trip_id'].append(entity.trip_update.trip.trip_id)
+                delay_data['route_id'].append(entity.trip_update.trip.route_id)
+                delay_data['stop_id'].append(first_stop_time_update.stop_id)
+                delay_data['stop_sequence'].append(entity.trip_update.stop_time_update[0].stop_sequence)
+                delay_data['arrival_delay'].append(max(0, entity.trip_update.stop_time_update[0].arrival.delay))
+                delay_data['departure_early'].append(min(0, entity.trip_update.stop_time_update[0].departure.delay) * -1)
+                delay_data['timestamp'].append(feed_timestamp)
     return delay_data, cancel_data
 
 def write_json(feed):
@@ -81,21 +79,18 @@ def write_json(feed):
 def cache_delay_data(cursor, delay_data):
     # get a map of trip_id to max stop_sequence that we currently have in the database
     cursor.execute("SELECT trip_id, MAX(stop_sequence) FROM delays GROUP BY trip_id")
-    trip_id_map = {row[0]: row[1] for row in cursor.fetchall()}
+    curr_trip_id_to_stop_sequence = {row[0]: row[1] for row in cursor.fetchall()}
 
     # we need to cache if the next stop_sequence of trip_id has been received
     to_cache = set()
-    
-    current_trip_max_sequence = {}
-    for i, trip_id in enumerate(delay_data['trip_id']):
-        current_trip_max_sequence[trip_id] = max(current_trip_max_sequence.get(trip_id, 0), delay_data['stop_sequence'][i])
 
-    for trip_id, max_sequence in current_trip_max_sequence.items():
-        if trip_id in trip_id_map and max_sequence > trip_id_map[trip_id]:
-            to_cache.add(trip_id)
+    count = 0
+    for i in range(len(delay_data['trip_id'])):
+        if curr_trip_id_to_stop_sequence.get(delay_data['trip_id'][i], 100_000) < delay_data['stop_sequence'][i]:
+            to_cache.add(delay_data['trip_id'][i])
 
     # we also need to cache if trip_id from the database is not in the new data
-    missing_trip_ids = set(trip_id_map.keys()) - set(delay_data['trip_id']) # used later to know a route has been completed
+    missing_trip_ids = set(curr_trip_id_to_stop_sequence.keys()) - set(delay_data['trip_id']) # used later to know a route has been completed
     to_cache.update(missing_trip_ids)
 
     if not to_cache:
@@ -104,7 +99,7 @@ def cache_delay_data(cursor, delay_data):
     # get the data to cache
     placeholders = ','.join(['%s']*len(to_cache))
     query = f"""
-        SELECT trip_id, route_id, stop_id, arrival_delay, departure_early, stop_sequence, vehicle_id, timestamp
+        SELECT trip_id, route_id, stop_id, arrival_delay, departure_early, stop_sequence, timestamp
         FROM delays
         WHERE trip_id IN ({placeholders})
     """
@@ -113,19 +108,19 @@ def cache_delay_data(cursor, delay_data):
 
     # move to history
     history_to_insert = [
-        (row[0], row[6], row[1], row[2], row[5], row[3], row[4], row[7]) for row in rows_to_cache
+        (row[0], row[1], row[2], row[5], row[3], row[4], row[6]) for row in rows_to_cache
     ]
     if history_to_insert:
         cursor.executemany("""
-            INSERT INTO delay_history (trip_id, vehicle_id, route_id, stop_id, stop_sequence, arrival_delay, departure_early, timestamp)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO delay_history (trip_id, route_id, stop_id, stop_sequence, arrival_delay, departure_early, timestamp)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, history_to_insert)
 
     # aggregate the data to cache based on route and start_date
     aggregate_cached_stops = {}
     above_ranges = [1, 2, 5, 10, 15, 30]
     before_ranges = [1, 2, 5, 10]
-    for trip_id, route_id, stop_id, arrival_delay, departure_early, _, _, _ in rows_to_cache:
+    for trip_id, route_id, stop_id, arrival_delay, departure_early, _, _ in rows_to_cache:
         key = (route_id, stop_id)
         if key not in aggregate_cached_stops:
             aggregate_cached_stops[key] = {
@@ -201,7 +196,7 @@ def cache_delay_data(cursor, delay_data):
     aggregate_routes = {}
     if missing_trip_ids:
         # reuse the ranges from stop aggregation
-        for trip_id, route_id, _, arrival_delay, departure_early, _, _, _ in rows_to_cache:
+        for trip_id, route_id, _, arrival_delay, departure_early, _, _ in rows_to_cache:
             if trip_id in missing_trip_ids:
                 if route_id not in aggregate_routes:
                     aggregate_routes[route_id] = {
@@ -317,17 +312,15 @@ def insert_or_update_delays(cursor, delay_data):
         delay_data['stop_sequence'],
         delay_data['arrival_delay'],
         delay_data['departure_early'],
-        delay_data['vehicle_id'],
         delay_data['timestamp']
     ))
 
     query = """
-        INSERT INTO delays (trip_id, route_id, stop_id, stop_sequence, arrival_delay, departure_early, vehicle_id, timestamp)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO delays (trip_id, route_id, stop_id, stop_sequence, arrival_delay, departure_early, timestamp)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
         ON DUPLICATE KEY UPDATE
             arrival_delay = VALUES(arrival_delay),
             departure_early = VALUES(departure_early),
-            vehicle_id = VALUES(vehicle_id),
             timestamp = VALUES(timestamp)
     """
     cursor.executemany(query, data)

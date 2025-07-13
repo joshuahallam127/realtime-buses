@@ -2,17 +2,14 @@ from functions import get_connection
 
 conn, cursor = get_connection()
 
-cursor.execute("SET FOREIGN_KEY_CHECKS = 0")
 cursor.execute("""DROP TABLE IF EXISTS delay_history""")
+cursor.execute("""DROP TABLE IF EXISTS route_shapes""")
 cursor.execute("""DROP TABLE IF EXISTS stop_daily_delays""")
 cursor.execute("""DROP TABLE IF EXISTS route_daily_delays""")
 cursor.execute("""DROP TABLE IF EXISTS cancels""")
 cursor.execute("""DROP TABLE IF EXISTS delays""")
 cursor.execute("""DROP TABLE IF EXISTS routes""")
-cursor.execute("""DROP TABLE IF EXISTS route_shapes""")
 cursor.execute("DROP TABLE IF EXISTS stops")
-cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
-
 
 cursor.execute(
     """CREATE TABLE routes (
@@ -32,15 +29,13 @@ cursor.execute(
 # i think we use stop_sequence instead of stop_id because of loop services with buses
 cursor.execute(
     """CREATE TABLE delays (
-    trip_id VARCHAR(9) NOT NULL,
-    vehicle_id VARCHAR(30),
+    trip_id VARCHAR(9) PRIMARY KEY,
     route_id VARCHAR(10) REFERENCES routes(id),
     stop_id VARCHAR(10) REFERENCES stops(id),
     stop_sequence SMALLINT UNSIGNED,
     arrival_delay SMALLINT UNSIGNED,
     departure_early SMALLINT UNSIGNED,
-    timestamp DATETIME,
-    PRIMARY KEY (trip_id, stop_sequence)
+    timestamp DATETIME
 )"""
 )
 cursor.execute(
@@ -102,23 +97,20 @@ cursor.execute(
     route_id VARCHAR(255) NOT NULL,
     shape_id VARCHAR(255) NOT NULL,
     shape_encoded TEXT,
-    is_fully_in_central_sydney BOOLEAN,
     UNIQUE KEY (route_id, shape_id(191)),
     FOREIGN KEY (route_id) REFERENCES routes(id) ON DELETE CASCADE
 )"""
 )
 cursor.execute(
     """CREATE TABLE delay_history (
-    id INT AUTO_INCREMENT PRIMARY KEY,
     trip_id VARCHAR(9) NOT NULL,
-    vehicle_id VARCHAR(30),
     route_id VARCHAR(10),
     stop_id VARCHAR(10),
     stop_sequence SMALLINT UNSIGNED,
     arrival_delay SMALLINT UNSIGNED,
     departure_early SMALLINT UNSIGNED,
     timestamp DATETIME,
-    INDEX (route_id, stop_id, timestamp)
+    PRIMARY KEY (trip_id, stop_id, timestamp)
 )"""
 )
 
