@@ -9,6 +9,7 @@ cursor.execute(
     lon DECIMAL(9, 6)
 )"""
 )
+cursor.execute("TRUNCATE TABLE delays")
 cursor.execute("""ALTER TABLE delays 
     ADD COLUMN stop_id VARCHAR(10) NOT NULL,
     ADD COLUMN timestamp DATETIME
@@ -60,7 +61,6 @@ cursor.execute(
     PRIMARY KEY (trip_id, stop_id, timestamp)
 )"""
 )
-cursor.execute("TRUNCATE TABLE delays")
 conn.commit()
 cursor.close()
 conn.close()
