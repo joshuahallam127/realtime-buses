@@ -6,10 +6,10 @@
 # fi
 
 python3 download_txt_files.py
-python3 schema.py
+python3 migration.py
 python3 routes.py
 python3 stops.py
-python3 routes_shapes.py
+python3 route_shapes.py
 
 # TODO just put this in one script, and work out when we have to refresh 
 # these things
