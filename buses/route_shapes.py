@@ -19,13 +19,16 @@ with open('trips.txt', "r", encoding="utf-8-sig") as csvfile:
 route_id_to_shape_ids = {k: [s[0] for s in sorted(v.items(), key=lambda x: -x[1])[:2]] for k, v in route_id_to_shape_ids.items()}
 # route_id_to_shape_ids = {k: [s[0] for s in v.items()] for k, v in route_id_to_shape_ids.items()}
 
+needed_shape_ids = set()
+for shape_ids in route_id_to_shape_ids.values():
+    needed_shape_ids.update(shape_ids)
+
 shape_points = defaultdict(list)
 with open('shapes.txt', "r", encoding="utf-8-sig") as f:
     reader = csv.DictReader(f)
     for i, row in enumerate(reader):
-        if i % 1_000_000 == 0:
-            print(f"Processing shape point {i}")
-        shape_points[row['shape_id']].append([float(row["shape_pt_lon"]), float(row["shape_pt_lat"])])
+        if row['shape_id'] in needed_shape_ids:
+            shape_points[row['shape_id']].append([float(row["shape_pt_lon"]), float(row["shape_pt_lat"])])
 
 conn, cursor = get_connection()
 shapes_to_insert = []
