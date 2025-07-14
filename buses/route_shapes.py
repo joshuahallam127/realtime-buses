@@ -23,6 +23,8 @@ shape_points = defaultdict(list)
 with open('shapes.txt', "r", encoding="utf-8-sig") as f:
     reader = csv.DictReader(f)
     for i, row in enumerate(reader):
+        if i % 1_000_000 == 0:
+            print(f"Processing shape point {i}")
         shape_points[row['shape_id']].append([float(row["shape_pt_lon"]), float(row["shape_pt_lat"])])
 
 conn, cursor = get_connection()
