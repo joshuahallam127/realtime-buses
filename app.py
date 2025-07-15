@@ -693,7 +693,12 @@ def get_bus_routes():
         rows = cursor.fetchall()
 
         result = [{"id": row[0], "long_name": row[1]} for row in rows]
-        return jsonify(result)
+
+        response = make_response(jsonify(result))
+        response.headers['Cache-Control'] = 'public, max-age=43200' # 12h
+        response.headers['ETag'] = f'bus-routes-{len(result)}'
+
+        return response
 
     except mysql.connector.Error as err:
         return jsonify({"error": str(err)}), 500
@@ -879,6 +884,7 @@ def get_featured_bus_routes():
 
         # print("The worst/best routes are", selected_routes_info, flush=True)
 
+        # TODO don't need to send back name and stuff. too heavy
         result_data = []
         for route_id, route_long_name in selected_routes_info:
             encoded_shapes = get_encoded_shapes_for_route(cursor, route_id)
