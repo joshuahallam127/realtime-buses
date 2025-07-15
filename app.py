@@ -759,7 +759,14 @@ def get_station_delay_map():
         route_stats = {}
 
         def clean_station_name(name):
-            return name.replace("Station", "").strip()
+            cleaned = name.replace("Station", "").strip()
+            
+            if cleaned == "Sydney International Airport":
+                return "Intl. Airport"
+            elif cleaned == "Sydney Domestic Airport":
+                return "Domestic Airport"
+            
+            return cleaned
 
         for row in rows:
             stop_name = row[1]
