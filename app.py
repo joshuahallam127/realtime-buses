@@ -1,5 +1,5 @@
 import traceback
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 import mysql.connector
 from dotenv import load_dotenv
 from flask_cors import CORS
@@ -884,61 +884,32 @@ def get_featured_bus_routes():
 
         # print("The worst/best routes are", selected_routes_info, flush=True)
 
-        # TODO don't need to send back name and stuff. too heavy
         result_data = []
         for route_id, route_long_name in selected_routes_info:
             encoded_shapes = get_encoded_shapes_for_route(cursor, route_id)
 
-            stops_query = f"""
-                SELECT
-                    s.id, s.name, s.lat, s.lon,
-                    SUM(sdd.total_{shit_type}),
-                    SUM(sdd.total_count),
-                    SUM(sdd.total_trips),
-                    (SUM(sdd.total_count) - SUM(sdd.above_1_minute)) * 100.0 / NULLIF(SUM(sdd.total_count), 0),
-                    (SUM(sdd.total_count) - SUM(sdd.before_1_minute)) * 100.0 / NULLIF(SUM(sdd.total_count), 0)
-                FROM stop_daily_delays sdd
-                JOIN stops s ON sdd.stop_id = s.id
-                WHERE sdd.route_id = %s AND sdd.date BETWEEN %s AND %s
-                GROUP BY s.id, s.name, s.lat, s.lon
-            """
-            cursor.execute(stops_query, (route_id, start_date, end_date))
-            stops_rows = cursor.fetchall()
-
-            route_stats_query = """
-                SELECT SUM(total_trips)
+            # get route-level average delay and total trips
+            route_stats_query = f"""
+                SELECT 
+                    SUM(total_{shit_type}),
+                    SUM(total_count),
+                    SUM(total_trips)
                 FROM route_daily_delays
                 WHERE route_id = %s AND date BETWEEN %s AND %s
             """
             cursor.execute(route_stats_query, (route_id, start_date, end_date))
-            route_total_trips = cursor.fetchone()[0] or 0
-
-            stops_data = []
-            for row in stops_rows:
-                total_delay_or_early = row[4] if row[4] is not None else 0
-                total_count = row[5] if row[5] is not None else 0
-                avg_delay = total_delay_or_early / total_count if total_count > 0 else 0
-                on_time_percent = row[7] if shit_type == "delay" else row[8]
-                stops_data.append(
-                    {
-                        "id": row[0],
-                        "name": row[1],
-                        "lat": row[2],
-                        "lon": row[3],
-                        "avg_delay": avg_delay,
-                        "on_time_percent": on_time_percent if on_time_percent is not None else 100,
-                        "total_trips": 0,
-                    }
-                )
-
-            # snapped_stops = snap_stops_to_route(stops_data, encoded_shapes)
-            # TODO sometimes overlaps when snapping
+            stats_row = cursor.fetchone()
+            
+            total_delay_or_early = stats_row[0] if stats_row[0] is not None else 0
+            total_count = stats_row[1] if stats_row[1] is not None else 0
+            route_total_trips = stats_row[2] if stats_row[2] is not None else 0
+            route_avg_delay = total_delay_or_early / total_count if total_count > 0 else 0
 
             result_data.append(
                 {
                     "route": {"id": route_id, "long_name": route_long_name},
                     "shapes": encoded_shapes,
-                    "stops": stops_data,
+                    "avg_delay": route_avg_delay,
                     "total_trips": route_total_trips,
                 }
             )
