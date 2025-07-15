@@ -775,35 +775,35 @@ def get_station_delay_map():
             total_trips = float(row[4]) if row[4] is not None else 0
             on_time_percent = round(float(row[5]) if row[5] is not None else 100, 1)
 
-            avg_delay_minutes = (total_delay_seconds / 60) / total_trips if total_trips > 0 else 0
+            avg_delay_seconds = total_delay_seconds / total_trips if total_trips > 0 else 0
             cleaned_name = clean_station_name(stop_name)
 
             # store stop data by cleaned name per route
             if cleaned_name not in stop_stats:
                 stop_stats[cleaned_name] = {}
             stop_stats[cleaned_name][route] = {
-                "avg_delay": avg_delay_minutes,
+                "avg_delay": avg_delay_seconds,
                 "total_trips": total_trips,
                 "on_time_percent": on_time_percent,
             }
 
             if route not in route_stats:
                 route_stats[route] = {
-                    "total_delay_minutes": 0,
+                    "total_delay_seconds": 0,
                     "total_trips": 0,
                     "stop_count": 0,
                 }
-            route_stats[route]["total_delay_minutes"] += total_delay_seconds / 60
+            route_stats[route]["total_delay_seconds"] += total_delay_seconds
             route_stats[route]["total_trips"] += total_trips
             route_stats[route]["stop_count"] += 1
 
         #  route averages
         for route, stats in route_stats.items():
             if stats["total_trips"] > 0:
-                route_stats[route]["avg_delay"] = stats["total_delay_minutes"] / stats["total_trips"]
+                route_stats[route]["avg_delay"] = stats["total_delay_seconds"] / stats["total_trips"]
             else:
                 route_stats[route]["avg_delay"] = 0
-            del route_stats[route]["total_delay_minutes"]
+            del route_stats[route]["total_delay_seconds"]
 
         return jsonify({"stops": stop_stats, "routes": route_stats})
 
@@ -927,9 +927,6 @@ def get_featured_bus_routes():
 
             # snapped_stops = snap_stops_to_route(stops_data, encoded_shapes)
             # TODO sometimes overlaps when snapping
-
-            for stop in stops_data:
-                stop["avg_delay"] = round(float(stop["avg_delay"]) / 60, 2)
 
             result_data.append(
                 {
