@@ -61,7 +61,7 @@ def parse_feed(feed):
             first_stop_time_update = entity.trip_update.stop_time_update[0]
             if 'arrival' in first_stop_time_update and 'delay' in first_stop_time_update.arrival and \
                 'departure' in first_stop_time_update and 'delay' in first_stop_time_update.departure and \
-                first_stop_time_update.stop_id in valid_stops:
+                first_stop_time_update.stop_id in valid_stops and first_stop_time_update.schedule_relationship == 0:
                 delay_data['trip_id'].append(entity.trip_update.trip.trip_id)
                 delay_data['route_id'].append(entity.trip_update.trip.route_id)
                 delay_data['stop_id'].append(first_stop_time_update.stop_id)
@@ -73,7 +73,7 @@ def parse_feed(feed):
 
 def write_json(feed):
     feed_dict = MessageToDict(feed)
-    with open("feed_data_2.json", "w") as f:
+    with open("feed_data.json", "w") as f:
         json.dump(feed_dict, f, indent=2)
 
 def cache_delay_data(cursor, delay_data):
