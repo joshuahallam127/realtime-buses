@@ -609,19 +609,46 @@ def get_train_distribution_stats(route_short_name):
                 on_time = total - calculated_total
                 on_time = max(0, on_time)
 
+            raw_percentages = [
+                early / total * 100,
+                on_time / total * 100,
+                delay_1_2 / total * 100,
+                delay_2_5 / total * 100,
+                delay_5_10 / total * 100,
+                delay_10_15 / total * 100,
+                delay_15_30 / total * 100,
+                delay_30_plus / total * 100,
+            ]
+            
+            factor = 10
+            target_sum = 1000  # 100 * 10
+            rounded = [round(p * factor) for p in raw_percentages]
+            current_sum = sum(rounded)
+            diff = target_sum - current_sum
+            
+            if diff != 0:
+                # adjust largest remainders first
+                remainders = [(abs(p * factor - round(p * factor)), i) for i, p in enumerate(raw_percentages)]
+                remainders.sort(reverse=True)
+                for i in range(abs(diff)):
+                    idx = remainders[i % len(remainders)][1]
+                    rounded[idx] += 1 if diff > 0 else -1
+            
+            rounded_percentages = [r / factor for r in rounded]
+            
             result.append(
                 {
                     "date": row[0].strftime("%Y-%m-%d"),
                     "total_count": total,
                     "distribution": {
-                        "early": round(early / total * 100, 1),
-                        "on_time": round(on_time / total * 100, 1),
-                        "delay_1_2": round(delay_1_2 / total * 100, 1),
-                        "delay_2_5": round(delay_2_5 / total * 100, 1),
-                        "delay_5_10": round(delay_5_10 / total * 100, 1),
-                        "delay_10_15": round(delay_10_15 / total * 100, 1),
-                        "delay_15_30": round(delay_15_30 / total * 100, 1),
-                        "delay_30_plus": round(delay_30_plus / total * 100, 1),
+                        "early": rounded_percentages[0],
+                        "on_time": rounded_percentages[1],
+                        "delay_1_2": rounded_percentages[2],
+                        "delay_2_5": rounded_percentages[3],
+                        "delay_5_10": rounded_percentages[4],
+                        "delay_10_15": rounded_percentages[5],
+                        "delay_15_30": rounded_percentages[6],
+                        "delay_30_plus": rounded_percentages[7],
                     },
                 }
             )
