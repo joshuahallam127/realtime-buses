@@ -1,5 +1,5 @@
 import traceback
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 import mysql.connector
 from dotenv import load_dotenv
 from flask_cors import CORS
@@ -174,21 +174,24 @@ def get_average_train_stop_delays():
 
         grouped = defaultdict(list)
         for row in rows:
+            station_name = row[1]
+            if station_name.endswith(" Station") and station_name != "Circular Quay":
+                station_name = station_name.replace(" Station", "")
+            
             grouped[row[0]].append(
                 {
-                    "station": row[1],
+                    "station": station_name,
                     "delay": row[2],
                     "hits": row[3],
                 }
             )
-        return jsonify(grouped)
 
         # Sort each route's station list by stop order
         sorted_result = {}
         for route, data_list in grouped.items():
             stop_order = stops.get(route, [])
             # Map station name to its order index (for sorting)
-            station_order = {station + " Station" if station != "Circular Quay" else station: i for i, station in enumerate(stop_order)}
+            station_order = {station: i for i, station in enumerate(stop_order)}
             # Sort by index in the official stop list
             sorted_result[route] = sorted(data_list, key=lambda x: station_order.get(x["station"], float("inf")))
         return jsonify(sorted_result)
@@ -606,19 +609,46 @@ def get_train_distribution_stats(route_short_name):
                 on_time = total - calculated_total
                 on_time = max(0, on_time)
 
+            raw_percentages = [
+                early / total * 100,
+                on_time / total * 100,
+                delay_1_2 / total * 100,
+                delay_2_5 / total * 100,
+                delay_5_10 / total * 100,
+                delay_10_15 / total * 100,
+                delay_15_30 / total * 100,
+                delay_30_plus / total * 100,
+            ]
+            
+            factor = 10
+            target_sum = 1000  # 100 * 10
+            rounded = [round(p * factor) for p in raw_percentages]
+            current_sum = sum(rounded)
+            diff = target_sum - current_sum
+            
+            if diff != 0:
+                # adjust largest remainders first
+                remainders = [(abs(p * factor - round(p * factor)), i) for i, p in enumerate(raw_percentages)]
+                remainders.sort(reverse=True)
+                for i in range(abs(diff)):
+                    idx = remainders[i % len(remainders)][1]
+                    rounded[idx] += 1 if diff > 0 else -1
+            
+            rounded_percentages = [r / factor for r in rounded]
+            
             result.append(
                 {
                     "date": row[0].strftime("%Y-%m-%d"),
                     "total_count": total,
                     "distribution": {
-                        "early": round(early / total * 100, 1),
-                        "on_time": round(on_time / total * 100, 1),
-                        "delay_1_2": round(delay_1_2 / total * 100, 1),
-                        "delay_2_5": round(delay_2_5 / total * 100, 1),
-                        "delay_5_10": round(delay_5_10 / total * 100, 1),
-                        "delay_10_15": round(delay_10_15 / total * 100, 1),
-                        "delay_15_30": round(delay_15_30 / total * 100, 1),
-                        "delay_30_plus": round(delay_30_plus / total * 100, 1),
+                        "early": rounded_percentages[0],
+                        "on_time": rounded_percentages[1],
+                        "delay_1_2": rounded_percentages[2],
+                        "delay_2_5": rounded_percentages[3],
+                        "delay_5_10": rounded_percentages[4],
+                        "delay_10_15": rounded_percentages[5],
+                        "delay_15_30": rounded_percentages[6],
+                        "delay_30_plus": rounded_percentages[7],
                     },
                 }
             )
@@ -693,7 +723,12 @@ def get_bus_routes():
         rows = cursor.fetchall()
 
         result = [{"id": row[0], "long_name": row[1]} for row in rows]
-        return jsonify(result)
+
+        response = make_response(jsonify(result))
+        response.headers['Cache-Control'] = 'public, max-age=43200' # 12h
+        response.headers['ETag'] = f'bus-routes-{len(result)}'
+
+        return response
 
     except mysql.connector.Error as err:
         return jsonify({"error": str(err)}), 500
@@ -759,7 +794,14 @@ def get_station_delay_map():
         route_stats = {}
 
         def clean_station_name(name):
-            return name.replace("Station", "").strip()
+            cleaned = name.replace("Station", "").strip()
+            
+            if cleaned == "Sydney International Airport":
+                return "Intl. Airport"
+            elif cleaned == "Sydney Domestic Airport":
+                return "Domestic Airport"
+            
+            return cleaned
 
         for row in rows:
             stop_name = row[1]
@@ -768,35 +810,35 @@ def get_station_delay_map():
             total_trips = float(row[4]) if row[4] is not None else 0
             on_time_percent = round(float(row[5]) if row[5] is not None else 100, 1)
 
-            avg_delay_minutes = (total_delay_seconds / 60) / total_trips if total_trips > 0 else 0
+            avg_delay_seconds = total_delay_seconds / total_trips if total_trips > 0 else 0
             cleaned_name = clean_station_name(stop_name)
 
             # store stop data by cleaned name per route
             if cleaned_name not in stop_stats:
                 stop_stats[cleaned_name] = {}
             stop_stats[cleaned_name][route] = {
-                "avg_delay": avg_delay_minutes,
+                "avg_delay": avg_delay_seconds,
                 "total_trips": total_trips,
                 "on_time_percent": on_time_percent,
             }
 
             if route not in route_stats:
                 route_stats[route] = {
-                    "total_delay_minutes": 0,
+                    "total_delay_seconds": 0,
                     "total_trips": 0,
                     "stop_count": 0,
                 }
-            route_stats[route]["total_delay_minutes"] += total_delay_seconds / 60
+            route_stats[route]["total_delay_seconds"] += total_delay_seconds
             route_stats[route]["total_trips"] += total_trips
             route_stats[route]["stop_count"] += 1
 
         #  route averages
         for route, stats in route_stats.items():
             if stats["total_trips"] > 0:
-                route_stats[route]["avg_delay"] = stats["total_delay_minutes"] / stats["total_trips"]
+                route_stats[route]["avg_delay"] = stats["total_delay_seconds"] / stats["total_trips"]
             else:
                 route_stats[route]["avg_delay"] = 0
-            del route_stats[route]["total_delay_minutes"]
+            del route_stats[route]["total_delay_seconds"]
 
         return jsonify({"stops": stop_stats, "routes": route_stats})
 
@@ -876,60 +918,40 @@ def get_featured_bus_routes():
         for route_id, route_long_name in selected_routes_info:
             encoded_shapes = get_encoded_shapes_for_route(cursor, route_id)
 
-            stops_query = f"""
-                SELECT
-                    s.id, s.name, s.lat, s.lon,
-                    SUM(sdd.total_{shit_type}),
-                    SUM(sdd.total_count),
-                    SUM(sdd.total_trips),
-                    (SUM(sdd.total_count) - SUM(sdd.above_1_minute)) * 100.0 / NULLIF(SUM(sdd.total_count), 0),
-                    (SUM(sdd.total_count) - SUM(sdd.before_1_minute)) * 100.0 / NULLIF(SUM(sdd.total_count), 0)
-                FROM stop_daily_delays sdd
-                JOIN stops s ON sdd.stop_id = s.id
-                WHERE sdd.route_id = %s AND sdd.date BETWEEN %s AND %s
-                GROUP BY s.id, s.name, s.lat, s.lon
-            """
-            cursor.execute(stops_query, (route_id, start_date, end_date))
-            stops_rows = cursor.fetchall()
-
-            route_stats_query = """
-                SELECT SUM(total_trips)
+            # get route-level average delay and total trips
+            route_stats_query = f"""
+                SELECT 
+                    SUM(total_{shit_type}),
+                    SUM(total_count),
+                    SUM(total_trips)
                 FROM route_daily_delays
                 WHERE route_id = %s AND date BETWEEN %s AND %s
             """
             cursor.execute(route_stats_query, (route_id, start_date, end_date))
-            route_total_trips = cursor.fetchone()[0] or 0
+            stats_row = cursor.fetchone()
+            
+            total_delay_or_early = stats_row[0] if stats_row[0] is not None else 0
+            total_count = stats_row[1] if stats_row[1] is not None else 0
+            total_trips = stats_row[2] if stats_row[2] is not None else 0
+            route_avg_delay = total_delay_or_early / total_count if total_count > 0 else 0
 
-            stops_data = []
-            for row in stops_rows:
-                total_delay_or_early = row[4] if row[4] is not None else 0
-                total_count = row[5] if row[5] is not None else 0
-                avg_delay = total_delay_or_early / total_count if total_count > 0 else 0
-                on_time_percent = row[7] if shit_type == "delay" else row[8]
-                stops_data.append(
-                    {
-                        "id": row[0],
-                        "name": row[1],
-                        "lat": row[2],
-                        "lon": row[3],
-                        "avg_delay": avg_delay,
-                        "on_time_percent": on_time_percent if on_time_percent is not None else 100,
-                        "total_trips": 0,
-                    }
-                )
-
-            # snapped_stops = snap_stops_to_route(stops_data, encoded_shapes)
-            # TODO sometimes overlaps when snapping
-
-            for stop in stops_data:
-                stop["avg_delay"] = round(float(stop["avg_delay"]) / 60, 2)
+            stop_count_query = """
+                SELECT COUNT(DISTINCT s.id)
+                FROM stop_daily_delays sdd
+                JOIN stops s ON sdd.stop_id = s.id
+                WHERE sdd.route_id = %s AND sdd.date BETWEEN %s AND %s
+            """
+            cursor.execute(stop_count_query, (route_id, start_date, end_date))
+            stop_count_row = cursor.fetchone()
+            total_stops = stop_count_row[0] if stop_count_row[0] is not None else 0
 
             result_data.append(
                 {
                     "route": {"id": route_id, "long_name": route_long_name},
                     "shapes": encoded_shapes,
-                    "stops": stops_data,
-                    "total_trips": route_total_trips,
+                    "avg_delay": route_avg_delay,
+                    "total_trips": total_trips,
+                    "total_stops": total_stops,
                 }
             )
 
