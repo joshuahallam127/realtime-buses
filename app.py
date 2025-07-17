@@ -10,6 +10,8 @@ import json
 from collections import defaultdict
 import time
 
+
+
 NUM_FEATURED_ROUTES = 5
 FEATURED_ROUTES_TIME_PERIOD_DAYS = 7
 CACHE_TIMEOUT_SECONDS = 60 * 2
@@ -36,7 +38,7 @@ CORS(
 def get_connection(database):
     connection = mysql.connector.connect(
         host=os.getenv("RDS_HOST", "127.0.0.1"),
-        port=int(os.getenv("RDS_PORT", 3308)),
+        port=int(os.getenv("RDS_PORT", 3310)),
         user=os.getenv("RDS_USER", "root"),
         password=os.getenv("RDS_PASSWORD", "password"),
         database=database,
@@ -87,8 +89,8 @@ def get_average_delays():
                 {
                     "agency_id": row[0].split("_")[0],
                     "route": f'{row[0].split("_")[1]} {row[1]}',
-                    "delay": row[2],
-                    "hits": row[3],
+                    "delay": float(row[2] or 0),
+                    "hits": int(row[3] or 0),
                 }
                 for row in rows
             ]
@@ -131,8 +133,8 @@ def get_average_train_delays():
             [
                 {
                     "route": row[0],
-                    "delay": row[1],
-                    "hits": row[2],
+                    "delay": float(row[1]) if row[1] is not None else 0.0,
+                    "hits": int(row[2]) if row[2] is not None else 0,
                 }
                 for row in rows
             ]
@@ -181,8 +183,8 @@ def get_average_train_stop_delays():
             grouped[row[0]].append(
                 {
                     "station": station_name,
-                    "delay": row[2],
-                    "hits": row[3],
+                    "delay": float(row[2] or 0),
+                    "hits": int(row[3] or 0),
                 }
             )
 
@@ -240,7 +242,7 @@ def hit_bus_route(route_id):
         cursor.execute(retrieve_query, (route_id, start_date, end_date))
         hits = cursor.fetchone()
 
-        return jsonify({"hits": hits[0]})
+        return jsonify({"hits": int(hits[0] or 0)})
 
     except mysql.connector.Error as err:
         return jsonify({"error": str(err)}), 500
@@ -286,7 +288,7 @@ def hit_train_route(route_short_name):
         hits = cursor.fetchone()
 
         if not station or station not in stop_name_to_id:
-            return jsonify({"hits": hits[0]})
+            return jsonify({"hits": int(hits[0] or 0)})
 
         update_query = """
             INSERT INTO stop_daily_delays (route_short_name, stop_id, date, hits)
@@ -304,7 +306,7 @@ def hit_train_route(route_short_name):
         cursor.execute(retrieve_query, (route_short_name, stop_name_to_id[station], start_date, end_date))
         stop_hits = cursor.fetchone()
 
-        return jsonify({"hits": hits[0], "stop_hits": stop_hits[0]})
+        return jsonify({"hits": int(hits[0] or 0), "stop_hits": int(stop_hits[0] or 0)})
 
     except mysql.connector.Error as err:
         return jsonify({"error": str(err)}), 500
@@ -379,11 +381,11 @@ def get_bus_route_stops(route_id):
                 {
                     "id": row[0],
                     "name": row[1],
-                    "lat": row[2],
-                    "lon": row[3],
-                    "avg_delay": avg_delay,
-                    "on_time_percent": on_time_percent if on_time_percent is not None else 100,
-                    "total_trips": row[6] if row[6] is not None else 0,
+                    "lat": float(row[2] or 0),
+                    "lon": float(row[3] or 0),
+                    "avg_delay": float(avg_delay or 0),
+                    "on_time_percent": float(on_time_percent or 100),
+                    "total_trips": int(row[6] or 0),
                 }
             )
 
@@ -538,7 +540,7 @@ def get_train_line_stats(route_short_name):
             {
                 "date": row[0].strftime("%Y-%m-%d"),
                 "avg_delay": float(row[1]),
-                "total_trips": row[2],
+                "total_trips": int(row[2] or 0),
             }
             for row in rows
         ]
@@ -639,16 +641,16 @@ def get_train_distribution_stats(route_short_name):
             result.append(
                 {
                     "date": row[0].strftime("%Y-%m-%d"),
-                    "total_count": total,
+                    "total_count": int(total or 0),
                     "distribution": {
-                        "early": rounded_percentages[0],
-                        "on_time": rounded_percentages[1],
-                        "delay_1_2": rounded_percentages[2],
-                        "delay_2_5": rounded_percentages[3],
-                        "delay_5_10": rounded_percentages[4],
-                        "delay_10_15": rounded_percentages[5],
-                        "delay_15_30": rounded_percentages[6],
-                        "delay_30_plus": rounded_percentages[7],
+                        "early": float(rounded_percentages[0] or 0),
+                        "on_time": float(rounded_percentages[1] or 0),
+                        "delay_1_2": float(rounded_percentages[2] or 0),
+                        "delay_2_5": float(rounded_percentages[3] or 0),
+                        "delay_5_10": float(rounded_percentages[4] or 0),
+                        "delay_10_15": float(rounded_percentages[5] or 0),
+                        "delay_15_30": float(rounded_percentages[6] or 0),
+                        "delay_30_plus": float(rounded_percentages[7] or 0),
                     },
                 }
             )
@@ -806,9 +808,9 @@ def get_station_delay_map():
         for row in rows:
             stop_name = row[1]
             route = row[2]
-            total_delay_seconds = float(row[3]) if row[3] is not None else 0
-            total_trips = float(row[4]) if row[4] is not None else 0
-            on_time_percent = round(float(row[5]) if row[5] is not None else 100, 1)
+            total_delay_seconds = float(row[3] or 0)
+            total_trips = float(row[4] or 0)
+            on_time_percent = round(float(row[5] or 100), 1)
 
             avg_delay_seconds = total_delay_seconds / total_trips if total_trips > 0 else 0
             cleaned_name = clean_station_name(stop_name)
@@ -817,9 +819,9 @@ def get_station_delay_map():
             if cleaned_name not in stop_stats:
                 stop_stats[cleaned_name] = {}
             stop_stats[cleaned_name][route] = {
-                "avg_delay": avg_delay_seconds,
-                "total_trips": total_trips,
-                "on_time_percent": on_time_percent,
+                "avg_delay": float(avg_delay_seconds or 0),
+                "total_trips": int(total_trips or 0),
+                "on_time_percent": float(on_time_percent or 0),
             }
 
             if route not in route_stats:
@@ -835,9 +837,11 @@ def get_station_delay_map():
         #  route averages
         for route, stats in route_stats.items():
             if stats["total_trips"] > 0:
-                route_stats[route]["avg_delay"] = stats["total_delay_seconds"] / stats["total_trips"]
+                route_stats[route]["avg_delay"] = float(stats["total_delay_seconds"] / stats["total_trips"])
             else:
-                route_stats[route]["avg_delay"] = 0
+                route_stats[route]["avg_delay"] = 0.0
+            route_stats[route]["total_trips"] = int(stats["total_trips"] or 0)
+            route_stats[route]["stop_count"] = int(stats["stop_count"] or 0)
             del route_stats[route]["total_delay_seconds"]
 
         return jsonify({"stops": stop_stats, "routes": route_stats})
@@ -930,9 +934,9 @@ def get_featured_bus_routes():
             cursor.execute(route_stats_query, (route_id, start_date, end_date))
             stats_row = cursor.fetchone()
             
-            total_delay_or_early = stats_row[0] if stats_row[0] is not None else 0
-            total_count = stats_row[1] if stats_row[1] is not None else 0
-            total_trips = stats_row[2] if stats_row[2] is not None else 0
+            total_delay_or_early = stats_row[0] or 0
+            total_count = stats_row[1] or 0
+            total_trips = stats_row[2] or 0
             route_avg_delay = total_delay_or_early / total_count if total_count > 0 else 0
 
             stop_count_query = """
@@ -943,15 +947,15 @@ def get_featured_bus_routes():
             """
             cursor.execute(stop_count_query, (route_id, start_date, end_date))
             stop_count_row = cursor.fetchone()
-            total_stops = stop_count_row[0] if stop_count_row[0] is not None else 0
+            total_stops = stop_count_row[0] or 0
 
             result_data.append(
                 {
                     "route": {"id": route_id, "long_name": route_long_name},
                     "shapes": encoded_shapes,
-                    "avg_delay": route_avg_delay,
-                    "total_trips": total_trips,
-                    "total_stops": total_stops,
+                    "avg_delay": float(route_avg_delay or 0),
+                    "total_trips": int(total_trips or 0),
+                    "total_stops": int(total_stops or 0),
                 }
             )
 
@@ -1047,25 +1051,25 @@ def get_bus_route_stats(route_id):
         row = cursor.fetchone()
 
         if not row or not row[1] or row[1] == 0:
-            return jsonify({"avg_delay": 0, "total_trips": 0, "total_count": 0})
+            return jsonify({"avg_delay": 0.0, "total_trips": 0, "total_count": 0})
 
-        total_delay_or_early = row[0] if row[0] is not None else 0
-        total_count = row[1] if row[1] is not None else 0
-        total_trips = row[8] if row[8] is not None else 0
+        total_delay_or_early = row[0] or 0
+        total_count = row[1] or 0
+        total_trips = row[8] or 0
         avg_delay = total_delay_or_early / total_count if total_count > 0 else 0
 
         return jsonify(
             {
-                "avg_delay": avg_delay,
-                "total_trips": total_trips,
-                "total_count": total_count,
+                "avg_delay": float(avg_delay or 0),
+                "total_trips": int(total_trips or 0),
+                "total_count": int(total_count or 0),
                 "delay_distribution": {
-                    "above_1_minute": row[2],
-                    "above_2_minutes": row[3],
-                    "above_5_minutes": row[4],
-                    "above_10_minutes": row[5],
-                    "above_15_minutes": row[6],
-                    "above_30_minutes": row[7],
+                    "above_1_minute": int(row[2] or 0),
+                    "above_2_minutes": int(row[3] or 0),
+                    "above_5_minutes": int(row[4] or 0),
+                    "above_10_minutes": int(row[5] or 0),
+                    "above_15_minutes": int(row[6] or 0),
+                    "above_30_minutes": int(row[7] or 0),
                 },
             }
         )
@@ -1105,8 +1109,8 @@ def get_bus_stop_history(stop_id):
         history = [
             {
                 "timestamp": row[0].isoformat(),
-                "arrival_delay": row[1],
-                "departure_early": row[2],
+                "arrival_delay": int(row[1] or 0),
+                "departure_early": int(row[2] or 0),
             }
             for row in rows
         ]
