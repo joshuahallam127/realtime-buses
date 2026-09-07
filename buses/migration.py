@@ -1,6 +1,7 @@
 from functions import get_connection
 
 conn, cursor = get_connection()
+cursor.execute("TRUNCATE TABLE stops")
 cursor.execute(
     """CREATE TABLE stops (
     id VARCHAR(10) PRIMARY KEY,

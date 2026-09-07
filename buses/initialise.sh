@@ -6,7 +6,7 @@
 # fi
 
 python3 download_txt_files.py
-python3 migration.py
+python3 schema.py
 python3 routes.py
 python3 stops.py
 python3 route_shapes.py
